@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import DestinationList from "./DestinationList";
-import DestinationForm from "./DestinationForm";
-import "./Apps.css";
-import DestinationUpload from "../DashboardComponent/DestinatonUpload";
+import React, { useState, useEffect } from 'react';
+import DestinationList from './DestinationList';
+import DestinationUpload from '../DashboardComponent/DestinatonUpload'; // Ensure this is the correct path
+import './Apps.css';
 
 function MainUploadingDestination() {
   const [destinations, setDestinations] = useState([]);
@@ -17,16 +16,20 @@ function MainUploadingDestination() {
     const fetchDestinations = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:5000/api/destinations");
+        setError(null); // Clear previous errors
+        const response = await fetch('http://localhost:5000/api/destinations');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
 
-        if (data.success) {
+        if (data.success && Array.isArray(data.destinations)) {
           setDestinations(data.destinations);
         } else {
-          setError(data.message || "Failed to fetch destinations");
+          setError(data.message || 'Failed to fetch destinations');
         }
       } catch (err) {
-        setError("Error connecting to the server");
+        setError('Error connecting to the server');
         console.error(err);
       } finally {
         setLoading(false);
@@ -36,85 +39,119 @@ function MainUploadingDestination() {
     fetchDestinations();
   }, [refreshTrigger]);
 
-  const handleCreateSuccess = () => {
+  // Handle successful creation
+  const handleCreateSuccess = (newDestination) => {
     setShowForm(false);
-    setRefreshTrigger((prev) => prev + 1);
+    setDestinations((prev) => [...prev, newDestination]); // Optimistically update
+    setRefreshTrigger((prev) => prev + 1); // Trigger refresh for consistency
   };
 
-  const handleUpdateSuccess = () => {
+  // Handle successful update
+  const handleUpdateSuccess = (updatedDestination) => {
     setEditingDestination(null);
     setShowForm(false);
-    setRefreshTrigger((prev) => prev + 1);
+    setDestinations((prev) =>
+      prev.map((dest) =>
+        dest._id === updatedDestination._id ? updatedDestination : dest
+      )
+    ); // Optimistically update
+    setRefreshTrigger((prev) => prev + 1); // Trigger refresh
   };
 
+  // Handle edit button click
   const handleEdit = (destination) => {
     setEditingDestination(destination);
     setShowForm(true);
+    setError(null); // Clear errors when opening form
   };
 
+  // Handle delete
   const handleDelete = async (id) => {
     if (
       window.confirm(
-        "Are you sure you want to delete this destination? All associated files will be permanently removed."
+        'Are you sure you want to delete this destination? All associated files will be permanently removed.'
       )
     ) {
       try {
         const response = await fetch(
           `http://localhost:5000/api/destinations/${id}`,
           {
-            method: "DELETE",
+            method: 'DELETE',
           }
         );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
         const data = await response.json();
 
         if (data.success) {
-          setDestinations(destinations.filter((dest) => dest._id !== id));
-          alert("Destination deleted successfully");
+          setDestinations((prev) => prev.filter((dest) => dest._id !== id));
+          setRefreshTrigger((prev) => prev + 1); // Trigger refresh
+          alert('Destination deleted successfully');
         } else {
-          alert(data.message || "Failed to delete destination");
+          setError(data.message || 'Failed to delete destination');
         }
       } catch (err) {
-        alert("Error connecting to the server");
+        setError('Error connecting to the server');
         console.error(err);
       }
     }
   };
 
+  // Handle form cancellation
   const cancelForm = () => {
     setShowForm(false);
     setEditingDestination(null);
+    setError(null); // Clear errors
   };
 
   return (
     <div className="chandan-containers">
       <div className="app-container">
         <header className="app-header">
-          {/* <h1>Travel Destination Manager</h1> */}
+          <h1>Travel Destination Manager</h1> {/* Restored header */}
           <button
             className="btn btn-primary"
-            onClick={() => setShowForm(!showForm)}
+            onClick={() => {
+              setShowForm(!showForm);
+              if (showForm) setEditingDestination(null); // Clear editing state when closing
+            }}
+            aria-label={showForm ? 'Cancel form' : 'Add new destination'}
           >
-            {showForm ? "Cancel" : "Add New Destination"}
+            {showForm ? 'Cancel' : 'Add New Destination'}
           </button>
         </header>
 
-        {error && <div className="error-message">{error}</div>}
+        {error && (
+          <div className="error-message" role="alert">
+            {error}
+          </div>
+        )}
 
-        {showForm ? (
-          <DestinationUpload />
-        ) : loading ? (
-          <div className="loading">Loading destinations...</div>
-        ) : destinations.length > 0 ? (
+        {loading && <div className="loading">Loading destinations...</div>}
+
+        {!loading && showForm ? (
+          <DestinationUpload
+            destination={editingDestination}
+            onSuccess={
+              editingDestination ? handleUpdateSuccess : handleCreateSuccess
+            }
+            onCancel={cancelForm}
+          />
+        ) : !loading && destinations.length > 0 ? (
           <DestinationList
             destinations={destinations}
             onEdit={handleEdit}
             onDelete={handleDelete}
           />
         ) : (
-          <div className="no-destinations">
-            <p>No destinations found. Add your first destination!</p>
-          </div>
+          !loading && (
+            <div className="no-destinations">
+              <p>No destinations found. Add your first destination!</p>
+            </div>
+          )
         )}
       </div>
     </div>

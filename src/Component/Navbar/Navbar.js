@@ -6,16 +6,15 @@ const Navbar = () => {
   const [navbarActive, setNavbarActive] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Manage login state
   const dropdownRef = useRef(null);
   const navRef = useRef(null);
-  const username = "UserName"; // Mock username, replace with auth context
+  const username = "UserName"; // Mock username
 
   useEffect(() => {
     const handleScroll = () => {
       setNavbarActive(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -25,13 +24,10 @@ const Navbar = () => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
       }
-      
-      // Close mobile menu when clicking outside of nav
       if (navRef.current && !navRef.current.contains(event.target) && menuOpen) {
         setMenuOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuOpen]);
@@ -42,7 +38,6 @@ const Navbar = () => {
         setMenuOpen(false);
       }
     };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [menuOpen]);
@@ -51,11 +46,14 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
+  // Toggle login state for demo purposes
+  // const handleLoginToggle = () => {
+  //   setIsLoggedIn(!isLoggedIn);
+  //   setDropdownOpen(false); // Close dropdown on logout
+  // };
+
   return (
-    <nav 
-      ref={navRef}
-      className={`navbar ${navbarActive ? "navbar-scrolled" : ""}`}
-    >
+    <nav ref={navRef} className={`navbar ${navbarActive ? "navbar-scrolled" : ""}`}>
       <div className="navbar-container">
         <div className="navbar-logo">
           <a href="/" className="logo-link">
@@ -116,7 +114,11 @@ const Navbar = () => {
 
             {!isLoggedIn ? (
               <div className="auth-links">
-                <a href="/login" className="btn-secondary">
+                <a
+                  href="/login"
+                  className="btn-secondary"
+                  onClick={() => setIsLoggedIn(true)} // Simulate login
+                >
                   Login
                 </a>
                 <a href="/register" className="btn-secondary">
@@ -142,18 +144,33 @@ const Navbar = () => {
                   <span className="profile-name">{username}</span>
                   <i className={`chevron ${dropdownOpen ? "up" : "down"}`}></i>
                 </button>
-                
+
                 <div className={`dropdown-menu ${dropdownOpen ? "active" : ""}`}>
-                  <a href="/user-profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>
+                  <a
+                    href="/user-profile"
+                    className="dropdown-item"
+                    onClick={() => setDropdownOpen(false)}
+                  >
                     <i className="icon-profile"></i>
                     Profile
                   </a>
-                  <a href="/settings" className="dropdown-item" onClick={() => setDropdownOpen(false)}>
+                  <a
+                    href="/settings"
+                    className="dropdown-item"
+                    onClick={() => setDropdownOpen(false)}
+                  >
                     <i className="icon-settings"></i>
                     Settings
                   </a>
                   <div className="dropdown-divider"></div>
-                  <a href="/logout" className="dropdown-item logout" onClick={() => setDropdownOpen(false)}>
+                  <a
+                    href="/logout"
+                    className="dropdown-item logout"
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      setIsLoggedIn(false); // Simulate logout
+                    }}
+                  >
                     <i className="icon-logout"></i>
                     Logout
                   </a>

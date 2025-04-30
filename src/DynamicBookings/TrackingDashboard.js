@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback } from 'react';
 import axios from 'axios'; // Ensure axios is imported
 import { getUserTrackingData, getTourTrackingData, getUserTourInteractions } from '../toursComponent/trackWhatsAppRequest';
 import "./TrackingDashboard.css";
@@ -16,14 +16,6 @@ const TrackingDashboard = () => {
   const [tourId, setTourId] = useState('');
   const [activeTab, setActiveTab] = useState('user'); // 'user', 'tour', 'combined', 'all'
 
-  // Load current user's tracking data by default
-  useEffect(() => {
-    const currentUserId = localStorage.getItem('userId');
-    if (currentUserId) {
-      setUserId(currentUserId);
-      fetchUserData(currentUserId);
-    }
-  }, []);
 
   // New function to fetch all tours and users with tour details
   const fetchAllToursAndUsers = async () => {
@@ -73,7 +65,7 @@ const TrackingDashboard = () => {
     }
   };
 
-  const fetchUserData = async (id = userId) => {
+  const fetchUserData = useCallback(async (id = userId) => {
     setLoading(true);
     setError(null);
     
@@ -91,7 +83,17 @@ const TrackingDashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId]); // userId is a dependency of fetchUserData
+
+  
+  // Load current user's tracking data by default
+  useEffect(() => {
+    const currentUserId = localStorage.getItem('userId');
+    if (currentUserId) {
+      setUserId(currentUserId);
+      fetchUserData(currentUserId);
+    }
+  }, [fetchUserData]); // Add fetchUserData to the dependency array
 
   const fetchTourData = async (id = tourId) => {
     setLoading(true);

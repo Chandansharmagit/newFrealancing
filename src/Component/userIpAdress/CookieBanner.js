@@ -20,6 +20,9 @@ const CookieBanner = () => {
    
     }
 
+
+
+
     if (!cookieChoiceMade) {
       const timer = setTimeout(() => {
         setShowBanner(true);
@@ -28,6 +31,7 @@ const CookieBanner = () => {
       return () => clearTimeout(timer);
     }
   }, []);
+  console.log(jwtToken)
 
   const handleAcceptAll = () => {
     const allPreferences = {

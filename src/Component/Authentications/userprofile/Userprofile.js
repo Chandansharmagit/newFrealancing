@@ -19,7 +19,7 @@ const UserProfile = () => {
     const storedUser = localStorage.getItem("user");
     const userEmail = localStorage.getItem("userEmail");
     const username = localStorage.getItem("username");
-    const userContacts = localStorage.getItem("userContacts");
+  
     const userlocations = localStorage.getItem("userlocations");
 
     if (storedUser) {

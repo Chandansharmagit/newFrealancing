@@ -21,7 +21,7 @@ import MainUploadingDestination from "./DynamicDestination/MainUplodingDestinati
 import Allusers from "./DynamicDestination/Users/Allusers";
 import { ResetPasswordPage } from "./Component/Authentications/ResetPasswordPage";
 import CreateTourPage from "./toursComponent/DynamicTour/CreateTourPage";
-import ToursPage from "./toursComponent/Getalltours";
+
 import TourDetailPage from "./toursComponent/TourDetailPage";
 import TrackingDashboard from "./DynamicBookings/TrackingDashboard";
 import TopHeader from "./Component/Navbar/TopHeader";
