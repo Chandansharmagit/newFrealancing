@@ -1,0 +1,623 @@
+/* Base Styles */
+.dg-destinations-section {
+  padding: 60px 0;
+  background-color: #f5f7fa;
+}
+
+.dg-container {
+  width: 95vw;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Header Styles */
+.dg-section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.dg-section-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.dg-section-subtitle {
+  font-size: 16px;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Grid Layout */
+.dg-destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+/* Card Styles */
+.dg-destination-card {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dg-destination-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.dg-card-image-container {
+  position: relative;
+  height: 220px;
+}
+
+.dg-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dg-card-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.dg-badge-icon {
+  margin-right: 4px;
+}
+
+.dg-card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.dg-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.dg-card-title a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.dg-card-title a:hover {
+  color: #0066cc;
+}
+
+.dg-card-description {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word; /* Handle long words */
+}
+
+.dg-card-meta {
+  margin-bottom: 16px;
+}
+
+.dg-meta-item {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #666;
+}
+
+.dg-meta-icon {
+  margin-right: 6px;
+  color: #0066cc;
+}
+
+.dg-card-button {
+  display: inline-flex;
+  align-items: center;
+  color: #0066cc;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 0;
+  border-top: 1px solid #eee;
+  margin-top: auto;
+  transition: color 0.2s ease;
+}
+
+.dg-card-button svg {
+  margin-left: 8px;
+  transition: transform 0.2s ease;
+}
+
+.dg-card-button:hover {
+  color: #0052a3;
+}
+
+.dg-card-button:hover svg {
+  transform: translateX(4px);
+}
+
+/* Footer Styles */
+.dg-section-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.dg-view-all-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0066cc;
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.dg-view-all-button svg {
+  margin-left: 8px;
+  transition: transform 0.2s ease;
+}
+
+.dg-view-all-button:hover {
+  background-color: #0052a3;
+}
+
+.dg-view-all-button:hover svg {
+  transform: translateX(4px);
+}
+
+/* Loading State */
+.dg-skeleton-card {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  height: 100%;
+}
+
+.dg-skeleton-image {
+  height: 220px;
+  background-color: #eee;
+}
+
+.dg-skeleton-content {
+  padding: 20px;
+}
+
+.dg-skeleton-header {
+  height: 32px;
+  width: 200px;
+  background-color: #eee;
+  margin: 0 auto 10px;
+  border-radius: 4px;
+}
+
+.dg-skeleton-subheader {
+  height: 16px;
+  width: 300px;
+  background-color: #eee;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.dg-skeleton-title {
+  height: 18px;
+  width: 80%;
+  background-color: #eee;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.dg-skeleton-text {
+  height: 14px;
+  width: 100%;
+  background-color: #eee;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.dg-skeletonMETA {
+  height: 13px;
+  width: 60%;
+  background-color: #eee;
+  margin-top: 16px;
+  border-radius: 4px;
+}
+
+.dg-skeleton-header,
+.dg-skeleton-subheader,
+.dg-skeleton-title,
+.dg-skeleton-text,
+.dg-skeleton-meta,
+.dg-skeleton-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.dg-skeleton-header::after,
+.dg-skeleton-subheader::after,
+.dg-skeleton-title::after,
+.dg-skeleton-text::after,
+.dg-skeleton-meta::after,
+.dg-skeleton-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: dg-shimmer 1.5s infinite;
+}
+
+@keyframes dg-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Error State */
+.dg-error-container {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dg-error-icon {
+  color: #dc3545;
+  margin-bottom: 16px;
+}
+
+.dg-error-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.dg-error-message {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.dg-btn-retry {
+  display: inline-flex;
+  align-items: center;
+  background-color: #dc3545;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dg-retry-icon {
+  margin-right: 8px;
+}
+
+.dg-btn-retry:hover {
+  background-color: #c82333;
+}
+
+/* Empty State */
+.dg-no-destinations {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dg-empty-icon {
+  color: #6c757d;
+  margin-bottom: 16px;
+}
+
+.dg-empty-message {
+  color: #666;
+}
+
+/* Responsive Design */
+
+/* Medium screens (tablets, 600px - 900px) */
+@media (max-width: 900px) {
+  .dg-destinations-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .dg-section-title {
+    font-size: 28px;
+  }
+
+  .dg-section-subtitle {
+    font-size: 15px;
+  }
+
+  .dg-card-image-container {
+    height: 200px;
+  }
+}
+
+/* Small screens (mobile, <= 600px) */
+@media (max-width: 600px) {
+  .dg-destinations-section {
+    padding: 30px 0;
+  }
+
+  .dg-container {
+    width: 90vw;
+  }
+
+  .dg-destinations-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dg-section-header {
+    margin-bottom: 24px;
+  }
+
+  .dg-section-title {
+    font-size: 22px;
+  }
+
+  .dg-section-subtitle {
+    font-size: 14px;
+    padding: 0 12px;
+  }
+
+  .dg-destination-card {
+    border-radius: 8px;
+  }
+
+  .dg-card-image-container {
+    height: 160px;
+  }
+
+  .dg-card-image {
+    object-fit: cover;
+  }
+
+  .dg-card-content {
+    padding: 16px;
+  }
+
+  .dg-card-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .dg-card-description {
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    max-height: 60px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .dg-card-meta {
+    margin-bottom: 12px;
+  }
+
+  .dg-meta-item {
+    font-size: 12px;
+  }
+
+  .dg-meta-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .dg-card-button {
+    font-size: 14px;
+    padding: 10px 0;
+    min-height: 44px; /* Ensure touch-friendly height */
+  }
+
+  .dg-card-button svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .dg-section-footer {
+    margin-top: 16px;
+  }
+
+  .dg-view-all-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    min-height: 44px; /* Ensure touch-friendly height */
+  }
+
+  .dg-view-all-button svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Loading State */
+  .dg-skeleton-card {
+    border-radius: 8px;
+  }
+
+  .dg-skeleton-image {
+    height: 160px;
+  }
+
+  .dg-skeleton-content {
+    padding: 16px;
+  }
+
+  .dg-skeleton-header {
+    height: 22px;
+    width: 160px;
+  }
+
+  .dg-skeleton-subheader {
+    height: 14px;
+    width: 200px;
+  }
+
+  .dg-skeleton-title {
+    height: 16px;
+  }
+
+  .dg-skeleton-text {
+    height: 13px;
+  }
+
+  .dg-skeleton-meta {
+    height: 12px;
+  }
+
+  /* Error State */
+  .dg-error-container {
+    padding: 24px 16px;
+  }
+
+  .dg-error-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dg-error-title {
+    font-size: 20px;
+  }
+
+  .dg-error-message {
+    font-size: 14px;
+  }
+
+  .dg-btn-retry {
+    padding: 8px 16px;
+    font-size: 14px;
+    min-height: 44px; /* Ensure touch-friendly height */
+  }
+
+  .dg-retry-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Empty State */
+  .dg-no-destinations {
+    padding: 24px 16px;
+  }
+
+  .dg-empty-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dg-empty-message {
+    font-size: 14px;
+    padding: 0 12px;
+  }
+}
+
+/* Very small screens (e.g., old smartphones, <= 400px) */
+@media (max-width: 400px) {
+  .dg-container {
+    width: 92vw;
+  }
+
+  .dg-destinations-section {
+    padding: 20px 0;
+  }
+
+  .dg-destinations-grid {
+    gap: 12px;
+  }
+
+  .dg-section-title {
+    font-size: 20px;
+  }
+
+  .dg-section-subtitle {
+    font-size: 13px;
+  }
+
+  .dg-card-image-container {
+    height: 140px;
+  }
+
+  .dg-card-content {
+    padding: 12px;
+  }
+
+  .dg-card-title {
+    font-size: 15px;
+  }
+
+  .dg-card-description {
+    font-size: 12px;
+    max-height: 50px;
+    -webkit-line-clamp: 2;
+  }
+
+  .dg-card-button {
+    font-size: 13px;
+    padding: 8px 0;
+  }
+
+  .dg-view-all-button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  /* Loading State */
+  .dg-skeleton-image {
+    height: 140px;
+  }
+
+  .dg-skeleton-content {
+    padding: 12px;
+  }
+
+  /* Error State */
+  .dg-error-container {
+    padding: 20px 12px;
+  }
+
+  .dg-error-title {
+    font-size: 18px;
+  }
+
+  /* Empty State */
+  .dg-no-destinations {
+    padding: 20px 12px;
+  }
+}

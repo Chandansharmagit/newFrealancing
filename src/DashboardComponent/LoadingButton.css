@@ -1,0 +1,68 @@
+/* styles/LoadingButton.css */
+.loading-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background-color: #3f51b5;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(63, 81, 181, 0.25);
+    min-width: 180px;
+  }
+  
+  .loading-button:hover {
+    background-color: #303f9f;
+    box-shadow: 0 6px 16px rgba(63, 81, 181, 0.35);
+    transform: translateY(-2px);
+  }
+  
+  .loading-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(63, 81, 181, 0.2);
+  }
+  
+  .loading-button:disabled {
+    background-color: #9fa8da;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+  
+  .button-loading {
+    position: relative;
+  }
+  
+  .button-icon {
+    display: flex;
+    align-items: center;
+  }
+  
+  .button-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .loading-button {
+      width: 100%;
+      padding: 10px 24px;
+      font-size: 0.95rem;
+    }
+  }

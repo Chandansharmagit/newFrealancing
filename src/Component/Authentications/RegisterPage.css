@@ -1,0 +1,429 @@
+/* RegisterPage.css with unique class names prefixed with 'ts-' */
+.ts-register-page {
+
+  background-color: #f8f9fa;
+  padding: 40px 0;
+  margin-top: 5rem;
+
+ 
+}
+
+.ts-register-container {
+  max-width: 1200px;
+ 
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Registration Card */
+.ts-register-card {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease-out;
+}
+
+.ts-register-card.ts-fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ts-register-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.ts-register-header h1 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+.ts-register-header p {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Progress Bar and Step Indicators */
+.ts-progress-container {
+  margin: 30px 0;
+}
+
+.ts-progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ts-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #3498db;
+  transition: width 0.5s ease;
+}
+
+.ts-step-indicators {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+}
+
+.ts-step-circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-weight: 600;
+  z-index: 2;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.ts-step-circle.ts-active {
+  background-color: #3498db;
+  color: white;
+  border: 2px solid #2980b9;
+  box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3);
+}
+
+.ts-step-line {
+  position: absolute;
+  top: 50%;
+  left: 35px;
+  right: 35px;
+  height: 2px;
+  background-color: #e9ecef;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.ts-step-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.ts-step-labels span {
+  font-size: 14px;
+  color: #777;
+  text-align: center;
+  transition: all 0.3s ease;
+  padding: 0 5px;
+}
+
+.ts-step-labels span.ts-current-step {
+  color: #3498db;
+  font-weight: 600;
+}
+
+/* Form Styles */
+.ts-register-form {
+  margin-bottom: 20px;
+}
+
+.ts-form-step {
+  animation: ts-fadeIn 0.5s ease forwards;
+}
+
+@keyframes ts-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ts-form-group {
+  margin-bottom: 24px;
+}
+
+.ts-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+}
+
+.ts-form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.ts-form-group input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  outline: none;
+}
+
+.ts-form-group input.ts-input-error {
+  border-color: #e74c3c;
+  background-color: rgba(231, 76, 60, 0.05);
+}
+
+.ts-error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 5px;
+  animation: ts-shake 0.5s ease;
+}
+
+@keyframes ts-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
+
+/* Password Requirements */
+.ts-password-requirements {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.ts-password-requirements p {
+  margin: 0 0 8px;
+  color: #555;
+  font-weight: 500;
+}
+
+.ts-password-requirements ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ts-password-requirements li {
+  padding-left: 22px;
+  position: relative;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #777;
+  transition: all 0.3s;
+}
+
+.ts-password-requirements li:before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #ccc;
+  transition: all 0.3s;
+}
+
+.ts-password-requirements li.ts-requirement-met {
+  color: #2ecc71;
+}
+
+.ts-password-requirements li.ts-requirement-met:before {
+  color: #2ecc71;
+}
+
+/* Buttons */
+.ts-btn-next,
+.ts-btn-register-submit,
+.ts-btn-back {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.ts-btn-next,
+.ts-btn-register-submit {
+  background-color: #3498db;
+  color: white;
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+  width: 100%;
+}
+
+.ts-btn-next:hover,
+.ts-btn-register-submit:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+}
+
+.ts-btn-back {
+  background-color: #e9ecef;
+  color: #555;
+}
+
+.ts-btn-back:hover {
+  background-color: #dee2e6;
+}
+
+.ts-btn-register-submit:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.ts-step-buttons {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 15px;
+}
+
+/* Success and Error Messages */
+.ts-success-message,
+.ts-api-error-message {
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  animation: ts-fadeIn 0.5s ease;
+}
+
+.ts-success-message {
+  background-color: rgba(46, 204, 113, 0.15);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  color: #27ae60;
+}
+
+.ts-api-error-message {
+  background-color: rgba(231, 76, 60, 0.15);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  color: #e74c3c;
+}
+
+/* Login Prompt */
+.ts-login-prompt {
+  margin-top: auto;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.ts-login-prompt p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.ts-login-prompt a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.ts-login-prompt a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* Right side image */
+.ts-register-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.ts-register-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ts-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+}
+
+.ts-image-overlay h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.ts-image-overlay p {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .ts-register-container {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+  }
+  
+  .ts-register-image {
+    display: none;
+  }
+  
+  .ts-register-card {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ts-register-page {
+    padding: 20px 0;
+  }
+  
+  .ts-register-container {
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  .ts-register-card {
+    padding: 20px;
+  }
+  
+  .ts-register-header h1 {
+    font-size: 24px;
+  }
+  
+  .ts-step-labels span {
+    font-size: 12px;
+  }
+  
+  .ts-btn-next,
+  .ts-btn-register-submit,
+  .ts-btn-back {
+    padding: 10px 20px;
+  }
+}

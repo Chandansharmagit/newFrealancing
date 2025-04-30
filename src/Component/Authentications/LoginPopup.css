@@ -1,0 +1,242 @@
+.login-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.login-popup-container {
+  display: flex;
+  background: white;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.login-popup-sidebar {
+  flex: 1;
+  display: none;
+  overflow: hidden;
+}
+
+.login-popup-sidebar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.login-popup-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.login-popup-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.login-popup-close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.login-popup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-popup-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.login-popup-form-group label {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.login-popup-form-group input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-popup-form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.login-popup-remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.login-popup-forgot-password {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-popup-forgot-password:hover {
+  text-decoration: underline;
+}
+
+.login-popup-login-button {
+  background: #007bff;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-popup-login-button:hover {
+  background: #0056b3;
+}
+
+.login-popup-or-divider {
+  text-align: center;
+  color: #666;
+  position: relative;
+  margin: 1rem 0;
+}
+
+.login-popup-or-divider::before,
+.login-popup-or-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background: #ddd;
+}
+
+.login-popup-or-divider::before {
+  left: 0;
+}
+
+.login-popup-or-divider::after {
+  right: 0;
+}
+
+.login-popup-google-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: white;
+  color: #333;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-popup-google-login-button:hover {
+  background: #f8f9fa;
+}
+
+.login-popup-google-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.login-popup-signup-option {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.login-popup-signup-option a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-popup-signup-option a:hover {
+  text-decoration: underline;
+}
+
+.login-popup-message-box {
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.login-popup-message-box.error {
+  background: #ffe6e6;
+  color: #d32f2f;
+}
+
+.login-popup-message-box.success {
+  background: #e6ffed;
+  color: #2e7d32;
+}
+
+.login-popup-error-message {
+  color: #d32f2f;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .login-popup-sidebar {
+      display: block;
+      min-width: 300px;
+  }
+  
+  .login-popup-content {
+      padding: 3rem;
+  }
+  
+  .login-popup-header h2 {
+      font-size: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .login-popup-container {
+      max-width: 100%;
+      border-radius: 0;
+  }
+  
+  .login-popup-content {
+      padding: 1.5rem;
+  }
+}

@@ -1,0 +1,120 @@
+/* ChatBox.css */
+:root {
+    --primary-color: #0095ff;
+    --text-light: #ffffff;
+    --text-dark: #333333;
+    --border-color: #e2e8f0;
+    --bg-light: #f8fafc;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chat-box-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+  }
+  
+  .chat-toggle-button {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .chat-toggle-button:hover {
+    background-color: #7eb5dd;
+  }
+  
+  .chat-box {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 320px;
+    height: 400px;
+    background-color: var(--bg-light);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .chat-header {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .chat-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+  }
+  
+  .message.user {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .message.agent {
+    background-color: #e2e8f0;
+    color: var(--text-dark);
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+  }
+  
+  .chat-input-form {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .chat-input-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    outline: none;
+    margin-right: 10px;
+  }
+  
+  .chat-input-form button {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .chat-input-form button:hover {
+    background-color: #1e3a5f;
+  }

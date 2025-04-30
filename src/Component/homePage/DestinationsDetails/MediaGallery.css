@@ -1,0 +1,276 @@
+/* Gallery Container Layout */
+.gallery-container {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.5rem;
+  height: 500px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
+
+/* Main Image Styles */
+.main-image {
+  position: relative;
+  cursor: pointer;
+  height: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.main-image img, 
+.main-image video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Side Images Column */
+.side-images {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+}
+
+.side-image {
+  position: relative;
+  cursor: pointer;
+  height: 50%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.side-image img,
+.side-image video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* View All Styles */
+.view-all-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.side-image:hover .view-all-overlay {
+  opacity: 1;
+}
+
+.view-all-overlay .text-center {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.view-all-overlay:hover .text-center {
+  transform: scale(1.05);
+}
+
+.view-all-small-screens {
+  display: none;
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+}
+
+.view-all-small-screens div {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 1.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+/* Mobile view all button */
+.view-all-button-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .view-all-button-mobile {
+    display: block;
+    margin-top: 0.5rem;
+  }
+  
+  .view-all-button-mobile button {
+    width: 100%;
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .view-all-overlay {
+    display: none;
+  }
+  
+  .view-all-small-screens {
+    display: block;
+  }
+  
+  .main-image {
+    height: 250px;
+  }
+  
+  .side-image {
+    height: 150px;
+  }
+}
+
+/* Modal Gallery Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  padding: 1rem;
+}
+
+.modal-image-container {
+  position: relative;
+  height: 60vh;
+}
+
+.modal-image {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.current-media {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Gallery Navigation Buttons */
+.gallery-nav-button {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  padding: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.gallery-nav-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+.prev-button {
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.next-button {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Thumbnails Navigation */
+.thumbnails-container {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.thumbnails-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.thumbnails-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.thumbnails-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.thumbnails-container img {
+  height: 80px;
+  width: 120px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.active-thumbnail {
+  border: 2px solid white;
+  opacity: 1;
+}
+
+.inactive-thumbnail {
+  border: 2px solid transparent;
+  opacity: 0.7;
+}
+
+.inactive-thumbnail:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .modal-image-container {
+    height: 40vh;
+  }
+  
+  .thumbnails-container img {
+    height: 60px;
+    width: 90px;
+  }
+}

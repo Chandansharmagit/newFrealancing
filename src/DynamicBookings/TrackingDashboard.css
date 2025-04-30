@@ -1,0 +1,208 @@
+/* src/components/TrackingDashboard.css */
+
+.tracking-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin-top: 4rem;
+  }
+  
+  .tracking-dashboard h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
+  
+  .tracking-dashboard h2 {
+    color: #444;
+    margin: 25px 0 15px;
+    font-size: 22px;
+  }
+  
+  .tracking-dashboard h3 {
+    color: #555;
+    margin: 20px 0 10px;
+    font-size: 18px;
+  }
+  
+  /* Tabs */
+  .tracking-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tracking-tabs button {
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    transition: all 0.2s ease;
+  }
+  
+  .tracking-tabs button:hover {
+    color: #333;
+    background-color: #f5f5f5;
+  }
+  
+  .tracking-tabs button.active {
+    border-bottom-color: #4CAF50;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  /* Filter Form */
+  .filter-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .filter-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+  }
+  
+  .filter-form button:hover {
+    background-color: #45a049;
+  }
+  
+  .filter-form button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  /* Error Message */
+  .error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border-left: 4px solid #c62828;
+  }
+  
+  /* Results Display */
+  .tracking-results {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+  }
+  
+  /* Summary Card */
+  .summary-card {
+    background-color: #e8f5e9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .summary-card p {
+    margin: 8px 0;
+    font-size: 16px;
+  }
+  
+  /* Data Tables */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .data-table th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .data-table tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .data-table .user-agent {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* Source List */
+  .source-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+  }
+  
+  .source-list li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .source-list li:last-child {
+    border-bottom: none;
+  }
+  
+  @media (max-width: 768px) {
+    .tracking-tabs {
+      flex-direction: column;
+      border-bottom: none;
+    }
+    
+    .tracking-tabs button {
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    
+    .tracking-tabs button.active {
+      border-bottom: 1px solid #ddd;
+      border-left: 3px solid #4CAF50;
+    }
+    
+    .data-table {
+      font-size: 14px;
+    }
+    
+    .data-table th,
+    .data-table td {
+      padding: 8px 10px;
+    }
+  }

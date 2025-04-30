@@ -1,0 +1,35 @@
+/* Layout.css */
+.layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: var(--sidebar-width);
+  transition: margin var(--transition-speed);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) {
+  .sidebar.closed ~ .main-content {
+    margin-left: var(--sidebar-collapsed-width);
+  }
+}
+
+/* If we want to apply the same theme as the sidebar */
+@media (prefers-color-scheme: dark) {
+  .main-content {
+    background-color: #16162a;
+    color: var(--text-light);
+  }
+} 

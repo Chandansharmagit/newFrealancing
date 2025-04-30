@@ -1,0 +1,208 @@
+/* Base Styles */
+.fs-features-section {
+    padding: 60px 0;
+    background-color: #f5f7fa; /* Match DestinationsGrid background */
+  }
+  
+  .fs-container {
+    width: 95vw;
+    max-width: 1600px; /* Consistent with DestinationsGrid */
+    margin: 0 auto;
+  }
+  
+  /* Header Styles */
+  .fs-section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .fs-section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .fs-section-subtitle {
+    font-size: 16px;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Grid Layout */
+  .fs-features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns by default */
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  
+  /* Feature Card Styles */
+  .fs-feature-card {
+    background-color: #fff;
+    border-radius: 12px; /* Match DestinationsGrid */
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Match DestinationsGrid */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .fs-feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); /* Match DestinationsGrid hover */
+  }
+  
+  .fs-feature-icon {
+    font-size: 32px; /* Larger icons for visibility */
+    color: #0066cc; /* Match DestinationsGrid primary color */
+    margin-bottom: 16px;
+  }
+  
+  .fs-feature-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+  }
+  
+  .fs-feature-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    flex-grow: 1;
+    word-break: break-word; /* Handle long words */
+  }
+  
+  /* Responsive Design */
+  
+  /* Medium screens (tablets, 600px - 900px) */
+  @media (max-width: 900px) {
+    .fs-features-grid {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+      gap: 20px;
+    }
+  
+    .fs-section-title {
+      font-size: 28px;
+    }
+  
+    .fs-section-subtitle {
+      font-size: 15px;
+    }
+  
+    .fs-feature-card {
+      padding: 20px;
+    }
+  
+    .fs-feature-icon {
+      font-size: 28px;
+    }
+  
+    .fs-feature-title {
+      font-size: 17px;
+    }
+  
+    .fs-feature-description {
+      font-size: 13px;
+    }
+  }
+  
+  /* Small screens (mobile, <= 600px) */
+  @media (max-width: 600px) {
+    .fs-features-section {
+      padding: 30px 0; /* Reduced padding */
+    }
+  
+    .fs-container {
+      width: 90vw; /* Narrower container */
+    }
+  
+    .fs-section-header {
+      margin-bottom: 24px;
+    }
+  
+    .fs-section-title {
+      font-size: 22px; /* Smaller title */
+    }
+  
+    .fs-section-subtitle {
+      font-size: 14px;
+      padding: 0 12px; /* Prevent edge touch */
+    }
+  
+    .fs-features-grid {
+      grid-template-columns: 1fr; /* Single column */
+      gap: 16px; /* Smaller gap */
+    }
+  
+    .fs-feature-card {
+      padding: 16px;
+      border-radius: 8px; /* Slightly smaller radius */
+    }
+  
+    .fs-feature-icon {
+      font-size: 24px; /* Smaller icons */
+      margin-bottom: 12px;
+    }
+  
+    .fs-feature-title {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+  
+    .fs-feature-description {
+      font-size: 13px;
+      line-height: 1.4;
+      max-height: 60px; /* Limit height */
+      display: -webkit-box;
+      -webkit-line-clamp: 3; /* Limit to 3 lines */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+  
+  /* Very small screens (e.g., old smartphones, <= 400px) */
+  @media (max-width: 400px) {
+    .fs-container {
+      width: 92vw; /* Even narrower */
+    }
+  
+    .fs-features-section {
+      padding: 20px 0; /* Minimal padding */
+    }
+  
+    .fs-features-grid {
+      gap: 12px; /* Minimal gap */
+    }
+  
+    .fs-section-title {
+      font-size: 20px;
+    }
+  
+    .fs-section-subtitle {
+      font-size: 13px;
+    }
+  
+    .fs-feature-card {
+      padding: 12px;
+    }
+  
+    .fs-feature-icon {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+  
+    .fs-feature-title {
+      font-size: 15px;
+    }
+  
+    .fs-feature-description {
+      font-size: 12px;
+      max-height: 50px;
+      -webkit-line-clamp: 2; /* Limit to 2 lines */
+    }
+  }
