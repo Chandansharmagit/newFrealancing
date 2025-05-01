@@ -75,7 +75,7 @@ function DestinationForm({ destination = null, onSuccess, onCancel }) {
         // Simulate file upload to server (replace with actual API call)
         const formData = new FormData();
         formData.append('file', file);
-        const response = await fetch(`http://localhost:5000/api/upload/${type}`, {
+        const response = await fetch(`https://backendtravelagency.onrender.com/api/upload/${type}`, {
           method: 'POST',
           body: formData,
         });
@@ -114,8 +114,8 @@ function DestinationForm({ destination = null, onSuccess, onCancel }) {
       }
 
       const url = isEditing
-        ? `http://localhost:5000/api/destinations/${destination?._id || ''}`
-        : 'http://localhost:5000/api/destinations';
+        ? `https://backendtravelagency.onrender.com/api/destinations/${destination?._id || ''}`
+        : 'https://backendtravelagency.onrender.com/api/destinations';
       const method = isEditing ? 'PUT' : 'POST';
 
       const response = await fetch(url, {

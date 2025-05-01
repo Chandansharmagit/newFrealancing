@@ -16,7 +16,7 @@ import { ensureUserId } from "./trackWhatsAppRequest";
 import "./TourDetailPage.css";
 
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+  process.env.REACT_APP_API_BASE_URL || "https://backendtravelagencytwomicroservice.onrender.com/";
 
 const TourDetailPage = () => {
   const { id } = useParams();

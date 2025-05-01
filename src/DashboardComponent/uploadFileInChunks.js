@@ -14,7 +14,7 @@ export const uploadFileInChunks = async (file, folder, onProgress) => {
   const userId = localStorage.getItem('userId');
 
   // Initialize upload with userId
-  await fetch('http://localhost:5000/api/upload/init', {
+  await fetch('https://backendtravelagency.onrender.com/api/upload/init', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export const uploadFileInChunks = async (file, folder, onProgress) => {
     formData.append('chunk', chunk);
     formData.append('userId', userId); // Include userId in each chunk upload
 
-    await fetch('http://localhost:5000/api/upload/chunk', {
+    await fetch('https://backendtravelagency.onrender.com/api/upload/chunk', {
       method: 'POST',
       body: formData,
     });
@@ -54,7 +54,7 @@ export const uploadFileInChunks = async (file, folder, onProgress) => {
   }
 
   // Complete the upload with userId
-  const response = await fetch('http://localhost:5000/api/upload/complete', {
+  const response = await fetch('https://backendtravelagency.onrender.com/api/upload/complete', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

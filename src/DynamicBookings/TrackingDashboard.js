@@ -24,7 +24,7 @@ const TrackingDashboard = () => {
 
     try {
       // Fetch all tours and users from the new endpoint
-      const response = await axios.get('http://localhost:5001/api/all-tours-and-users-details');
+      const response = await axios.get('https://backendtravelagency.onrender.com/api/all-tours-and-users-details');
       
       if (response.data.success) {
         const { tours, users } = response.data.data;
@@ -33,7 +33,7 @@ const TrackingDashboard = () => {
         const tourDetailsPromises = tours.map(async (tour) => {
           try {
             const tourResponse = await axios.get(
-              `http://localhost:5000/api/tours/${tour.tourId}`,
+              `https://backendtravelagencytwomicroservice.onrender.com/api/tours/${tour.tourId}`,
               { timeout: 5000 } // Add timeout to prevent hanging
             );
             return {

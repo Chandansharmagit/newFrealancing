@@ -23,7 +23,7 @@ const BookingDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('http://localhost:5000/api/bookings/filter', {
+      const response = await axios.get('https://backendtravelagencytwomicroservice.onrender.com/api/bookings/filter', {
         params: filterParams
       });
       setBookings(response.data.data || []);
@@ -45,7 +45,7 @@ const BookingDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`http://localhost:5001/api/destinations/${destinationId}`);
+      const response = await axios.get(`https://backendtravelagency.onrender.com/api/destinations/${destinationId}`);
       console.log('API Response for destination ID:', response.data);
       setDestinationData(response.data.destination || null);
       if (!response.data.destination) {
@@ -193,7 +193,7 @@ const BookingDashboard = () => {
                 {destination.images.map((image) => (
                   <div key={image._id} className="image-wrapper">
                     <img
-                      src={`http://localhost:5001/${image.path}`}
+                      src={`https://backendtravelagency.onrender.com/${image.path}`}
                       alt={image.originalname}
                       className="destination-image"
                       onClick={() => openImageModal(image)}
@@ -216,7 +216,7 @@ const BookingDashboard = () => {
           <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
             <span className="close-modal" onClick={closeImageModal}>&times;</span>
             <img
-              src={`http://localhost:5001/${selectedImage.path}`}
+              src={`https://backendtravelagency.onrender.com/${selectedImage.path}`}
               alt={selectedImage.originalname}
               className="modal-image"
             />

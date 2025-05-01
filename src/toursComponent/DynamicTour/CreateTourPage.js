@@ -142,7 +142,7 @@ const CreateTourPage = () => {
         formDataToSend.append('images', image);
       });
 
-      const response = await fetch('http://localhost:5000/api/tours', {
+      const response = await fetch('https://backendtravelagencytwomicroservice.onrender.com/api/tours', {
         method: 'POST',
         body: formDataToSend,
       });

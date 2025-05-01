@@ -2,7 +2,7 @@ import React from 'react';
 
 function MediaPreview({ media, onRemove = null }) {
   const isVideo = media.path && (media.path.endsWith('.mp4') || media.path.endsWith('.webm') || media.path.endsWith('.mov'));
-  const serverUrl = 'http://localhost:5000/';
+  const serverUrl = 'https://backendtravelagency.onrender.com/';
   const mediaUrl = media.path.startsWith('http') ? media.path : `${serverUrl}${media.path}`;
 
   return (

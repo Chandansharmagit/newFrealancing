@@ -17,7 +17,7 @@ function MainUploadingDestination() {
       try {
         setLoading(true);
         setError(null); // Clear previous errors
-        const response = await fetch('http://localhost:5000/api/destinations');
+        const response = await fetch('https://backendtravelagency.onrender.com/api/destinations');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -74,7 +74,7 @@ function MainUploadingDestination() {
     ) {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/destinations/${id}`,
+          `https://backendtravelagency.onrender.com/api/destinations/${id}`,
           {
             method: 'DELETE',
           }

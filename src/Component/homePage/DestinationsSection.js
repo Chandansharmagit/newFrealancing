@@ -14,7 +14,7 @@ const DestinationsGrid = () => {
     const fetchDestinations = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5001/api/destinations', { signal });
+        const response = await fetch('https://backendtravelagency.onrender.com/api/destinations', { signal });
 
         if (!response.ok) {
           throw new Error(`Failed to fetch destinations: ${response.status} ${response.statusText}`);
@@ -153,7 +153,7 @@ const DestinationsGrid = () => {
                     destination.image && destination.image.startsWith('http')
                       ? destination.image
                       : destination.image
-                      ? `http://localhost:5001/${destination.image}`
+                      ? `https://backendtravelagency.onrender.com/${destination.image}`
                       : '/placeholder-image.jpg'
                   }
                   alt={`Visit ${destination.name}`}
