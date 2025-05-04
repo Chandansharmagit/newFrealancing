@@ -56,9 +56,9 @@ const ToursPage = () => {
               <img 
                 src={
                   tour.images[0].url 
-                    ? `https://backendtravelagencytwomicroservice.onrender.com${tour.images[0].url}` 
+                    ? `{tour.images[0].url}` 
                     : tour.images[0].originalName 
-                      ? `https://backendtravelagencytwomicroservice.onrender.com/uploads/${tour.images[0].originalName}` 
+                      ? `${tour.images[0].originalName}` 
                       : placeholderImage
                 }
                 alt={tour.name}

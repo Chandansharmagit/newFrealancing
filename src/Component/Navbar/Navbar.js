@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "./Navbar.css";
 import logo from "./logo.png";
 
@@ -46,20 +47,14 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
-  // Toggle login state for demo purposes
-  // const handleLoginToggle = () => {
-  //   setIsLoggedIn(!isLoggedIn);
-  //   setDropdownOpen(false); // Close dropdown on logout
-  // };
-
   return (
     <nav ref={navRef} className={`navbar ${navbarActive ? "navbar-scrolled" : ""}`}>
       <div className="navbar-container">
         <div className="navbar-logo">
-          <a href="/" className="logo-link">
+          <Link to="/" className="logo-link">
             <img src={logo} alt="TravelSansar Logo" />
             <span className="logo-text">TravelSansar</span>
-          </a>
+          </Link>
         </div>
 
         <button
@@ -76,54 +71,54 @@ const Navbar = () => {
         <div className={`navigation-wrapper ${menuOpen ? "active" : ""}`}>
           <ul className="nav-links">
             <li className="nav-item">
-              <a href="/" className="nav-link" onClick={closeMenu}>
+              <Link to="/" className="nav-link" onClick={closeMenu}>
                 Home
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a href="/des" className="nav-link" onClick={closeMenu}>
+              <Link to="/destinations" className="nav-link" onClick={closeMenu}>
                 Destinations
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a href="/tours" className="nav-link" onClick={closeMenu}>
+              <Link to="/tours" className="nav-link" onClick={closeMenu}>
                 Tours
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a href="/experiences" className="nav-link" onClick={closeMenu}>
+              <Link to="/experiences" className="nav-link" onClick={closeMenu}>
                 Experiences
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a href="/about" className="nav-link" onClick={closeMenu}>
+              <Link to="/about" className="nav-link" onClick={closeMenu}>
                 About
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a href="/contact-form" className="nav-link" onClick={closeMenu}>
+              <Link to="/contact-form" className="nav-link" onClick={closeMenu}>
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
 
           <div className="navbar-actions">
-            <a href="/booking" className="btn-primary">
+            <Link to="/booking" className="btn-primary">
               Book Now
-            </a>
+            </Link>
 
             {!isLoggedIn ? (
               <div className="auth-links">
-                <a
-                  href="/login"
+                <Link
+                  to="/login"
                   className="btn-secondary"
                   onClick={() => setIsLoggedIn(true)} // Simulate login
                 >
                   Login
-                </a>
-                <a href="/register" className="btn-secondary">
+                </Link>
+                <Link to="/register" className="btn-secondary">
                   Register
-                </a>
+                </Link>
               </div>
             ) : (
               <div className="user-profile" ref={dropdownRef}>
@@ -146,25 +141,25 @@ const Navbar = () => {
                 </button>
 
                 <div className={`dropdown-menu ${dropdownOpen ? "active" : ""}`}>
-                  <a
-                    href="/user-profile"
+                  <Link
+                    to="/user-profile"
                     className="dropdown-item"
                     onClick={() => setDropdownOpen(false)}
                   >
                     <i className="icon-profile"></i>
                     Profile
-                  </a>
-                  <a
-                    href="/settings"
+                  </Link>
+                  <Link
+                    to="/settings"
                     className="dropdown-item"
                     onClick={() => setDropdownOpen(false)}
                   >
                     <i className="icon-settings"></i>
                     Settings
-                  </a>
+                  </Link>
                   <div className="dropdown-divider"></div>
-                  <a
-                    href="/logout"
+                  <Link
+                    to="/logout"
                     className="dropdown-item logout"
                     onClick={() => {
                       setDropdownOpen(false);
@@ -173,7 +168,7 @@ const Navbar = () => {
                   >
                     <i className="icon-logout"></i>
                     Logout
-                  </a>
+                  </Link>
                 </div>
               </div>
             )}

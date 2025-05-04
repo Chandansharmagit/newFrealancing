@@ -193,7 +193,7 @@ const BookingDashboard = () => {
                 {destination.images.map((image) => (
                   <div key={image._id} className="image-wrapper">
                     <img
-                      src={`https://backendtravelagency.onrender.com/${image.path}`}
+                      src={`${image.path}`}
                       alt={image.originalname}
                       className="destination-image"
                       onClick={() => openImageModal(image)}
@@ -216,7 +216,7 @@ const BookingDashboard = () => {
           <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
             <span className="close-modal" onClick={closeImageModal}>&times;</span>
             <img
-              src={`https://backendtravelagency.onrender.com/${selectedImage.path}`}
+              src={`${selectedImage.path}`}
               alt={selectedImage.originalname}
               className="modal-image"
             />

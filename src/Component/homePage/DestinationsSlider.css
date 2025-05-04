@@ -66,6 +66,19 @@
   object-fit: cover;
 }
 
+.dg-card-new-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
 .dg-card-badge {
   position: absolute;
   bottom: 12px;
@@ -160,8 +173,9 @@
 
 /* Footer Styles */
 .dg-section-footer {
-  text-align: center;
+  text-align: left;
   margin-top: 20px;
+
 }
 
 .dg-view-all-button {
@@ -170,6 +184,7 @@
   justify-content: center;
   background-color: #0066cc;
   color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   font-weight: 600;
   padding: 12px 24px;
   border-radius: 6px;
@@ -240,7 +255,7 @@
   border-radius: 4px;
 }
 
-.dg-skeletonMETA {
+.dg-skeleton-meta {
   height: 13px;
   width: 60%;
   background-color: #eee;

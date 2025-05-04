@@ -15,8 +15,7 @@ import { trackWhatsAppRequest } from "./trackWhatsAppRequest";
 import { ensureUserId } from "./trackWhatsAppRequest";
 import "./TourDetailPage.css";
 
-const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "https://backendtravelagencytwomicroservice.onrender.com/";
+const API_BASE_URL ="https://backendtravelagencytwomicroservice.onrender.com/";
 
 const TourDetailPage = () => {
   const { id } = useParams();
@@ -47,7 +46,7 @@ const TourDetailPage = () => {
     const fetchTour = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${API_BASE_URL}/api/tours/${id}`);
+        const response = await axios.get(`${API_BASE_URL}api/tours/${id}`);
         const tourData = response.data.data;
 
         setTour({

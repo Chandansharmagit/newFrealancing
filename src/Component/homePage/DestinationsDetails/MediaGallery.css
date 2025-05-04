@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 0.5rem;
-  height: 500px;
+  height: 800px;
   border-radius: 0.5rem;
   overflow: hidden;
 }
@@ -31,8 +31,8 @@
 
 .main-image img, 
 .main-image video {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   object-fit: cover;
 }
 
@@ -161,7 +161,7 @@
 .modal-content {
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   padding: 1rem;
 }
 

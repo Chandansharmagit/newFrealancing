@@ -18,14 +18,30 @@
   background-color: var(--light-color);
   margin-top: 5rem;
 }
+
 .cta-button{
   text-decoration: none;
 }
 
-.container {
-  width: 90%;
+.destination-container {
+  width: 92%;
   max-width: 1600px;
   margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .destination-container {
+    width: 95%;
+    padding: 0 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .destination-container {
+    width: 98%;
+    padding: 0 0.5rem;
+  }
 }
 
 /* Header Styles */
@@ -145,7 +161,7 @@
 
 .modal-content {
   width: 90%;
-  max-width: 1200px;
+  max-width: 1400px;
   max-height: 90vh;
   position: relative;
 }
@@ -367,7 +383,7 @@
 /* Error and Empty States */
 .error-container,
 .no-destination {
-  text-align: center;
+  text-align: left;
   padding: 3rem;
   background-color: white;
   border-radius: var(--border-radius);
@@ -426,7 +442,7 @@
   padding: 2rem;
   background-color: var(--primary-light);
   border-radius: var(--border-radius);
-  text-align: center;
+  text-align: left;
 }
 
 .cta-title {
@@ -511,12 +527,57 @@
   
   .destination-tabs {
     justify-content: space-between;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .destination-tabs::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
   }
   
   .tab-button {
-    flex: 1;
+    flex: 0 0 auto;
     font-size: 0.9rem;
     padding: 0.75rem 0.5rem;
+    min-width: max-content;
+  }
+  
+  .destination-title {
+    font-size: 1.7rem;
+  }
+  
+  .destination-meta {
+    flex-direction: column;
+    gap: 0.7rem;
+    align-items: flex-start;
+  }
+  
+  .tab-content {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .destination-title {
+    font-size: 1.5rem;
+  }
+  
+  .tab-button {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.85rem;
+  }
+  
+  .media-main {
+    height: 200px;
+  }
+  
+  .destinations-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .tab-content {
+    padding: 1rem;
   }
 }
 
@@ -768,7 +829,7 @@
   background-color: #f8f9fa;
   color: var(--grey-color);
   border-radius: var(--border-radius);
-  text-align: center;
+  text-align: left;
   padding: 2rem;
 }
 
@@ -788,17 +849,80 @@
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 }
-
 @media (max-width: 640px) {
+  .activities-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
   .activities-list {
     grid-template-columns: 1fr;
   }
   
-  .rich-text-content {
-    font-size: 0.95rem;
+  .content-title {
+    font-size: 1.3rem;
   }
   
-  .activity-card {
-    max-width: 100%;
+  .section-subtitle {
+    font-size: 1.1rem;
   }
-} 
+  
+  .info-note {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .destinations-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .destination-card {
+    margin-bottom: 1rem;
+  }
+  
+  .destination-image {
+    height: 180px;
+  }
+  
+  .empty-media {
+    height: 200px;
+    padding: 1rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .destination-tabs,
+  .destination-cta,
+  .media-count,
+  .slider-nav,
+  .cta-button,
+  .btn-retry,
+  .btn-back {
+    display: none !important;
+  }
+  
+  .tab-content {
+    display: block !important;
+    page-break-inside: avoid;
+  }
+  
+  .media-grid {
+    height: 300px;
+  }
+  
+  .destination-container {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .box-shadow {
+    box-shadow: none !important;
+  }
+  
+  .destination-details-section {
+    background-color: white;
+    margin-top: 0;
+    padding: 0;
+  }
+}

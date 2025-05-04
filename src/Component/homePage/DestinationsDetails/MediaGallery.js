@@ -8,13 +8,13 @@ const MediaGallery = ({ destination }) => {
   
   // Format the image and video data with proper URLs
   const images = destination?.images?.map(img => ({
-    url: `http://localhost:5001/${img.path}`,
+    url: `${img.path}`,
     alt: destination.title || 'Destination image',
     type: 'image'
   })) || [];
   
   const videos = destination?.videos?.map(vid => ({
-    url: `http://localhost:5001/${vid.path}`,
+    url: `${vid.path}`,
     // For thumbnails, we'll use a generic approach or first image if available
     thumbnail: images.length > 0 ? images[0].url : null,
     alt: destination.title || 'Destination video',
@@ -97,7 +97,7 @@ const MediaGallery = ({ destination }) => {
               <div className="view-all-small-screens">
                 <div onClick={(e) => { e.stopPropagation(); handleSeeAll(e); }}>
                   <Image size={18} className="mr-1" />
-                  <span>View all {allMedia.length} pictures</span>
+                  <span>View all {allMedia.length} pictures and videos</span>
                 </div>
               </div>
             )}
@@ -156,7 +156,7 @@ const MediaGallery = ({ destination }) => {
                   <div className="view-all-overlay">
                     <div className="text-center" onClick={(e) => { e.stopPropagation(); handleSeeAll(e); }}>
                       <Image size={24} className="mx-auto mb-2" />
-                      <span>View all {allMedia.length} pictures</span>
+                      <span>View all {allMedia.length} pictures and videos </span>
                     </div>
                   </div>
                 )}

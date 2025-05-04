@@ -30,7 +30,7 @@ const DestinationDetails = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:5001/api/destinations/${id}`,
+          `https://backendtravelagency.onrender.com/api/destinations/${id}`,
           { signal }
         );
 
@@ -69,7 +69,7 @@ const DestinationDetails = () => {
   if (loading) {
     return (
       <section className="destination-details-section">
-        <div className="container">
+        <div className="destination-container">
           <div className="skeleton-header pulse"></div>
           <div className="skeleton-subheader pulse"></div>
           <div className="skeleton-gallery">
@@ -94,7 +94,7 @@ const DestinationDetails = () => {
   if (error) {
     return (
       <section className="destination-details-section">
-        <div className="container">
+        <div className="destination-container">
           <div className="error-container" role="alert">
             <svg
               className="error-icon"
@@ -156,7 +156,7 @@ const DestinationDetails = () => {
   if (!destination) {
     return (
       <section className="destination-details-section">
-        <div className="container">
+        <div className="destination-container">
           <div className="no-destination">
             <svg
               className="empty-icon"
@@ -191,13 +191,10 @@ const DestinationDetails = () => {
     );
   }
 
-
-
   return (
     <>
-    
     <section className="destination-details-section">
-      <div className="container">
+      <div className="destination-container">
         <MediaGallery destination={destination} />
         <DestinationHeader
           title={destination.title}

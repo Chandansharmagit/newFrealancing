@@ -25,7 +25,7 @@ const ViewAllDestinations = () => {
     const fetchDestinations = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://backendtravelagency.onrender.com/api/destinations', { signal });
+        const response = await fetch('https://backendtravelagency.onrender.com/api/destinations', { signal });
 
         if (!response.ok) {
           throw new Error(`Failed to fetch destinations: ${response.status} ${response.statusText}`);
@@ -282,7 +282,7 @@ const ViewAllDestinations = () => {
                   src={
                     destination.image && destination.image.startsWith('http')
                       ? destination.image
-                      : `http://backendtravelagency.onrender.com/${destination.image}`
+                      : `https://backendtravelagency.onrender.com/${destination.image}`
                   }
                   alt={`Visit ${destination.name}`}
                   className="vad-card-image"
