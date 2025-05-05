@@ -15,7 +15,7 @@ import ToursSection from './ToursSection';
 import FeaturesSection from './FeaturesSection';
 import TestimonialsSection from './TestimonialsSection';
 import NewsletterSection from './NewsletterSection';
-import Footer from './Footer';
+
 
 const HomePage = () => {
   useEffect(() => {

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./Component/Navbar/Navbar";
 import LoginPage from "./Component/Authentications/Login";
 import RegisterPage from "./Component/Authentications/RegisterPage";
-import TravelDestinations from "./Component/destinations/Destinations";
+
 import ContactForm from "./Component/contactForm/ContactForms";
 import CookiePolicy from "./Component/userIpAdress/CookiePolicy";
 import CookieBanner from "./Component/userIpAdress/CookieBanner";

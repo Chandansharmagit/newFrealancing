@@ -191,27 +191,6 @@ const Experiences = () => {
     }
   ];
 
-  // Structured Data for Organization (JSON-LD)
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'TravelSansar',
-    url: 'https://travelsansar.com',
-    logo: 'https://travelsansar.com/logo.png',
-    description: 'TravelSansar offers unique travel experiences, from adventure expeditions to cultural immersions and relaxation retreats.',
-    contactPoint: {
-      '@type': 'ContactPoint',
-      telephone: '+1-800-123-4567',
-      contactType: 'Customer Service',
-      email: 'support@travelsansar.com',
-    },
-    sameAs: [
-      'https://www.facebook.com/travelsansar',
-      'https://www.instagram.com/travelsansar',
-      'https://www.twitter.com/travelsansar',
-    ],
-  };
-
   // Load more experiences
   const handleLoadMore = () => {
     setVisibleCount(prev => Math.min(prev + 4, filteredExperiences.length));
@@ -219,6 +198,27 @@ const Experiences = () => {
 
   // Set Meta Tags and Structured Data
   useEffect(() => {
+    // Structured Data for Organization (JSON-LD)
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'TravelSansar',
+      url: 'https://travelsansar.com',
+      logo: 'https://travelsansar.com/logo.png',
+      description: 'TravelSansar offers unique travel experiences, from adventure expeditions to cultural immersions and relaxation retreats.',
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: '+1-800-123-4567',
+        contactType: 'Customer Service',
+        email: 'support@travelsansar.com',
+      },
+      sameAs: [
+        'https://www.facebook.com/travelsansar',
+        'https://www.instagram.com/travelsansar',
+        'https://www.twitter.com/travelsansar',
+      ],
+    };
+
     const metaConfig = {
       title: 'Curated Travel Experiences | TravelSansar',
       description: 'Discover authentic, expertly-guided travel experiences with TravelSansar. From thrilling adventures to cultural immersions, relaxing retreats, and wildlife encounters.',

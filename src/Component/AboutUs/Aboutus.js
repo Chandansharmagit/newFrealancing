@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { setMetaTags } from '../homePage/ViewallDestinations/Utils/setMetaTags';
 import './AboutUs.css';
@@ -30,7 +30,7 @@ const AboutUs = () => {
   ];
 
   // Structured Data for Organization (JSON-LD)
-  const structuredData = {
+  const structuredData = useMemo(() => ({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'TravelSansar',
@@ -48,7 +48,7 @@ const AboutUs = () => {
       'https://www.instagram.com/travelsansar',
       'https://www.twitter.com/travelsansar',
     ],
-  };
+  }), []);
 
   // Set Meta Tags and Structured Data
   useEffect(() => {
@@ -63,7 +63,7 @@ const AboutUs = () => {
 
     const cleanup = setMetaTags(metaConfig);
     return cleanup;
-  }, []);
+  }, [structuredData]);
 
   return (
     <main className="about-us">
