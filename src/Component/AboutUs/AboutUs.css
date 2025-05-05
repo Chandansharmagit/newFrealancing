@@ -1,0 +1,361 @@
+/* AboutUs.css - Modern Responsive Version */
+
+/* Base Styles */
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --accent-color: #f1c40f;
+  --text-color: #333;
+  --light-text: #fff;
+  --dark-bg: #2c3e50;
+  --light-bg: #f8f9fa;
+  --accent-bg: #e9f7fe;
+  --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+  --border-radius: 8px;
+  --section-padding: 5rem 0;
+}
+
+.about-us {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  line-height: 1.7;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.section-padding {
+  padding: var(--section-padding);
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  font-weight: 700;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 50px;
+  height: 4px;
+  background: var(--primary-color);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-center.section-title::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.section-text {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.accent-bg {
+  background-color: var(--accent-bg);
+}
+
+.responsive-img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+/* Hero Section */
+.hero {
+  height: 60vh;
+  min-height: 400px;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/30617072/pexels-photo-30617072/free-photo-of-majestic-stone-lion-statue-under-desert-moon.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--light-text);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  animation: fadeInDown 1s ease-out;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Flex Wrapper for Story Section */
+.flex-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.content-box {
+  flex: 1 1 450px;
+}
+
+.image-box {
+  flex: 1 1 450px;
+  overflow: hidden;
+}
+
+.image-box img {
+  transition: var(--transition);
+}
+
+.image-box img:hover {
+  transform: scale(1.05);
+}
+
+/* Mission & Vision Cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+/* Team Section */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.team-card {
+  perspective: 1000px;
+  height: 350px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.team-card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.card-front {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  box-shadow: var(--box-shadow);
+}
+
+.card-back {
+  background: var(--primary-color);
+  color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: var(--box-shadow);
+}
+
+.team-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--accent-bg);
+  margin-bottom: 1rem;
+}
+
+.team-name {
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.team-role {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.team-bio {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* CTA Section */
+.cta {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.pexels.com/photos/30617072/pexels-photo-30617072/free-photo-of-majestic-stone-lion-statue-under-desert-moon.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-size: cover;
+  background-position: center;
+  color: var(--light-text);
+  text-align: center;
+}
+
+.cta-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.cta .section-title {
+  color: var(--light-text);
+}
+
+.cta .section-title::after {
+  background: var(--accent-color);
+}
+
+.cta-button {
+  display: inline-block;
+  background: var(--accent-color);
+  color: var(--dark-bg);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transition);
+  margin-top: 1rem;
+  border: 2px solid var(--accent-color);
+}
+
+.cta-button:hover {
+  background: transparent;
+  color: var(--accent-color);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .section-padding {
+    padding: 3rem 0;
+  }
+  
+  .flex-wrapper {
+    flex-direction: column;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero {
+    height: 40vh;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Optional: Add smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}

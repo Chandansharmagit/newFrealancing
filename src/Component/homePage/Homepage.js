@@ -40,7 +40,7 @@ const HomePage = () => {
       <FeaturesSection />
       <TestimonialsSection testimonials={testimonials} />
       <NewsletterSection />
-      <Footer />
+     
     </div>
   );
 };

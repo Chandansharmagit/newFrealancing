@@ -1,0 +1,322 @@
+/* FeedbackPopup.css */
+
+/* Feedback Button */
+.feedback-button {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #3361ff, #2152ff);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(33, 82, 255, 0.3);
+    cursor: pointer;
+    z-index: 999;
+    transition: all 0.3s ease;
+  }
+  
+  .feedback-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(33, 82, 255, 0.4);
+  }
+  
+  .feedback-icon {
+    margin-right: 8px;
+    font-size: 18px;
+  }
+  
+  /* Overlay */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Popup Container */
+  .popup-container {
+    position: relative;
+    width: 90%;
+    max-width: 650px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    animation: slideIn 0.4s ease;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Close Button */
+  .close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 1;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .close-button:hover {
+    background: #e2e8f0;
+    color: #334155;
+  }
+  
+  /* Form Styles */
+  .feedback-form {
+    padding: 40px;
+    font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  .feedback-form h2 {
+    font-size: 28px;
+    color: #172b4d;
+    margin-bottom: 8px;
+    font-weight: 600;
+    padding-right: 40px; /* Make space for close button */
+  }
+  
+  .feedback-form .subtitle {
+    font-size: 16px;
+    color: #6b778c;
+    margin-bottom: 32px;
+  }
+  
+  .form-group {
+    margin-bottom: 24px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #344563;
+    margin-bottom: 8px;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #1a202c;
+    background: #f8fafc;
+    transition: all 0.2s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    background: #fff;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+    outline: none;
+  }
+  
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #a0aec0;
+  }
+  
+  .form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B778C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+  
+  .rating-stars {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  
+  .star {
+    font-size: 32px;
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .star:hover,
+  .star.active {
+    color: #f59e0b;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #4299e1;
+  }
+  
+  .checkbox-group label {
+    margin-bottom: 0;
+    font-weight: normal;
+  }
+  
+  .submit-button {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #3361ff, #2152ff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(33, 82, 255, 0.25);
+  }
+  
+  .submit-button.loading {
+    background: linear-gradient(135deg, #3361ff, #2152ff);
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .success-message {
+    text-align: center;
+    padding: 60px 40px;
+  }
+  
+  .success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    background: #ebf8ff;
+    color: #3182ce;
+    font-size: 36px;
+    border-radius: 50%;
+    animation: scaleIn 0.4s ease-out;
+  }
+  
+  .success-message h2 {
+    margin-bottom: 16px;
+  }
+  
+  .success-message p {
+    color: #6b778c;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  
+  @keyframes scaleIn {
+    0% {
+      transform: scale(0);
+    }
+    70% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Scrollbar styling */
+  .popup-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .popup-container::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 8px;
+  }
+  
+  .popup-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 8px;
+  }
+  
+  .popup-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .popup-container {
+      width: 95%;
+      height: 85vh;
+    }
+    
+    .feedback-form {
+      padding: 30px 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .feedback-button {
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 16px;
+    }
+    
+    .feedback-text {
+      display: none;
+    }
+    
+    .feedback-icon {
+      margin-right: 0;
+      font-size: 20px;
+    }
+  }

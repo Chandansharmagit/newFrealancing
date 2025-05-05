@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Sidebar.css';
 
 // Icons import - assuming you're using react-icons
-import { FiHome, FiMap, FiCalendar, FiHeart, FiSettings, FiUser, FiMenu, FiX } from 'react-icons/fi';
+import { FiHome, FiMap, FiCalendar, FiHeart, FiSettings, FiUser, FiMenu, FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(window.innerWidth > 768);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const location = useLocation();
+  const sidebarRef = useRef(null);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -18,62 +19,132 @@ const Sidebar = () => {
     }
   };
 
+  // Handle clicks outside sidebar to close it on mobile
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMobile && isOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        // Check if the click is not on the toggle button (which has its own handler)
+        if (!event.target.closest('.sidebar-toggle')) {
+          setIsOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isMobile, isOpen]);
+
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      if (window.innerWidth > 768) {
-        setIsOpen(true);
-      } else {
+      const newIsMobile = window.innerWidth <= 768;
+      setIsMobile(newIsMobile);
+      
+      // Only auto-close on transition from desktop to mobile
+      if (!isMobile && newIsMobile) {
         setIsOpen(false);
+      } else if (isMobile && !newIsMobile && !isOpen) {
+        // Auto-open when transitioning from mobile to desktop
+        setIsOpen(true);
       }
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Initialize on first render
-
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [isMobile, isOpen]);
 
+  // Group menu items by category for better organization
   const menuItems = [
-    { path: '/', name: 'Dashboard', icon: <FiHome /> },
-    { path: '/dashboard/upload-destination', name: 'upload destinations', icon: <FiMap /> },
-    { path: '/dashboard/update-destinations', name: 'update destinations', icon: <FiMap /> },
-    { path: '/dashboard/Booking-data', name: 'Bookings', icon: <FiCalendar /> },
-    { path: '/dashboard/user-tracking', name: 'user tracking', icon: <FiMap /> },
-    { path: '/dashboard/Create-plan-tour', name: 'Upload Plan Tour', icon: <FiHeart /> },
-    { path: '/dashboard/Allusers', name: 'Profile', icon: <FiUser /> },
-    { path: '/settings', name: 'Settings', icon: <FiSettings /> },
+    { 
+      category: "Main",
+      items: [
+        { path: '/', name: 'Dashboard', icon: <FiHome /> }
+      ]
+    },
+    {
+      category: "Destinations",
+      items: [
+        { path: '/dashboard/upload-destination', name: 'Upload Destinations', icon: <FiMap /> },
+        { path: '/dashboard/update-destinations', name: 'Update Destinations', icon: <FiMap /> }
+      ]
+    },
+    {
+      category: "Tours",
+      items: [
+        { path: '/dashboard/Create-plan-tour', name: 'Upload Plan Tour', icon: <FiHeart /> },
+        { path: '/dashboard/Tour-page-dashboard', name: 'Manage Plan Tour', icon: <FiHeart /> }
+      ]
+    },
+    {
+      category: "Users",
+      items: [
+        { path: '/dashboard/Booking-data', name: 'Bookings', icon: <FiCalendar /> },
+        { path: '/dashboard/user-tracking', name: 'User Tracking', icon: <FiUser /> },
+        { path: '/dashboard/Allusers', name: 'All Users', icon: <FiUser /> },
+        { path: '/dashboard/users-feedback', name: 'feedback users', icon: <FiUser /> }
+      ]
+    },
+    {
+      category: "System",
+      items: [
+        { path: '/settings', name: 'Settings', icon: <FiSettings /> }
+      ]
+    }
   ];
 
   return (
     <>
-      {/* Mobile Toggle Button */}
-      <button className="sidebar-toggle" onClick={toggleSidebar} aria-label="Toggle Menu">
-        {isOpen ? <FiX /> : <FiMenu />}
+      {/* Floating Toggle Button - visible on all screen sizes */}
+      <button 
+        className="sidebar-toggle" 
+        onClick={toggleSidebar} 
+        aria-label={isOpen ? "Close Menu" : "Open Menu"}
+      >
+        {isOpen && isMobile ? <FiX /> : 
+         !isOpen ? <FiMenu /> : 
+         <FiChevronLeft />}
       </button>
 
       {/* Sidebar */}
-      <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
+      <div 
+        ref={sidebarRef}
+        className={`sidebar ${isOpen ? 'open' : 'closed'}`}
+        aria-hidden={!isOpen}
+      >
         <div className="sidebar-header">
           <h2>Travel App</h2>
+          {!isMobile && (
+            <button 
+              className="collapse-toggle" 
+              onClick={toggleSidebar}
+              aria-label={isOpen ? "Collapse Sidebar" : "Expand Sidebar"}
+            >
+              {isOpen ? <FiChevronLeft /> : <FiChevronRight />}
+            </button>
+          )}
         </div>
         
-        <nav className="sidebar-menu">
-          <ul>
-            {menuItems.map((item) => (
-              <li key={item.path}>
-                <Link 
-                  to={item.path} 
-                  className={location.pathname === item.path ? 'active' : ''} 
-                  onClick={closeSidebarOnMobile}
-                >
-                  <span className="icon">{item.icon}</span>
-                  <span className="label">{item.name}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <nav className="sidebar-menu" aria-label="Main Navigation">
+          {menuItems.map((category, index) => (
+            <div key={index} className="menu-category">
+              {isOpen && <h3 className="category-title">{category.category}</h3>}
+              <ul>
+                {category.items.map((item) => (
+                  <li key={item.path}>
+                    <Link 
+                      to={item.path} 
+                      className={location.pathname === item.path ? 'active' : ''} 
+                      onClick={closeSidebarOnMobile}
+                      title={item.name}
+                    >
+                      <span className="icon">{item.icon}</span>
+                      <span className="label">{item.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </nav>
         
         <div className="sidebar-footer">
@@ -89,4 +160,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;

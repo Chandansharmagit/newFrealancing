@@ -2,7 +2,8 @@ import React from 'react';
 import { FaWallet, FaHeadset, FaShieldAlt, FaHeart } from 'react-icons/fa';
 import './FeaturesSection.css';
 
-const FeaturesSection = () => {
+const 
+FeaturesSection = () => {
   return (
     <section className="fs-features-section">
       <div className="fs-container">

@@ -10,7 +10,7 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Manage login state
   const dropdownRef = useRef(null);
   const navRef = useRef(null);
-  const username = "UserName"; // Mock username
+  const username =  localStorage.getItem('username'); // Mock username
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,12 +86,12 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/experiences" className="nav-link" onClick={closeMenu}>
+              <Link to="/Experiencepage.html" className="nav-link" onClick={closeMenu}>
                 Experiences
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/about" className="nav-link" onClick={closeMenu}>
+              <Link to="/AboutUs-page.html" className="nav-link" onClick={closeMenu}>
                 About
               </Link>
             </li>

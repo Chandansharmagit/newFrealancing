@@ -26,6 +26,13 @@ import TourDetailPage from "./toursComponent/TourDetailPage";
 import TrackingDashboard from "./DynamicBookings/TrackingDashboard";
 import TopHeader from "./Component/Navbar/TopHeader";
 import BookingDashboard from "./DynamicBookings/DashboardBooking/DashboardBooking";
+import ViewAllTours from "./Component/homePage/DestinationsDetails/Viewalltours/ViewAlltours";
+import AboutUs from "./Component/AboutUs/Aboutus";
+import Experiences from "./Component/AboutUs/Experience";
+import TourDashboardPage from "./toursComponent/DynamicTour/dashboardUpdatingDeletions/Updationstourpage";
+import FeedbackPopup from "./Feedback.js/Feedback";
+import FeedbackDashboard from "./Feedback.js/Feedbackdashboard/Feedbackdashboard";
+import Footer from "./Component/homePage/Footer";
 
 // Utility function to get a cookie by name
 const getCookie = (name) => {
@@ -83,12 +90,15 @@ function App() {
         />
         <Route path="/destination/:id" element={<DestinationDetails />} />
         <Route path="/destinations" element={<ViewAllDestinations />} />
-        <Route path="/des" element={<TravelDestinations />} />
+        <Route path="/tours" element={<ViewAllTours />} />
+        <Route path="/AboutUs-page.html" element={<AboutUs />} />
+        <Route path="/Experiencepage.html" element={<Experiences />} />
         <Route path="/contact-form" element={<ContactForm />} />
         <Route path="/user-profile" element={<UserProfile />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/sidebar" element={<Sidebar />} />
         <Route path="/u" element={<Allusers />} />
+      
 
         {/* 🧩 Wrap upload-destination with MainLayout */}
         <Route path="/dashboard" element={<MainLayout />}>
@@ -97,16 +107,20 @@ function App() {
             path="update-destinations"
             element={<MainUploadingDestination />}
           />
+            <Route path="Tour-page-dashboard" element={<TourDashboardPage />} />
           <Route path="Allusers" element={<Allusers />} />
           <Route path="Create-plan-tour" element={<CreateTourPage />} />
           <Route path="user-tracking" element={<TrackingDashboard />} />
           <Route path="Booking-data" element={<BookingDashboard />} />
+          <Route path="users-feedback" element={<FeedbackDashboard />} />
         </Route>
       </Routes>
+      <Footer/>
 
       <LoginPopup isOpen={isLoginOpen} onClose={closeLoginPopup} />
       <CookieBanner />
       <ChatBox />
+      <FeedbackPopup/>
     </BrowserRouter>
   );
 }
