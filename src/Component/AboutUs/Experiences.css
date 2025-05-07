@@ -30,12 +30,14 @@
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 24px;
+ 
 }
 
 .experiences-page {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-color);
   line-height: 1.5;
+  margin-top: 4rem;
 }
 
 /* Typography */
@@ -107,6 +109,8 @@
   font-size: 3.5rem;
   font-weight: 800;
   line-height: 1.1;
+  color: white;
+  text-align: left;
   margin-bottom: 24px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -325,6 +329,7 @@
   margin-bottom: 20px;
   font-size: 1rem;
   line-height: 1.6;
+  text-align: left;
 }
 
 .experiences-card-details {

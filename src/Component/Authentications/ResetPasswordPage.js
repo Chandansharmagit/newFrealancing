@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-
 
 export const ResetPasswordPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const emailFromUrl = decodeURIComponent(query.get('email') || '');
+  const tokenFromUrl = query.get('token') || '';
+
   const [formData, setFormData] = useState({
-    email: '',
+    email: emailFromUrl,
     otp: '',
-    password: ''
+    password: '',
+    token: tokenFromUrl
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +26,12 @@ export const ResetPasswordPage = () => {
     if (form) {
       form.classList.add('ts-fade-in');
     }
-  }, []);
+
+    // Check if token is present in URL
+    if (!tokenFromUrl) {
+      setApiError('Invalid or missing reset token. Please request a new password reset.');
+    }
+  }, [tokenFromUrl]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,6 +60,8 @@ export const ResetPasswordPage = () => {
 
     if (!formData.otp) {
       newErrors.otp = 'OTP is required';
+    } else if (!/^\d{6}$/.test(formData.otp)) {
+      newErrors.otp = 'OTP must be a 6-digit number';
     }
 
     if (!formData.password) {
@@ -60,6 +72,10 @@ export const ResetPasswordPage = () => {
       newErrors.password = 'Password must include at least one uppercase letter';
     } else if (!/[0-9]/.test(formData.password)) {
       newErrors.password = 'Password must include at least one number';
+    }
+
+    if (!formData.token) {
+      newErrors.token = 'Reset token is required';
     }
 
     return newErrors;
@@ -83,13 +99,15 @@ export const ResetPasswordPage = () => {
       console.log('Request payload:', {
         email: formData.email,
         otp: formData.otp,
+        token: formData.token,
         newPassword: formData.password
       });
 
-      // Send email, OTP, and new password to reset password
-      const response = await axios.post('http://localhost:9090/resetpassword', {
+      // Send reset password request to backend
+      const response = await axios.post('https://authenticationagency.onrender.com/resetpassword', {
         email: formData.email,
         otp: formData.otp,
+        token: formData.token,
         newPassword: formData.password
       }, {
         withCredentials: false
@@ -97,20 +115,18 @@ export const ResetPasswordPage = () => {
 
       console.log('Password reset successful:', response.data);
       setSuccessMessage('Your password has been successfully reset!');
-      setFormData({ email: '', otp: '', password: '' });
+      setFormData({ email: '', otp: '', password: '', token: '' });
 
       setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
       console.error('Password reset error:', error);
-      const errorMessage = error.response?.data 
-        ? typeof error.response.data === 'string' 
-          ? error.response.data 
-          : 'Failed to reset password. Please try again.'
-        : 'Failed to reset password. Please try again.';
-      
+      const errorMessage = error.response?.data?.message || 'Failed to reset password. Please try again.';
       setApiError(errorMessage);
+      
       if (errorMessage.includes('OTP')) {
         setErrors({ ...errors, otp: 'Invalid or expired OTP' });
+      } else if (errorMessage.includes('token')) {
+        setErrors({ ...errors, token: 'Invalid or expired reset token' });
       } else if (errorMessage.includes('User')) {
         setErrors({ ...errors, email: 'User not found' });
       }
@@ -158,6 +174,7 @@ export const ResetPasswordPage = () => {
                 className={errors.otp ? 'ts-input-error' : ''}
                 placeholder="Enter the OTP from your email"
                 pattern="[0-9]*"
+                maxLength="6"
               />
               {errors.otp && <div className="ts-error-message">{errors.otp}</div>}
             </div>
@@ -193,7 +210,7 @@ export const ResetPasswordPage = () => {
             <button
               type="submit"
               className="ts-btn-submit"
-              disabled={isLoading}
+              disabled={isLoading || !tokenFromUrl}
             >
               {isLoading ? 'Resetting Password...' : 'Reset Password'}
             </button>

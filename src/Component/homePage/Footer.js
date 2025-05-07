@@ -58,13 +58,13 @@ const Footer = () => {
             <h3 className="ft-column-title">Contact Info</h3>
             <ul className="ft-contact-info">
               <li>
-                <FaMapMarkerAlt className="ft-contact-icon" /> 123 Travel Street, City, Country
+                <FaMapMarkerAlt className="ft-contact-icon" /> Sahidchowk,Narayanghat,Chitwan
               </li>
               <li>
-                <FaPhone className="ft-contact-icon" /> +1 (123) 456-7890
+                <FaPhone className="ft-contact-icon" /> +9779855051795
               </li>
               <li>
-                <FaEnvelope className="ft-contact-icon" /> info@travelworld.com
+                <FaEnvelope className="ft-contact-icon" /> info@travelsansr.com
               </li>
             </ul>
             <div className="ft-payment-methods">

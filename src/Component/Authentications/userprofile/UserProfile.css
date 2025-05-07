@@ -1,378 +1,619 @@
-/* UserProfile.css - With unique class names (tw- prefix) */
+/* UserProfile.css - Modern UI styling without Tailwind */
+
+/* ---- CSS VARIABLES FOR CONSISTENT THEMING ---- */
 :root {
-    --tw-primary-color: #0095ff;
-    --tw-primary-dark: #0077cc;
-    --tw-primary-light: #e6f4ff;
-    --tw-text-color: #333333;
-    --tw-light-text: #666666;
-    --tw-lighter-text: #888888;
-    --tw-background: #f5f7fa;
-    --tw-card-bg: #ffffff;
-    --tw-border-color: #e1e4e8;
-    --tw-success-color: #34c759;
-    --tw-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --tw-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --tw-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-    --tw-transition: all 0.3s ease;
-    --tw-border-radius-sm: 8px;
-    --tw-border-radius-md: 12px;
-    --tw-border-radius-lg: 16px;
+  /* Color Palette */
+  --primary-color: #3a86ff;
+  --primary-hover: #2176ff;
+  --secondary-color: #ff6b6b;
+  --text-primary: #333333;
+  --text-secondary: #5a6876;
+  --text-light: #8c9ba8;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f8fa;
+  --bg-accent: #e9f2ff;
+  --border-color: #e0e6ed;
+  --success-color: #4caf50;
+  --warning-color: #ff9800;
+  --error-color: #f44336;
+  --wave-color: rgba(58, 134, 255, 0.15);
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-round: 50%;
+
+  /* Typography */
+  --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-xxl: 1.5rem;
+  --font-size-heading: 2rem;
+
+  /* Animation */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.4s ease;
+}
+
+/* ---- RESET & BASE STYLES ---- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  color: var(--text-primary);
+  line-height: 1.5;
+  background-color: var(--bg-secondary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- LAYOUT STYLES ---- */
+.tw-profile-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+}
+
+.tw-profile-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  position: relative;
+  z-index: 1;
+  margin-top: -50px;
+}
+
+/* ---- NAVIGATION STYLES ---- */
+.tw-profile-nav {
+  background-color: var(--bg-primary);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tw-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tw-logo {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.tw-nav-actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.tw-logout-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.tw-logout-button:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* ---- HEADER STYLES ---- */
+.tw-profile-header {
+  background: linear-gradient(135deg, var(--primary-color), #4dabff);
+  color: white;
+  padding: var(--spacing-xxl) var(--spacing-lg) calc(var(--spacing-xxl) + 50px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.tw-header-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.tw-profile-header h1 {
+  font-size: var(--font-size-heading);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 700;
+  color: white;
+}
+
+.tw-profile-header p {
+  font-size: var(--font-size-lg);
+  opacity: 0.9;
+}
+
+.tw-wave-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.tw-wave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  fill: var(--bg-primary);
+}
+
+/* ---- PROFILE CARD STYLES ---- */
+.tw-profile-card {
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-bottom: var(--spacing-xl);
+}
+
+.tw-profile-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl);
+}
+
+/* Sidebar Styles */
+.tw-profile-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.tw-profile-image-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.tw-profile-image-wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius-round);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.tw-profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.tw-profile-image:hover {
+  transform: scale(1.05);
+}
+
+.tw-profile-image-upload {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-sm);
+}
+
+.tw-upload-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: white;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.tw-file-input {
+  display: none;
+}
+
+.tw-travel-stats {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.tw-stat-item {
+  background-color: var(--bg-accent);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.tw-stat-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.tw-stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.tw-stat-value {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.tw-stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* Profile Details Styles */
+.tw-profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.tw-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.tw-form-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.tw-form-value {
+  text-align: left;
+  font-size: var(--font-size-md);
+  padding: var(--spacing-md);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+}
+
+.tw-form-input,
+.tw-form-textarea {
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+}
+
+.tw-form-input:focus,
+.tw-form-textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.15);
+}
+
+.tw-form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.tw-button-group {
+  margin-top: var(--spacing-md);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tw-edit-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.tw-edit-button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+.tw-edit-button:active {
+  transform: translateY(0);
+}
+
+/* Trust Section */
+.tw-trust-section {
+  background-color: var(--bg-primary);
+  border-left: 4px solid var(--primary-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.tw-trust-section svg {
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.tw-trust-section p {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* Footer Styles */
+.tw-profile-footer {
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  margin-top: auto;
+}
+
+.tw-footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+}
+
+.tw-footer-content p {
+  color: var(--text-light);
+  font-size: var(--font-size-sm);
+}
+
+.tw-footer-links {
+  display: flex;
+  gap: var(--spacing-lg);
+}
+
+.tw-footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-fast);
+}
+
+.tw-footer-links a:hover {
+  color: var(--primary-color);
+}
+
+/* Loading & Error States */
+.tw-loading,
+.tw-error {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+}
+
+.tw-loader {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--bg-accent);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  /* Page Layout */
-  .tw-profile-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: var(--tw-text-color);
-    background-color: var(--tw-background);
-    line-height: 1.6;
-    margin-top: 6rem;
-  }
-  
-  /* Header Styles */
-  .tw-profile-header {
-    background: linear-gradient(to right, var(--tw-primary-color), #00a3ff);
-    color: white;
-    padding: 3rem 2rem 4rem;
-    position: relative;
-  }
-  
-  .tw-header-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
-  
-  .tw-profile-header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: white;
-  }
-  
-  .tw-profile-header p {
-    opacity: 0.9;
-    font-size: 1.1rem;
-  }
-  
-  .tw-wave-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    overflow: hidden;
-    line-height: 0;
-  }
-  
-  .tw-wave {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    fill: var(--tw-background);
-  }
-  
-  /* Main Content */
+}
+
+.tw-error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  max-width: 400px;
+}
+
+.tw-error-message svg {
+  color: var(--error-color);
+  width: 48px;
+  height: 48px;
+}
+
+.tw-retry-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.tw-retry-button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
   .tw-profile-main {
-    flex: 1;
-    padding: 2rem 1rem 3rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
+    padding: var(--spacing-lg) var(--spacing-md);
   }
-  
-  .tw-profile-card {
-    background: var(--tw-card-bg);
-    border-radius: var(--tw-border-radius-lg);
-    box-shadow: var(--tw-shadow-md);
-    overflow: hidden;
-    margin-top: -3rem;
-    position: relative;
-    z-index: 3;
-  }
-  
+}
+
+@media (max-width: 768px) {
   .tw-profile-layout {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
   
-  @media (min-width: 768px) {
-    .tw-profile-layout {
-      flex-direction: row;
-    }
-  }
-  
-  /* Sidebar Styles */
   .tw-profile-sidebar {
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--tw-primary-light);
-  }
-  
-  @media (min-width: 768px) {
-    .tw-profile-sidebar {
-      width: 300px;
-      border-right: 1px solid var(--tw-border-color);
-    }
-  }
-  
-  .tw-profile-image-container {
-    margin-bottom: 2rem;
-  }
-  
-  .tw-profile-image-wrapper {
-    position: relative;
-    width: 160px;
-    height: 160px;
-    margin: 0 auto;
-  }
-  
-  .tw-profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid white;
-    box-shadow: var(--tw-shadow-sm);
-    transition: var(--tw-transition);
-  }
-  
-  .tw-profile-image-upload {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    opacity: 0;
-    transition: var(--tw-transition);
   }
   
-  .tw-profile-image-wrapper:hover .tw-profile-image-upload {
-    opacity: 1;
-  }
-  
-  .tw-upload-btn {
-    cursor: pointer;
-    background: white;
-    color: var(--tw-primary-color);
-    border: none;
-    border-radius: var(--tw-border-radius-sm);
-    padding: 0.5rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-  }
-  
-  .tw-file-input {
-    display: none;
-  }
-  
-  /* Stats Styles */
   .tw-travel-stats {
     width: 100%;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .tw-stat-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    background: white;
-    border-radius: var(--tw-border-radius-md);
-    box-shadow: var(--tw-shadow-sm);
-    min-width: 120px;
-  }
-  
-  .tw-stat-content {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .tw-stat-value {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--tw-primary-color);
-    line-height: 1;
-  }
-  
-  .tw-stat-label {
-    font-size: 0.85rem;
-    color: var(--tw-light-text);
-  }
-  
-  /* Form Styles */
-  .tw-profile-details {
-    padding: 2rem;
-    flex: 1;
-  }
-  
-  .tw-form-group {
-    margin-bottom: 1.5rem;
-  }
-  
-  .tw-form-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--tw-light-text);
-  }
-  
-  .tw-form-input, .tw-form-textarea {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--tw-border-color);
-    border-radius: var(--tw-border-radius-sm);
-    font-size: 1rem;
-    transition: var(--tw-transition);
-  }
-  
-  .tw-form-input:focus, .tw-form-textarea:focus {
-    outline: none;
-    border-color: var(--tw-primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 149, 255, 0.2);
-  }
-  
-  .tw-form-value {
-    font-size: 1.1rem;
-    padding: 0.5rem 0;
-  }
-  
-  /* Button Styles */
-  .tw-edit-button {
-    background-color: var(--tw-primary-color);
-    color: white;
-    border: none;
-    border-radius: var(--tw-border-radius-sm);
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--tw-transition);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    justify-content: center;
-    margin-top: 1rem;
-  }
-  
-  .tw-edit-button:hover {
-    background-color: var(--tw-primary-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--tw-shadow-md);
-  }
-  
-  .tw-edit-button:active {
-    transform: translateY(0);
-  }
-  
-  /* Trust Section */
-  .tw-trust-section {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background-color: var(--tw-card-bg);
-    border-radius: var(--tw-border-radius-md);
-    box-shadow: var(--tw-shadow-sm);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .tw-trust-section svg {
-    color: var(--tw-primary-color);
-    flex-shrink: 0;
-  }
-  
-  .tw-trust-section p {
-    color: var(--tw-lighter-text);
-    font-size: 0.95rem;
-  }
-  
-  /* Footer Styles */
-  .tw-profile-footer {
-    background-color: var(--tw-card-bg);
-    padding: 2rem;
-    margin-top: 3rem;
-    border-top: 1px solid var(--tw-border-color);
   }
   
   .tw-footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  @media (min-width: 768px) {
-    .tw-footer-content {
-      flex-direction: row;
-      justify-content: space-between;
-    }
-  }
-  
-  .tw-footer-content p {
-    color: var(--tw-lighter-text);
+    gap: var(--spacing-md);
+    text-align: center;
   }
   
   .tw-footer-links {
-    display: flex;
-    gap: 1.5rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .tw-profile-header {
+    padding: var(--spacing-xl) var(--spacing-md) calc(var(--spacing-xl) + 50px);
   }
   
-  .tw-footer-links a {
-    color: var(--tw-light-text);
-    text-decoration: none;
-    transition: var(--tw-transition);
+  .tw-profile-header h1 {
+    font-size: var(--font-size-xxl);
   }
   
-  .tw-footer-links a:hover {
-    color: var(--tw-primary-color);
+  .tw-profile-header p {
+    font-size: var(--font-size-md);
   }
   
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .tw-profile-header {
-      padding: 2rem 1rem 3rem;
-    }
-    
-    .tw-profile-header h1 {
-      font-size: 2rem;
-    }
-    
-    .tw-stat-item {
-      width: 100%;
-    }
+  .tw-travel-stats {
+    grid-template-columns: 1fr;
   }
   
-  @media (min-width: 1024px) {
-    .tw-profile-main {
-      padding: 2rem 2rem 3rem;
-    }
-  }
-  
-  /* Animations */
-  @keyframes tw-fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  .tw-profile-image-wrapper {
+    width: 150px;
+    height: 150px;
   }
   
   .tw-profile-card {
-    animation: tw-fadeIn 0.5s ease-out;
+    border-radius: var(--radius-md);
   }
+  
+  .tw-profile-layout {
+    padding: var(--spacing-lg) var(--spacing-md);
+    gap: var(--spacing-lg);
+  }
+  
+  .tw-button-group {
+    justify-content: center;
+  }
+  
+  .tw-edit-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Subtle Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tw-profile-card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.tw-form-group {
+  animation: fadeIn 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.tw-form-group:nth-child(1) { animation-delay: 0.1s; }
+.tw-form-group:nth-child(2) { animation-delay: 0.2s; }
+.tw-form-group:nth-child(3) { animation-delay: 0.3s; }
+.tw-form-group:nth-child(4) { animation-delay: 0.4s; }
+
+/* Wave Animation */
+@keyframes wave {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(0.95);
+  }
+  100% {
+    transform: translateX(-50%) translateZ(0) scaleY(1);
+  }
+}
+
+.tw-wave {
+  animation: wave 15s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+  animation-fill-mode: forwards;
+}

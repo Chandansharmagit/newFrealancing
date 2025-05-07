@@ -67,7 +67,7 @@ const LoginPopup = ({ isOpen, onClose }) => {
       }
 
       const response = await axios.post(
-        'http://localhost:9090/login',
+        'https://authenticationagency.onrender.com/login',
         {
           email: formData.email,
           password: formData.password,
@@ -114,7 +114,7 @@ const LoginPopup = ({ isOpen, onClose }) => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:8080/auth/google';
+    window.location.href = 'https://authenticationagency.onrender.com/auth/google';
   };
 
   if (!isOpen) return null;

@@ -4,7 +4,6 @@ import axios from "axios";
 
 import "./LoginPage.css";
 
-
 const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -29,6 +28,7 @@ const LoginPage = () => {
         [name]: "",
       });
     }
+    if (message) setMessage("");
   };
 
   const validate = () => {
@@ -40,8 +40,8 @@ const LoginPage = () => {
     }
     if (!formData.password) {
       newErrors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
     }
     return newErrors;
   };
@@ -59,63 +59,62 @@ const LoginPage = () => {
     }
 
     try {
-      let ipAddress = "";
-      try {
-        const ipResponse = await axios.get("https://api.ipify.org?format=json");
-        ipAddress = ipResponse.data.ip;
-      } catch (ipError) {
-        console.error("Failed to get IP address:", ipError);
-      }
-
+      // Remove IP address fetching since backend handles it
       const response = await axios.post(
-        "http://localhost:9090/login",
+        "https://authenticationagency.onrender.com/login",
         {
           email: formData.email,
           password: formData.password,
-          ipAddress: ipAddress,
         },
         {
-          withCredentials: true, // Corrected from Credentials: true
+          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
 
-      const { user, message } = response.data;
+      // Backend returns { message: "Login successful" }
+      setMessage(response.data.message || "Login successful");
 
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("userId", user.id);
-      localStorage.setItem("userEmail", user.email);
-      localStorage.setItem("userContacts", user.contacts || "");
-      localStorage.setItem("username", user.username);
-      localStorage.setItem("userlocations", user.userlocation);
+      // Since user data isn't returned, we'll fetch it using /api/check-auth
+      try {
+        const authResponse = await axios.get("https://authenticationagency.onrender.com/api/check-auth", {
+          withCredentials: true,
+        });
+        const { user } = authResponse.data;
 
-      setMessage(message || "Login successful");
+        if (user) {
+          localStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("userId", user.id);
+          localStorage.setItem("userEmail", user.email);
+          localStorage.setItem("userContacts", user.contacts || "");
+          localStorage.setItem("username", user.username);
+          localStorage.setItem("userlocations", user.userlocation || "");
+        }
+      } catch (authError) {
+        console.warn("Failed to fetch user data:", authError.message);
+        // Continue with navigation even if user data fetch fails
+      }
+
       navigate("/user-profile");
       setErrors({});
       setFormData({ email: "", password: "", rememberMe: false });
     } catch (error) {
       console.error("Login error:", error);
+      let errorMessage = "An error occurred during login.";
+      
       if (error.response) {
-        console.error("Response status:", error.response.status);
-        console.error("Response headers:", error.response.headers);
-        console.error("Response data:", error.response.data);
-        setMessage(
-          error.response.status === 401
-            ? "Invalid email or password."
-            : "An error occurred during login."
-        );
+        if (error.response.status === 401) {
+          errorMessage = error.response.data.message || "Invalid email or password.";
+        } else if (error.response.data.message) {
+          errorMessage = error.response.data.message;
+        }
       } else if (error.request) {
-        console.error(
-          "No response received (CORS or network issue):",
-          error.request
-        );
-        setMessage("Failed to connect to the server. Check CORS settings.");
-      } else {
-        console.error("Error setting up request:", error.message);
-        setMessage("An unexpected error occurred.");
+        errorMessage = "Unable to connect to the server. Please try again later.";
       }
+
+      setMessage(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -133,7 +132,7 @@ const LoginPage = () => {
           {message && (
             <div
               className={`message-box ${
-                errors.email || errors.password ? "error" : "success"
+                message.includes("successful") ? "success" : "error"
               }`}
             >
               {message}
@@ -182,7 +181,7 @@ const LoginPage = () => {
                   checked={formData.rememberMe}
                   onChange={handleChange}
                 />
-                <label BULLET for="rememberMe">Remember me</label>
+                <label htmlFor="rememberMe">Remember me</label>
               </div>
               <Link to="/login/register/forgot-password" className="forgot-password">
                 Forgot Password?
@@ -201,7 +200,7 @@ const LoginPage = () => {
               <p>Or sign in with</p>
               <div className="social-buttons">
                 <a
-                  href="http://localhost:8080/auth/google"
+                  href="https://authenticationagency.onrender.com/auth/google"
                   className="btn-social google"
                 >
                   <i className="icon-google"></i> Google
@@ -228,7 +227,6 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };

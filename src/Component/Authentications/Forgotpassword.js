@@ -13,6 +13,7 @@ export const ForgotPasswordPage = () => {
   const handleChange = (e) => {
     setEmail(e.target.value);
     setError('');
+    if (successMessage) setSuccessMessage('');
   };
 
   const handleSubmit = async (e) => {
@@ -29,10 +30,11 @@ export const ForgotPasswordPage = () => {
 
     setIsLoading(true);
     setError('');
+    setSuccessMessage('');
 
     try {
       // Send request to API to generate OTP and reset token
-      const response = await axios.post('http://localhost:9090/forgotpassword', { email }, {
+      const response = await axios.post('https://authenticationagency.onrender.com/forgotpassword', { email }, {
         withCredentials: false
       });
 
@@ -40,15 +42,26 @@ export const ForgotPasswordPage = () => {
       setSuccessMessage('An OTP and password reset link have been sent to your email.');
       setEmail('');
       
-      // Navigate back to login after 3 seconds
-      setTimeout(() => navigate('/login/register/forgot-password/Change-password'), 3000);
+      // Navigate to reset password page after 3 seconds
+      setTimeout(() => navigate('/login/register/forgot-password/change-password'), 3000);
     } catch (error) {
       console.error('Error sending reset email:', error);
-      const errorMessage = error.response?.data 
-        ? typeof error.response.data === 'string' 
-          ? error.response.data 
-          : 'Failed to send reset email. Please try again.'
-        : 'Failed to send reset email. Please try again.';
+      let errorMessage = 'Failed to send reset email. Please try again.';
+      
+      if (error.response?.data?.message) {
+        // Handle specific backend error messages
+        const backendMessage = error.response.data.message;
+        if (backendMessage.includes('No account found')) {
+          errorMessage = 'No account found with this email address.';
+        } else if (backendMessage.includes('Google Sign-In')) {
+          errorMessage = 'This account uses Google Sign-In. Please use Google to log in.';
+        } else {
+          errorMessage = backendMessage;
+        }
+      } else if (error.response?.data?.errors) {
+        // Handle validation errors
+        errorMessage = error.response.data.errors.map(err => err.msg).join(', ');
+      }
       
       setError(errorMessage);
     } finally {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 import logo from "./logo.png";
 
@@ -7,11 +7,12 @@ const Navbar = () => {
   const [navbarActive, setNavbarActive] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Manage login state
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("username")); // Check if user is logged in
+  const [username, setUsername] = useState(localStorage.getItem("username") || "Guest"); // Get username from localStorage
   const dropdownRef = useRef(null);
   const navRef = useRef(null);
-  const username =  localStorage.getItem('username'); // Mock username
 
+  // Handle scroll for navbar styling
   useEffect(() => {
     const handleScroll = () => {
       setNavbarActive(window.scrollY > 20);
@@ -20,6 +21,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Handle click outside to close dropdown and menu
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -33,6 +35,7 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuOpen]);
 
+  // Handle resize to close mobile menu
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 992 && menuOpen) {
@@ -43,8 +46,39 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, [menuOpen]);
 
+  // Sync isLoggedIn and username with localStorage
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const storedUsername = localStorage.getItem("username");
+      setIsLoggedIn(!!storedUsername);
+      setUsername(storedUsername || "Guest");
+    };
+
+    // Check initially
+    checkLoginStatus();
+
+    // Listen for storage changes (e.g., logout from another tab)
+    window.addEventListener("storage", checkLoginStatus);
+    return () => window.removeEventListener("storage", checkLoginStatus);
+  }, []);
+
   const closeMenu = () => {
     setMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    // Clear localStorage
+    localStorage.removeItem("user");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userContacts");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userlocations");
+
+    // Update state
+    setIsLoggedIn(false);
+    setUsername("Guest");
+    setDropdownOpen(false);
   };
 
   return (
@@ -86,12 +120,12 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/Experiencepage.html" className="nav-link" onClick={closeMenu}>
+              <Link to="/experiences" className="nav-link" onClick={closeMenu}>
                 Experiences
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/AboutUs-page.html" className="nav-link" onClick={closeMenu}>
+              <Link to="/about" className="nav-link" onClick={closeMenu}>
                 About
               </Link>
             </li>
@@ -109,14 +143,10 @@ const Navbar = () => {
 
             {!isLoggedIn ? (
               <div className="auth-links">
-                <Link
-                  to="/login"
-                  className="btn-secondary"
-                  onClick={() => setIsLoggedIn(true)} // Simulate login
-                >
+                <Link to="/login" className="btn-secondary" onClick={closeMenu}>
                   Login
                 </Link>
-                <Link to="/register" className="btn-secondary">
+                <Link to="/register" className="btn-secondary" onClick={closeMenu}>
                   Register
                 </Link>
               </div>
@@ -161,9 +191,9 @@ const Navbar = () => {
                   <Link
                     to="/logout"
                     className="dropdown-item logout"
-                    onClick={() => {
-                      setDropdownOpen(false);
-                      setIsLoggedIn(false); // Simulate logout
+                    onClick={(e) => {
+                      e.preventDefault(); // Prevent navigation
+                      handleLogout();
                     }}
                   >
                     <i className="icon-logout"></i>

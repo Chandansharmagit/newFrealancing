@@ -26,7 +26,7 @@ const TourDetailPage = () => {
 
   // WhatsApp number from environment variable or fallback
   const whatsappNumber =
-    process.env.REACT_APP_WHATSAPP_NUMBER || "9845427041";
+    process.env.REACT_APP_WHATSAPP_NUMBER || "9855051795";
 
   // Ensure user has tracking ID when component mounts
   useEffect(() => {

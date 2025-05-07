@@ -266,7 +266,7 @@ const Experiences = () => {
           </div>
         </div>
         <img
-          src="https://img.freepik.com/free-photo/panoramic-view-mountains-sunset_23-2151732510.jpg"
+          src="https://data.1freewallpapers.com/download/mountain-peak-tourists-trekking-nature.jpg"
           alt="Breathtaking mountain landscape at sunset"
           className="experiences-hero-img"
           loading="eager"
