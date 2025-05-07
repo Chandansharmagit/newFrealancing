@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Footer from "../Component/homePage/Footer";
+import LoginPopup from "../Component/Authentications/LoginPopup";
 import {
   FiMapPin,
   FiCalendar,
@@ -15,7 +16,7 @@ import { trackWhatsAppRequest } from "./trackWhatsAppRequest";
 import { ensureUserId } from "./trackWhatsAppRequest";
 import "./TourDetailPage.css";
 
-const API_BASE_URL ="https://backendtravelagencytwomicroservice.onrender.com/";
+const API_BASE_URL = "https://backendtravelagencytwomicroservice.onrender.com/";
 
 const TourDetailPage = () => {
   const { id } = useParams();
@@ -23,22 +24,46 @@ const TourDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   // WhatsApp number from environment variable or fallback
-  const whatsappNumber =
-    process.env.REACT_APP_WHATSAPP_NUMBER || "9855051795";
+  const whatsappNumber = process.env.REACT_APP_WHATSAPP_NUMBER || "9855051795";
 
-  // Ensure user has tracking ID when component mounts
+  // Check authentication status
+  const checkAuth = useCallback(async () => {
+    try {
+      const response = await fetch("https://authenticationagency.onrender.com/api/check-auth", {
+        method: "GET",
+        credentials: "include",
+      });
+      const data = await response.json();
+      console.log("Auth check response:", data);
+      setIsAuthenticated(data.isAuthenticated);
+      if (data.isAuthenticated) {
+        setIsLoginOpen(false); // Close popup if authenticated
+      } else {
+        setIsLoginOpen(true); // Show login popup if not authenticated
+      }
+    } catch (error) {
+      console.error("Error checking auth:", error.message);
+      setIsAuthenticated(false);
+      setIsLoginOpen(true); // Show login popup on error
+    }
+  }, []);
+
+  // Ensure user has tracking ID and check auth when component mounts
   useEffect(() => {
     ensureUserId();
-  }, []);
+    checkAuth();
+  }, [checkAuth]);
 
   const getImageUrl = (image) => {
     if (!image) return "/images/tour-placeholder.jpg";
     if (image.url && image.url.startsWith("http")) return image.url;
     if (image.url) return `${API_BASE_URL}${image.url}`;
     if (image.originalName)
-      return `${API_BASE_URL}/uploads/${image.originalName}`;
+      return `${API_BASE_URL}/Uploads/${image.originalName}`;
     return "/images/tour-placeholder.jpg";
   };
 
@@ -85,6 +110,10 @@ const TourDetailPage = () => {
 
   // Handle WhatsApp button click with tracking
   const handleWhatsAppClick = async () => {
+    if (!isAuthenticated) {
+      setIsLoginOpen(true);
+      return;
+    }
     // Track the click event
     await trackWhatsAppRequest(id);
     
@@ -290,6 +319,18 @@ const TourDetailPage = () => {
             Book via WhatsApp
           </button>
         </div>
+
+        {/* Login Popup */}
+        {isLoginOpen && !isAuthenticated && (
+          <LoginPopup
+            onClose={() => setIsLoginOpen(false)}
+            onLoginSuccess={() => {
+              setIsAuthenticated(true);
+              setIsLoginOpen(false);
+              checkAuth(); // Re-check auth after login
+            }}
+          />
+        )}
       </div>
       <Footer />
     </>

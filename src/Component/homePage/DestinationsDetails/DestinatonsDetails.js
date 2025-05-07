@@ -13,7 +13,7 @@ import DestinationCTA from "./DestinationCTA";
 import RelatedDestinations from "./RelatedDestinations";
 
 import "./DestinationDetails.css";
-import Footer from "../Footer";
+
 
 const DestinationDetails = () => {
   const { id } = useParams();
@@ -230,7 +230,7 @@ const DestinationDetails = () => {
           )}
       </div>
     </section>
-    <Footer/>
+   
     </>
   );
 };

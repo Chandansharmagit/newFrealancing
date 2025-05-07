@@ -1,30 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import BookingForm from './BookingForm';
 import LoginPopup from '../../Authentications/LoginPopup';
 
 const DestinationCTA = ({ title, id }) => {
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Utility function to get a cookie by name
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
-  };
+  // Check authentication status
+  const checkAuth = useCallback(async () => {
+    try {
+      const response = await fetch("https://authenticationagency.onrender.com/api/check-auth", {
+        method: "GET",
+        credentials: "include",
+      });
+      const data = await response.json();
+      console.log("Auth check response:", data);
+      setIsAuthenticated(data.isAuthenticated);
+      return data.isAuthenticated;
+    } catch (error) {
+      console.error("Error checking auth:", error.message);
+      setIsAuthenticated(false);
+      return false;
+    }
+  }, []);
 
-  const handleOpenBooking = (e) => {
+  const handleOpenBooking = async (e) => {
     e.preventDefault();
-    // Check for the specific JWT cookie
-    const token = getCookie('jwt_token_for_traveling_website_ChandanSharma');
+    const isAuth = await checkAuth();
     
-    if (token) {
-      // If cookie exists, show the booking form
+    if (isAuth) {
+      // If authenticated, show the booking form
       setShowBookingForm(true);
+      setShowLoginPopup(false);
     } else {
-      // If cookie does not exist, show the login popup
+      // If not authenticated, show the login popup
       setShowLoginPopup(true);
+      setShowBookingForm(false);
     }
   };
 
@@ -61,6 +73,12 @@ const DestinationCTA = ({ title, id }) => {
         <LoginPopup 
           isOpen={showLoginPopup}
           onClose={handleCloseLoginPopup}
+          onLoginSuccess={() => {
+            setIsAuthenticated(true);
+            setShowLoginPopup(false);
+            setShowBookingForm(true);
+            checkAuth(); // Re-check auth after login
+          }}
         />
       )}
     </div>

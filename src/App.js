@@ -104,8 +104,8 @@ function App() {
         <Route path="/destination/:id" element={<DestinationDetails />} />
         <Route path="/destinations" element={<ViewAllDestinations />} />
         <Route path="/tours" element={<ViewAllTours />} />
-        <Route path="/AboutUs-page.html" element={<AboutUs />} />
-        <Route path="/Experiencepage.html" element={<Experiences />} />
+        <Route path="/AboutUs-page" element={<AboutUs />} />
+        <Route path="/Experiencepage" element={<Experiences />} />
         <Route path="/contact-form" element={<ContactForm />} />
         <Route path="/user-profile" element={<UserProfile />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />

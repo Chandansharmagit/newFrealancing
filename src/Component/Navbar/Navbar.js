@@ -120,12 +120,12 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/experiences" className="nav-link" onClick={closeMenu}>
+              <Link to="/Experiencepage" className="nav-link" onClick={closeMenu}>
                 Experiences
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/about" className="nav-link" onClick={closeMenu}>
+              <Link to="/AboutUs-page" className="nav-link" onClick={closeMenu}>
                 About
               </Link>
             </li>
