@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./Component/homePage/Homepage";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Navbar from "./Component/Navbar/Navbar";
 import LoginPage from "./Component/Authentications/Login";
 import RegisterPage from "./Component/Authentications/RegisterPage";
@@ -36,7 +36,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Track auth state
 
   // Function to check authentication by calling the backend
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     try {
       const response = await fetch("https://authenticationagency.onrender.com/api/check-auth", {
         method: "GET",
@@ -57,7 +57,7 @@ function App() {
         setIsLoginOpen(true);
       }
     }
-  };
+  }, [isLoginOpen]); // Include isLoginOpen as a dependency
 
   useEffect(() => {
     // Initial check for authentication
@@ -72,13 +72,13 @@ function App() {
 
     // Cleanup timer on unmount
     return () => clearTimeout(timer);
-  }, []);
+  }, [checkAuth, isAuthenticated]); // Include checkAuth and isAuthenticated
 
   // Optional: Poll the backend periodically (if needed)
   useEffect(() => {
     const interval = setInterval(checkAuth, 30000); // Check every 30 seconds
     return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
+  }, [checkAuth]); // Include checkAuth
 
   const openLoginPopup = () => {
     setIsLoginOpen(true);
