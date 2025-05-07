@@ -33,52 +33,48 @@ import Footer from "./Component/homePage/Footer";
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(null); // Track auth state
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [hasShownPopup, setHasShownPopup] = useState(false); // Track if popup has been shown
 
   // Function to check authentication by calling the backend
   const checkAuth = useCallback(async () => {
     try {
       const response = await fetch("https://authenticationagency.onrender.com/api/check-auth", {
         method: "GET",
-        credentials: "include", // Include cookies in the request
+        credentials: "include",
       });
       const data = await response.json();
       console.log("Auth check response:", data);
       setIsAuthenticated(data.isAuthenticated);
       if (data.isAuthenticated) {
         setIsLoginOpen(false); // Close popup if authenticated
-      } else if (!isLoginOpen) {
-        setIsLoginOpen(true); // Open popup if not authenticated
       }
     } catch (error) {
       console.error("Error checking auth:", error.message);
       setIsAuthenticated(false);
-      if (!isLoginOpen) {
-        setIsLoginOpen(true);
-      }
     }
-  }, [isLoginOpen]); // Include isLoginOpen as a dependency
+  }, []); // Removed isLoginOpen dependency
 
+  // Initial auth check and 8-second popup timer
   useEffect(() => {
-    // Initial check for authentication
-    checkAuth();
+    checkAuth(); // Check auth on mount
 
-    // Set timer to show popup if not authenticated after 8 seconds
+    // Set timer to show popup after 8 seconds if not authenticated
     const timer = setTimeout(() => {
-      if (isAuthenticated === false) {
+      if (isAuthenticated === false && !hasShownPopup) {
         setIsLoginOpen(true);
+        setHasShownPopup(true); // Prevent future auto-opening
       }
     }, 8000);
 
-    // Cleanup timer on unmount
-    return () => clearTimeout(timer);
-  }, [checkAuth, isAuthenticated]); // Include checkAuth and isAuthenticated
+    return () => clearTimeout(timer); // Cleanup timer
+  }, [isAuthenticated, hasShownPopup, checkAuth]);
 
   // Optional: Poll the backend periodically (if needed)
   useEffect(() => {
     const interval = setInterval(checkAuth, 30000); // Check every 30 seconds
     return () => clearInterval(interval); // Cleanup on unmount
-  }, [checkAuth]); // Include checkAuth
+  }, [checkAuth]);
 
   const openLoginPopup = () => {
     setIsLoginOpen(true);
@@ -86,6 +82,7 @@ function App() {
 
   const closeLoginPopup = () => {
     setIsLoginOpen(false);
+    setHasShownPopup(true); // Prevent reopening on timer or periodic checks
   };
 
   return (
