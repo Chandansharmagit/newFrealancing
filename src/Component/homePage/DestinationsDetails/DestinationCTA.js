@@ -5,7 +5,6 @@ import LoginPopup from '../../Authentications/LoginPopup';
 const DestinationCTA = ({ title, id }) => {
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Check authentication status
   const checkAuth = useCallback(async () => {
@@ -16,11 +15,9 @@ const DestinationCTA = ({ title, id }) => {
       });
       const data = await response.json();
       console.log("Auth check response:", data);
-      setIsAuthenticated(data.isAuthenticated);
       return data.isAuthenticated;
     } catch (error) {
       console.error("Error checking auth:", error.message);
-      setIsAuthenticated(false);
       return false;
     }
   }, []);
@@ -30,11 +27,9 @@ const DestinationCTA = ({ title, id }) => {
     const isAuth = await checkAuth();
     
     if (isAuth) {
-      // If authenticated, show the booking form
       setShowBookingForm(true);
       setShowLoginPopup(false);
     } else {
-      // If not authenticated, show the login popup
       setShowLoginPopup(true);
       setShowBookingForm(false);
     }
@@ -74,10 +69,9 @@ const DestinationCTA = ({ title, id }) => {
           isOpen={showLoginPopup}
           onClose={handleCloseLoginPopup}
           onLoginSuccess={() => {
-            setIsAuthenticated(true);
             setShowLoginPopup(false);
             setShowBookingForm(true);
-            checkAuth(); // Re-check auth after login
+            checkAuth();
           }}
         />
       )}
