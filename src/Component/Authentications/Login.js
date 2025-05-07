@@ -68,9 +68,9 @@ const LoginPage = () => {
         },
         {
           withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
+          // headers: {
+          //   "Content-Type": "application/json",
+          // },
         }
       );
 
@@ -205,6 +205,7 @@ const LoginPage = () => {
                 >
                   <i className="icon-google"></i> Google
                 </a>
+                
               </div>
             </div>
           </form>

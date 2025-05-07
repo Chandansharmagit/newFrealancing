@@ -9,7 +9,7 @@ function UserList({ filter }) {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:9090/users');
+        const response = await fetch('https://authenticationagency.onrender.com/api/users');
         if (!response.ok) {
           throw new Error('Failed to fetch users');
         }

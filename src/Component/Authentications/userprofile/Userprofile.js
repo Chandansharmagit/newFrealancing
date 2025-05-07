@@ -22,7 +22,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("https://authenticationagency.onrender.com/api/check-auth", {
+        const response = await fetch("http://localhost:9090/api/check-auth", {
           method: "GET",
           credentials: "include",
         });
