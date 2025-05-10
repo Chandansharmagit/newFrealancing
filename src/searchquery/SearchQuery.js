@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Search, ArrowLeft, Filter, ChevronLeft, ChevronRight, MapPin, Calendar } from 'lucide-react';
+import { ArrowLeft, Filter, ChevronLeft, ChevronRight, MapPin, Calendar } from 'lucide-react';
 import './SearchQuery.css';
 
 const SearchQuery = () => {
@@ -15,44 +15,47 @@ const SearchQuery = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const fetchSearchResults = async (newPage = 1, sort = sortBy) => {
-    setLoading(true);
-    setError('');
-    setSearchResults([]);
-    setSearchMessage('');
+  const fetchSearchResults = useCallback(
+    async (newPage = 1, sort = sortBy) => {
+      setLoading(true);
+      setError('');
+      setSearchResults([]);
+      setSearchMessage('');
 
-    const params = new URLSearchParams(location.search);
-    const destination = params.get('destination') || '';
-    const checkIn = params.get('checkIn') || '';
-    const checkOut = params.get('checkOut') || '';
+      const params = new URLSearchParams(location.search);
+      const destination = params.get('destination') || '';
+      const checkIn = params.get('checkIn') || '';
+      const checkOut = params.get('checkOut') || '';
 
-    try {
-      const response = await fetch('http://localhost:5000/api/tours/search', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destination, checkIn, checkOut, page: newPage, limit: 10, sort }),
-      });
+      try {
+        const response = await fetch('http://localhost:5000/api/tours/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ destination, checkIn, checkOut, page: newPage, limit: 10, sort }),
+        });
 
-      const data = await response.json();
-      if (data.success) {
-        setSearchResults(data.results);
-        setSearchMessage(data.message);
-        setPage(data.page);
-        setTotalPages(data.pages);
-      } else {
-        setError(data.error || 'Failed to fetch tours');
+        const data = await response.json();
+        if (data.success) {
+          setSearchResults(data.results);
+          setSearchMessage(data.message);
+          setPage(data.page);
+          setTotalPages(data.pages);
+        } else {
+          setError(data.error || 'Failed to fetch tours');
+        }
+      } catch (error) {
+        setError('An error occurred while searching. Please try again.');
+        console.error('Error fetching tours:', error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      setError('An error occurred while searching. Please try again.');
-      console.error('Error fetching tours:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [sortBy, location.search]
+  );
 
   useEffect(() => {
     fetchSearchResults();
-  }, [location.search]);
+  }, [location.search, fetchSearchResults]);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
