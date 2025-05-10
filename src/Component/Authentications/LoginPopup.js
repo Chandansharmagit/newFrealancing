@@ -165,7 +165,7 @@ const LoginPopup = ({ isOpen, onClose }) => {
       >
         <div className="login-popup-sidebar">
           <motion.img
-            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            src="https://clipart-library.com/img1/1101314.jpg"
             alt="Login background"
             className="login-popup-sidebar-image"
             variants={childVariants}

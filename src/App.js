@@ -30,6 +30,7 @@ import TourDashboardPage from "./toursComponent/DynamicTour/dashboardUpdatingDel
 import FeedbackPopup from "./Feedback.js/Feedback";
 import FeedbackDashboard from "./Feedback.js/Feedbackdashboard/Feedbackdashboard";
 import Footer from "./Component/homePage/Footer";
+import SearchQuery from "./searchquery/SearchQuery";
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -101,6 +102,7 @@ function App() {
           path="/login/register/forgot-password/Change-password"
           element={<ResetPasswordPage />}
         />
+         <Route path="/search" element={<SearchQuery />} />
         <Route path="/destination/:id" element={<DestinationDetails />} />
         <Route path="/destinations" element={<ViewAllDestinations />} />
         <Route path="/tours" element={<ViewAllTours />} />

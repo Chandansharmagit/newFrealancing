@@ -1,0 +1,589 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(180deg, #f0f2ff 0%, #e6e9ff 100%);
+    color: #0f172a;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  .search-page {
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 32px;
+    min-height: 100vh;
+    margin-top: 5rem;
+  }
+  
+  .search-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    padding: 16px 32px;
+    border-radius: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 32px;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+  }
+  
+  .back-button, .filter-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: linear-gradient(45deg, #6b21a8, #a855f7);
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .back-button:hover, .filter-button:hover {
+    background: linear-gradient(45deg, #a855f7, #d8b4fe);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+  }
+  
+  .search-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #1e293b;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 12px 20px;
+    border-radius: 10px;
+  }
+  
+  .search-destination, .search-dates {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .filter-menu {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+    margin-bottom: 32px;
+    transform-origin: top;
+    animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .filter-option {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .filter-option label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #000000;
+  }
+  
+  .filter-option select {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    color: #000000;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-option select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.3);
+  }
+  
+  .results-count {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 24px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+  }
+  
+  .results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .tour-card {
+    display: flex;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  
+  .tour-card:nth-child(2) { animation-delay: 0.15s; }
+  .tour-card:nth-child(3) { animation-delay: 0.3s; }
+  .tour-card:nth-child(4) { animation-delay: 0.45s; }
+  .tour-card:nth-child(n+5) { animation-delay: 0.6s; }
+  
+  .tour-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 1);
+  }
+  
+  .tour-image {
+    position: relative;
+    width: 360px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 16px 0 0 16px;
+  }
+  
+  .tour-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .tour-card:hover .tour-image img {
+    transform: scale(1.08);
+  }
+  
+  .tour-duration {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: transparent;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+   
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .tour-card:hover .tour-duration {
+    transform: translateY(-4px);
+  }
+  
+  .placeholder-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #cbd5e1, #94a3b8);
+    color: #475569;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  
+  .tour-details {
+    padding: 24px;
+    flex: 1;
+  }
+  
+  .tour-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
+  }
+  
+  .tour-location {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #475569;
+    margin-bottom: 16px;
+  }
+  
+  .tour-description {
+    font-size: 15px;
+    text-align: left;
+    color: #64748b;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .tour-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .tour-price {
+    font-size: 20px;
+    font-weight: 700;
+    background: linear-gradient(45deg, #f43f5e, #fb7185);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .view-details-button {
+    padding: 12px 28px;
+    background: linear-gradient(45deg, #6b21a8, #a855f7);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .view-details-button:hover {
+    background: linear-gradient(45deg, #a855f7, #d8b4fe);
+    transform: scale(1.06);
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+  }
+  
+  .loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 64px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+  }
+  
+  .loader {
+    border: 6px solid rgba(255, 255, 255, 0.2);
+    border-top: 6px solid #a855f7;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    animation: spin 0.7s linear infinite;
+  }
+  
+  .loader-container p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+  }
+  
+  .error-container {
+    text-align: center;
+    padding: 64px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .error-container p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f43f5e;
+    margin-bottom: 20px;
+  }
+  
+  .retry-button, .explore-button {
+    padding: 12px 32px;
+    background: linear-gradient(45deg, #6b21a8, #a855f7);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .retry-button:hover, .explore-button:hover {
+    background: linear-gradient(45deg, #a855f7, #d8b4fe);
+    transform: scale(1.06);
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+  }
+  
+  .no-results-container {
+    text-align: center;
+    padding: 64px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .no-results-container h3 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 16px;
+  }
+  
+  .no-results-container p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #64748b;
+    margin-bottom: 20px;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 32px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .pagination-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .pagination-button:hover:not(:disabled) {
+    background: #a855f7;
+    transform: translateY(-2px);
+  }
+  
+  .pagination-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
+  .pagination-pages {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .page-number {
+    padding: 10px 18px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .page-number:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .page-number.active {
+    background: #a855f7;
+    color: #ffffff;
+  }
+  
+  .page-ellipsis {
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #cbd5e1;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: scaleY(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .search-page {
+      padding: 24px;
+    }
+  
+    .tour-image {
+      width: 300px;
+    }
+  
+    .tour-name {
+      font-size: 22px;
+    }
+  
+    .tour-description {
+      -webkit-line-clamp: 3;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .search-page {
+      padding: 16px;
+    }
+  
+    .search-header {
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 12px 20px;
+    }
+  
+    .search-info {
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  
+    .tour-card {
+      flex-direction: column;
+      border-radius: 16px;
+    }
+  
+    .tour-image {
+      width: 100%;
+      height: 240px;
+      border-radius: 16px 16px 0 0;
+    }
+  
+    .tour-details {
+      padding: 20px;
+    }
+  
+    .tour-name {
+      font-size: 20px;
+    }
+  
+    .tour-location, .tour-description {
+      font-size: 14px;
+    }
+  
+    .tour-price {
+      font-size: 18px;
+    }
+  
+    .view-details-button {
+      padding: 10px 24px;
+      font-size: 14px;
+    }
+  
+    .pagination-controls {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .search-page {
+      padding: 12px;
+    }
+  
+    .search-header {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px 16px;
+    }
+  
+    .back-button, .filter-button {
+      width: 100%;
+      justify-content: center;
+      padding: 10px 20px;
+    }
+  
+    .filter-menu {
+      padding: 16px;
+    }
+  
+    .filter-option {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+  
+    .filter-option select {
+      width: 100%;
+    }
+  
+    .tour-image {
+      height: 200px;
+    }
+  
+    .tour-details {
+      padding: 16px;
+    }
+  
+    .tour-name {
+      font-size: 18px;
+    }
+  
+    .no-results-container, .error-container {
+      padding: 32px;
+    }
+  
+    .no-results-container h3 {
+      font-size: 22px;
+    }
+  
+    .no-results-container p, .error-container p {
+      font-size: 16px;
+    }
+  
+    .loader-container {
+      padding: 32px;
+    }
+  }
