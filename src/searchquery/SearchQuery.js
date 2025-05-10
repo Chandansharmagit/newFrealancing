@@ -28,7 +28,7 @@ const SearchQuery = () => {
       const checkOut = params.get('checkOut') || '';
 
       try {
-        const response = await fetch('http://localhost:5000/api/tours/search', {
+        const response = await fetch('https://backendtravelagencytwomicroservice.onrender.com/api/tours/search', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ destination, checkIn, checkOut, page: newPage, limit: 10, sort }),
