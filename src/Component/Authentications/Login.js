@@ -59,7 +59,6 @@ const LoginPage = () => {
     }
 
     try {
-      // Remove IP address fetching since backend handles it
       const response = await axios.post(
         "https://authenticationagency.onrender.com/login",
         {
@@ -74,14 +73,15 @@ const LoginPage = () => {
         }
       );
 
-      // Backend returns { message: "Login successful" }
       setMessage(response.data.message || "Login successful");
 
-      // Since user data isn't returned, we'll fetch it using /api/check-auth
       try {
-        const authResponse = await axios.get("https://authenticationagency.onrender.com/api/check-auth", {
-          withCredentials: true,
-        });
+        const authResponse = await axios.get(
+          "https://authenticationagency.onrender.com/api/check-auth",
+          {
+            withCredentials: true,
+          }
+        );
         const { user } = authResponse.data;
 
         if (user) {
@@ -91,10 +91,10 @@ const LoginPage = () => {
           localStorage.setItem("userContacts", user.contacts || "");
           localStorage.setItem("username", user.username);
           localStorage.setItem("userlocations", user.userlocation || "");
+          localStorage.setItem("profilePic", user.profilePic || ""); // Store profilePic
         }
       } catch (authError) {
         console.warn("Failed to fetch user data:", authError.message);
-        // Continue with navigation even if user data fetch fails
       }
 
       navigate("/user-profile");
@@ -103,15 +103,17 @@ const LoginPage = () => {
     } catch (error) {
       console.error("Login error:", error);
       let errorMessage = "An error occurred during login.";
-      
+
       if (error.response) {
         if (error.response.status === 401) {
-          errorMessage = error.response.data.message || "Invalid email or password.";
+          errorMessage =
+            error.response.data.message || "Invalid email or password.";
         } else if (error.response.data.message) {
           errorMessage = error.response.data.message;
         }
       } else if (error.request) {
-        errorMessage = "Unable to connect to the server. Please try again later.";
+        errorMessage =
+          "Unable to connect to the server. Please try again later.";
       }
 
       setMessage(errorMessage);
@@ -183,7 +185,10 @@ const LoginPage = () => {
                 />
                 <label htmlFor="rememberMe">Remember me</label>
               </div>
-              <Link to="/login/register/forgot-password" className="forgot-password">
+              <Link
+                to="/login/register/forgot-password"
+                className="forgot-password"
+              >
                 Forgot Password?
               </Link>
             </div>
@@ -205,7 +210,6 @@ const LoginPage = () => {
                 >
                   <i className="icon-google"></i> Google
                 </a>
-                
               </div>
             </div>
           </form>

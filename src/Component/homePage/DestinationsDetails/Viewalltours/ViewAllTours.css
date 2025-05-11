@@ -13,6 +13,9 @@
   margin: 0 auto;
   width: 100%;
 }
+.all{
+  text-align: left;
+}
 
 /* Header Styles */
 .view-all-tours-header {

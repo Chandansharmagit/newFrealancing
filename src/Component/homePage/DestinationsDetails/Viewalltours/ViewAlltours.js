@@ -261,7 +261,7 @@ const ViewAllTours = () => {
     <section className="view-all-tours-section">
       <div className="view-all-tours-container">
         <div className="view-all-tours-header">
-          <h1>All Tours</h1>
+          <h1 className='all'>All Tours</h1>
           <p>Explore all travel tours and premium packages with TravelSansar</p>
         </div>
 

@@ -7,8 +7,16 @@ const Navbar = () => {
   const [navbarActive, setNavbarActive] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("username")); // Check if user is logged in
-  const [username, setUsername] = useState(localStorage.getItem("username") || "Guest"); // Get username from localStorage
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem("username")
+  );
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || "Guest"
+  );
+  const [profilePic, setProfilePic] = useState(
+    localStorage.getItem("profilePic") ||
+      "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/35af6a41332353.57a1ce913e889.jpg"
+  ); // Initialize profilePic from localStorage
   const dropdownRef = useRef(null);
   const navRef = useRef(null);
 
@@ -27,12 +35,16 @@ const Navbar = () => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
       }
-      if (navRef.current && !navRef.current.contains(event.target) && menuOpen) {
+      if (
+        navRef.current &&
+        !navRef.current.contains(event.target) &&
+        menuOpen
+      ) {
         setMenuOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.addEventListener("mousedown", handleClickOutside);
   }, [menuOpen]);
 
   // Handle resize to close mobile menu
@@ -46,18 +58,23 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, [menuOpen]);
 
-  // Sync isLoggedIn and username with localStorage
+  // Sync isLoggedIn, username, and profilePic with localStorage
   useEffect(() => {
     const checkLoginStatus = () => {
       const storedUsername = localStorage.getItem("username");
+      const storedProfilePic = localStorage.getItem("profilePic");
       setIsLoggedIn(!!storedUsername);
       setUsername(storedUsername || "Guest");
+      setProfilePic(
+        storedProfilePic ||
+          "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/35af6a41332353.57a1ce913e889.jpg"
+      );
     };
 
     // Check initially
     checkLoginStatus();
 
-    // Listen for storage changes (e.g., logout from another tab)
+    // Listen for storage changes (e.g., login/logout from another tab)
     window.addEventListener("storage", checkLoginStatus);
     return () => window.removeEventListener("storage", checkLoginStatus);
   }, []);
@@ -66,7 +83,16 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await fetch("https://authenticationagency.onrender.com/logout", {
+        method: "GET",
+        credentials: "include",
+      });
+    } catch (err) {
+      console.error("Error during logout:", err.message);
+    }
+
     // Clear localStorage
     localStorage.removeItem("user");
     localStorage.removeItem("userId");
@@ -74,15 +100,22 @@ const Navbar = () => {
     localStorage.removeItem("userContacts");
     localStorage.removeItem("username");
     localStorage.removeItem("userlocations");
+    localStorage.removeItem("profilePic");
 
     // Update state
     setIsLoggedIn(false);
     setUsername("Guest");
+    setProfilePic(
+      "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/35af6a41332353.57a1ce913e889.jpg"
+    );
     setDropdownOpen(false);
   };
 
   return (
-    <nav ref={navRef} className={`navbar ${navbarActive ? "navbar-scrolled" : ""}`}>
+    <nav
+      ref={navRef}
+      className={`navbar ${navbarActive ? "navbar-scrolled" : ""}`}
+    >
       <div className="navbar-container">
         <div className="navbar-logo">
           <Link to="/" className="logo-link">
@@ -120,7 +153,11 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/Experiencepage" className="nav-link" onClick={closeMenu}>
+              <Link
+                to="/Experiencepage"
+                className="nav-link"
+                onClick={closeMenu}
+              >
                 Experiences
               </Link>
             </li>
@@ -146,7 +183,11 @@ const Navbar = () => {
                 <Link to="/login" className="btn-secondary" onClick={closeMenu}>
                   Login
                 </Link>
-                <Link to="/register" className="btn-secondary" onClick={closeMenu}>
+                <Link
+                  to="/register"
+                  className="btn-secondary"
+                  onClick={closeMenu}
+                >
                   Register
                 </Link>
               </div>
@@ -159,7 +200,7 @@ const Navbar = () => {
                 >
                   <div className="profile-avatar">
                     <img
-                      src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/35af6a41332353.57a1ce913e889.jpg"
+                      src={profilePic}
                       alt="User Profile"
                       onError={(e) => {
                         e.target.src = `https://ui-avatars.com/api/?name=${username}&background=0D8ABC&color=fff`;
@@ -170,7 +211,9 @@ const Navbar = () => {
                   <i className={`chevron ${dropdownOpen ? "up" : "down"}`}></i>
                 </button>
 
-                <div className={`dropdown-menu ${dropdownOpen ? "active" : ""}`}>
+                <div
+                  className={`dropdown-menu ${dropdownOpen ? "active" : ""}`}
+                >
                   <Link
                     to="/user-profile"
                     className="dropdown-item"
@@ -192,7 +235,7 @@ const Navbar = () => {
                     to="/logout"
                     className="dropdown-item logout"
                     onClick={(e) => {
-                      e.preventDefault(); // Prevent navigation
+                      e.preventDefault();
                       handleLogout();
                     }}
                   >

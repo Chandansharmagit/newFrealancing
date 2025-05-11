@@ -106,12 +106,14 @@
 
 .dg-card-title {
   font-size: 18px;
+  text-align: left;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
 .dg-card-title a {
   color: #333;
+  text-align: left;
   text-decoration: none;
   transition: color 0.2s ease;
 }

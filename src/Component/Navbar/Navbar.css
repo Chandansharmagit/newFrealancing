@@ -28,6 +28,13 @@
   box-shadow: var(--shadow-sm);
 }
 
+.profile-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .navbar-scrolled {
   height: var(--nav-height-scrolled);
   box-shadow: var(--shadow-md);
