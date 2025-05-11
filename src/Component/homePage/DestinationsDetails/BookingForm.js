@@ -32,7 +32,7 @@ const BookingForm = ({ destination, onClose }) => {
     setError(null);
 
     try {
-      const response = await axios.post(`http://localhost:5000/api/bookings/${id}`, formData, {
+      const response = await axios.post(`https://backendtravelagencytwomicroservice.onrender.com/api/bookings/${id}`, formData, {
         headers: {
           'Content-Type': 'application/json'
         }
