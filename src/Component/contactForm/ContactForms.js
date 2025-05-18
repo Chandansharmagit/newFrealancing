@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./ContactForm.css";
 
-
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -78,9 +77,10 @@ const ContactForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate required fields
     if (
       !formData.name ||
       !formData.email ||
@@ -96,6 +96,7 @@ const ContactForm = () => {
       return;
     }
 
+    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setFormStatus({
@@ -106,39 +107,69 @@ const ContactForm = () => {
       return;
     }
 
-    setTimeout(() => {
-      console.log("Form submitted:", formData);
+    try {
       setFormStatus({
-        submitted: true,
+        submitted: false,
         error: false,
-        message:
-          "Thank you for contacting us! Your travel request has been received. One of our travel experts will get back to you within 24 hours.",
+        message: "Submitting...",
       });
 
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        destination: "",
-        travelType: "",
-        budget: "",
-        travelers: "",
-        departureDate: "",
-        returnDate: "",
-        message: "",
-        hearAbout: "",
-        subscribe: false,
-        termsAccepted: false,
+      const response = await fetch("https://backendtravelagencytwomicroservice.onrender.com/api/travel/request", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
 
-      setTimeout(() => {
+      if (response.ok) {
+        setFormStatus({
+          submitted: true,
+          error: false,
+          message:
+            "Thank you for contacting us! Your travel request has been received. One of our travel experts will get back to you within 24 hours.",
+        });
+
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          destination: "",
+          travelType: "",
+          budget: "",
+          travelers: "",
+          departureDate: "",
+          returnDate: "",
+          message: "",
+          hearAbout: "",
+          subscribe: false,
+          termsAccepted: false,
+        });
+
+        // Clear success message after 8 seconds
+        setTimeout(() => {
+          setFormStatus({
+            submitted: false,
+            error: false,
+            message: "",
+          });
+        }, 8000);
+      } else {
+        const errorData = await response.json();
         setFormStatus({
           submitted: false,
-          error: false,
-          message: "",
+          error: true,
+          message: errorData.message || "Failed to submit request.",
         });
-      }, 8000);
-    }, 1000);
+      }
+    } catch (err) {
+      setFormStatus({
+        submitted: false,
+        error: true,
+        message: "Error: " + err.message,
+      });
+    }
   };
 
   return (
@@ -146,7 +177,7 @@ const ContactForm = () => {
       <section className="twcf-contact-section">
         <div className="twcf-background-split">
           <div className="twcf-white-half"></div>
-          <div 
+          <div
             className="twcf-image-half"
             style={{
               backgroundImage: `url('https://img.freepik.com/free-vector/colorful-abstract-background_23-2148466263.jpg')`,
@@ -206,8 +237,12 @@ const ContactForm = () => {
             <div className="twcf-credentials">
               <h3>Our Credentials</h3>
               <div className="twcf-credential-badges">
-                <div className="twcf-credential-badge twcf-iata">IATA Accredited</div>
-                <div className="twcf-credential-badge twcf-asta">ASTA Member</div>
+                <div className="twcf-credential-badge twcf-iata">
+                  IATA Accredited
+                </div>
+                <div className="twcf-credential-badge twcf-asta">
+                  ASTA Member
+                </div>
                 <div className="twcf-credential-badge twcf-sustainable">
                   Sustainable Tourism
                 </div>
@@ -289,7 +324,9 @@ const ContactForm = () => {
 
             <div className="twcf-contact-form">
               <div className="twcf-form-section">
-                <h3 className="twcf-form-section-title">Personal Information</h3>
+                <h3 className="twcf-form-section-title">
+                  Personal Information
+                </h3>
 
                 <div className="twcf-form-group">
                   <label htmlFor="name">
@@ -446,11 +483,14 @@ const ContactForm = () => {
               </div>
 
               <div className="twcf-form-section">
-                <h3 className="twcf-form-section-title">Additional Information</h3>
+                <h3 className="twcf-form-section-title">
+                  Additional Information
+                </h3>
 
                 <div className="twcf-form-group twcf-full-width">
                   <label htmlFor="message">
-                    Your Travel Preferences <span className="twcf-required">*</span>
+                    Your Travel Preferences{" "}
+                    <span className="twcf-required">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -504,8 +544,8 @@ const ContactForm = () => {
                 <p>Your information is secure and never shared.</p>
               </div>
 
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="twcf-submit-button"
                 onClick={handleSubmit}
                 disabled={formStatus.submitted}
@@ -516,13 +556,13 @@ const ContactForm = () => {
 
             <div className="twcf-contact-cta">
               <p>
-                Need help now? Call <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                Need help now? Call{" "}
+                <a href="tel:+15551234567">+1 (555) 123-4567</a>
               </p>
             </div>
           </div>
         </div>
       </section>
-    
     </>
   );
 };

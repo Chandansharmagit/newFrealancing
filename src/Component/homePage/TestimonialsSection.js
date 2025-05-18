@@ -15,7 +15,7 @@ const TestimonialsSection = () => {
     const fetchTestimonials = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch('http://localhost:5000/api/feedback');
+        const response = await fetch('https://backendtravelagencytwomicroservice.onrender.com/api/feedback');
         const result = await response.json();
         if (result.success) {
           // Map API response to match expected structure

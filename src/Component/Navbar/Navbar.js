@@ -184,7 +184,7 @@ const Navbar = () => {
                   Login
                 </Link>
                 <Link
-                  to="/register"
+                  to="/login/register"
                   className="btn-secondary"
                   onClick={closeMenu}
                 >

@@ -31,6 +31,7 @@ import FeedbackPopup from "./Feedback.js/Feedback";
 import FeedbackDashboard from "./Feedback.js/Feedbackdashboard/Feedbackdashboard";
 import Footer from "./Component/homePage/Footer";
 import SearchQuery from "./searchquery/SearchQuery";
+import Dashboard from "./Component/contactForm/Dashboards/Dashboard";
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -120,6 +121,7 @@ function App() {
             element={<MainUploadingDestination />}
           />
           <Route path="Tour-page-dashboard" element={<TourDashboardPage />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="Allusers" element={<Allusers />} />
           <Route path="Create-plan-tour" element={<CreateTourPage />} />
           <Route path="user-tracking" element={<TrackingDashboard />} />

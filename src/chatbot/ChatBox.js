@@ -5,7 +5,7 @@ import './ChatBox.css';
 const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hello! Welcome to Travel World Furniture. How can I help you today?", sender: "agent" }
+    { text: "Hello! Welcome to Travel World. How can I help you today?", sender: "agent" }
   ]);
   const [inputText, setInputText] = useState("");
   const messagesEndRef = useRef(null);

@@ -58,7 +58,7 @@ const Sidebar = () => {
     { 
       category: "Main",
       items: [
-        { path: '/', name: 'Dashboard', icon: <FiHome /> }
+        { path: '/dashboard/dashboard', name: 'Dashboard', icon: <FiHome /> }
       ]
     },
     {
