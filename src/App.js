@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 
 import HomePage from "./Component/homePage/Homepage";
@@ -33,21 +33,23 @@ import FeedbackDashboard from "./Feedback.js/Feedbackdashboard/Feedbackdashboard
 import Footer from "./Component/homePage/Footer";
 import SearchQuery from "./searchquery/SearchQuery";
 import Dashboard from "./Component/contactForm/Dashboards/Dashboard";
+import LoginDashboardAuth from "./DashboardLinks/LoginDashboardAuth";
 
-function LocationListener({ onLocationChange }) {
-  const location = useLocation();
-
-  useEffect(() => {
-    onLocationChange(location);
-  }, [location, onLocationChange]);
-
-  return null;
+function PrivateRoute({ children, isAuthenticated, setShowAuthPopup }) {
+  if (!isAuthenticated) {
+    setShowAuthPopup(true); // Instantly show the auth popup
+    return <Navigate to="/" replace />;
+  }
+  return children;
 }
 
-function App() {
+function AppContent() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-  const [hasShownPopup, setHasShownPopup] = useState(false); // Track if popup has been shown
+  const [hasShownPopup, setHasShownPopup] = useState(false);
+  const [isDashboardAuthOpen, setIsDashboardAuthOpen] = useState(false);
+  const [isDashboardAuthenticated, setIsDashboardAuthenticated] = useState(false);
+  const navigate = useNavigate(); // Use navigate within router context
 
   const checkAuth = useCallback(async () => {
     try {
@@ -62,7 +64,7 @@ function App() {
       console.log("Auth check response:", data);
       setIsAuthenticated(data.isAuthenticated);
       if (data.isAuthenticated) {
-        setIsLoginOpen(false); // Close popup if authenticated
+        setIsLoginOpen(false);
       }
     } catch (error) {
       console.error("Error checking auth:", error.message);
@@ -70,34 +72,25 @@ function App() {
     }
   }, []);
 
-  // Initial auth check and 8-second popup timer
+  // Initial auth check and 8-second popup timer for general login
   useEffect(() => {
     checkAuth();
 
     const timer = setTimeout(() => {
       if (isAuthenticated === false && !hasShownPopup) {
         setIsLoginOpen(true);
-        setHasShownPopup(true); // Prevent future auto-opening
+        setHasShownPopup(true);
       }
     }, 8000);
 
     return () => clearTimeout(timer);
   }, [isAuthenticated, hasShownPopup, checkAuth]);
 
-  // Periodic auth check every 30 seconds
+  // Periodic auth check every 30 seconds for general auth
   useEffect(() => {
     const interval = setInterval(checkAuth, 30000);
     return () => clearInterval(interval);
   }, [checkAuth]);
-
-  // Handle Google Analytics page tracking on route change
-  const handleLocationChange = (location) => {
-    if (window.gtag) {
-      window.gtag("config", "G-1YPCCQ4SW5", {
-        page_path: location.pathname + location.search,
-      });
-    }
-  };
 
   const openLoginPopup = () => {
     setIsLoginOpen(true);
@@ -105,13 +98,23 @@ function App() {
 
   const closeLoginPopup = () => {
     setIsLoginOpen(false);
-    setHasShownPopup(true); // Prevent reopening on timer or periodic checks
+    setHasShownPopup(true);
+  };
+
+  const handleDashboardAuth = (isSuccess) => {
+    setIsDashboardAuthenticated(isSuccess);
+    setIsDashboardAuthOpen(!isSuccess); // Close popup on success, keep open on failure
+    if (isSuccess) {
+      navigate("/dashboard/dashboard"); // Redirect to /dashboard/dashboard on success
+    }
+  };
+
+  const closeDashboardAuth = () => {
+    setIsDashboardAuthOpen(false);
   };
 
   return (
-    <BrowserRouter>
-      <LocationListener onLocationChange={handleLocationChange} />
-
+    <>
       <Navbar openLoginPopup={openLoginPopup} />
 
       <Routes>
@@ -138,7 +141,17 @@ function App() {
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/sidebar" element={<Sidebar />} />
         <Route path="/u" element={<Allusers />} />
-        <Route path="/dashboard" element={<MainLayout />}>
+        <Route
+          path="/dashboard/*"
+          element={
+            <PrivateRoute
+              isAuthenticated={isDashboardAuthenticated}
+              setShowAuthPopup={setIsDashboardAuthOpen}
+            >
+              <MainLayout />
+            </PrivateRoute>
+          }
+        >
           <Route path="upload-destination" element={<DestinationUpload />} />
           <Route
             path="update-destinations"
@@ -156,9 +169,22 @@ function App() {
 
       <Footer />
       <LoginPopup isOpen={isLoginOpen} onClose={closeLoginPopup} />
+      <LoginDashboardAuth
+        isOpen={isDashboardAuthOpen}
+        onClose={closeDashboardAuth}
+        onAuthenticate={handleDashboardAuth}
+      />
       <CookieBanner />
       <ChatBox />
       <FeedbackPopup />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }
