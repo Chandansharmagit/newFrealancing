@@ -34,7 +34,7 @@
     <meta name="robots" content="index, follow" />
 
     <!-- Sitemap Reference -->
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="sitemap" type="application/xml" href="sitemap.xml" />
 
     <!-- Open Graph (OG) Tags for Social Media -->
     <meta
@@ -76,6 +76,20 @@
     <!-- Additional SEO Enhancements -->
     <meta name="application-name" content="TravelSansar" />
     <meta name="msapplication-TileImage" content="%PUBLIC_URL%/logo192.png" />
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-1YPCCQ4SW5"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-1YPCCQ4SW5");
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

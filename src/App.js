@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./Component/homePage/Homepage";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
+
+import HomePage from "./Component/homePage/Homepage";
 import Navbar from "./Component/Navbar/Navbar";
 import LoginPage from "./Component/Authentications/Login";
 import RegisterPage from "./Component/Authentications/RegisterPage";
@@ -33,18 +34,30 @@ import Footer from "./Component/homePage/Footer";
 import SearchQuery from "./searchquery/SearchQuery";
 import Dashboard from "./Component/contactForm/Dashboards/Dashboard";
 
+function LocationListener({ onLocationChange }) {
+  const location = useLocation();
+
+  useEffect(() => {
+    onLocationChange(location);
+  }, [location, onLocationChange]);
+
+  return null;
+}
+
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [hasShownPopup, setHasShownPopup] = useState(false); // Track if popup has been shown
 
-  // Function to check authentication by calling the backend
   const checkAuth = useCallback(async () => {
     try {
-      const response = await fetch("https://authenticationagency.onrender.com/api/check-auth", {
-        method: "GET",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://authenticationagency.onrender.com/api/check-auth",
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
       const data = await response.json();
       console.log("Auth check response:", data);
       setIsAuthenticated(data.isAuthenticated);
@@ -55,13 +68,12 @@ function App() {
       console.error("Error checking auth:", error.message);
       setIsAuthenticated(false);
     }
-  }, []); // Removed isLoginOpen dependency
+  }, []);
 
   // Initial auth check and 8-second popup timer
   useEffect(() => {
-    checkAuth(); // Check auth on mount
+    checkAuth();
 
-    // Set timer to show popup after 8 seconds if not authenticated
     const timer = setTimeout(() => {
       if (isAuthenticated === false && !hasShownPopup) {
         setIsLoginOpen(true);
@@ -69,14 +81,23 @@ function App() {
       }
     }, 8000);
 
-    return () => clearTimeout(timer); // Cleanup timer
+    return () => clearTimeout(timer);
   }, [isAuthenticated, hasShownPopup, checkAuth]);
 
-  // Optional: Poll the backend periodically (if needed)
+  // Periodic auth check every 30 seconds
   useEffect(() => {
-    const interval = setInterval(checkAuth, 30000); // Check every 30 seconds
-    return () => clearInterval(interval); // Cleanup on unmount
+    const interval = setInterval(checkAuth, 30000);
+    return () => clearInterval(interval);
   }, [checkAuth]);
+
+  // Handle Google Analytics page tracking on route change
+  const handleLocationChange = (location) => {
+    if (window.gtag) {
+      window.gtag("config", "G-1YPCCQ4SW5", {
+        page_path: location.pathname + location.search,
+      });
+    }
+  };
 
   const openLoginPopup = () => {
     setIsLoginOpen(true);
@@ -89,7 +110,10 @@ function App() {
 
   return (
     <BrowserRouter>
+      <LocationListener onLocationChange={handleLocationChange} />
+
       <Navbar openLoginPopup={openLoginPopup} />
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/tour/:id" element={<TourDetailPage />} />
@@ -103,7 +127,7 @@ function App() {
           path="/login/register/forgot-password/Change-password"
           element={<ResetPasswordPage />}
         />
-         <Route path="/search" element={<SearchQuery />} />
+        <Route path="/search" element={<SearchQuery />} />
         <Route path="/destination/:id" element={<DestinationDetails />} />
         <Route path="/destinations" element={<ViewAllDestinations />} />
         <Route path="/tours" element={<ViewAllTours />} />
@@ -129,6 +153,7 @@ function App() {
           <Route path="users-feedback" element={<FeedbackDashboard />} />
         </Route>
       </Routes>
+
       <Footer />
       <LoginPopup isOpen={isLoginOpen} onClose={closeLoginPopup} />
       <CookieBanner />
