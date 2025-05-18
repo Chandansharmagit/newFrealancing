@@ -5,9 +5,7 @@ import './Sidebar.css';
 // Icons import - using react-icons
 import { 
   FiHome, 
-  FiMap, 
-  FiCalendar, 
-  FiHeart, 
+
   FiSettings, 
   FiUser, 
   FiMenu, 
