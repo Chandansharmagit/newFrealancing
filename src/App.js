@@ -34,6 +34,7 @@ import Footer from "./Component/homePage/Footer";
 import SearchQuery from "./searchquery/SearchQuery";
 import Dashboard from "./Component/contactForm/Dashboards/Dashboard";
 import LoginDashboardAuth from "./DashboardLinks/LoginDashboardAuth";
+import TeamDashboard from "./Component/AboutUs/Teamdashboard/TeamDashboard";
 
 function PrivateRoute({ children, isAuthenticated, setShowAuthPopup }) {
   if (!isAuthenticated) {
@@ -160,6 +161,7 @@ function AppContent() {
           <Route path="Tour-page-dashboard" element={<TourDashboardPage />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="Allusers" element={<Allusers />} />
+          <Route path="teams-managements" element={<TeamDashboard />} />
           <Route path="Create-plan-tour" element={<CreateTourPage />} />
           <Route path="user-tracking" element={<TrackingDashboard />} />
           <Route path="Booking-data" element={<BookingDashboard />} />

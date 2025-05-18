@@ -1,0 +1,374 @@
+/* Import Tailwind CSS */
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+/* Root variables for consistent theming */
+:root {
+  --primary-color: #3b82f6; /* Vibrant blue for buttons and accents */
+  --secondary-color: #f59e0b; /* Amber for highlights */
+  --background-color: #e5e7eb; /* Soft gray background */
+  --card-bg: rgba(255, 255, 255, 0.1); /* Glassmorphic background */
+  --card-border: rgba(255, 255, 255, 0.2);
+  --text-color: #111827; /* Dark gray for text */
+  --error-color: #ef4444; /* Red for errors */
+  --success-color: #10b981; /* Green for success */
+  --gradient-bg: linear-gradient(135deg, #3b82f6, #8b5cf6); /* Gradient for accents */
+}
+
+/* Base styles */
+.team-dashboard {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f3f4f6, #e5e7eb);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  padding: 2rem;
+  margin-top: 3rem;
+  overflow-x: hidden;
+}
+
+/* Container */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Dashboard title */
+.dashboard-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  background: var(--gradient-bg);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Section titles */
+.section-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1.75rem;
+  color: var(--text-color);
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--gradient-bg);
+  border-radius: 2px;
+}
+
+/* Form Section */
+.form-section {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.5rem;
+  transition: transform 0.3s ease;
+}
+
+.form-section:hover {
+  transform: translateY(-5px);
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 1.75rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-color);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.875rem;
+  border: 1px solid var(--card-border);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-group input[type="file"] {
+  padding: 0.5rem;
+  background: none;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.submit-button,
+.cancel-button {
+  padding: 0.875rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-button {
+  background: var(--gradient-bg);
+  color: white;
+  border: none;
+}
+
+.submit-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.submit-button:hover::before {
+  left: 100%;
+}
+
+.submit-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.cancel-button {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+  border: 1px solid var(--card-border);
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+}
+
+/* Error and Success Messages */
+.error-message {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+  font-weight: 500;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+}
+
+.success-message {
+  color: var(--success-color);
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+  font-weight: 500;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+}
+
+/* Table Section */
+.table-section {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Team Table */
+.team-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.team-table th,
+.team-table td {
+  padding: 1.25rem;
+  text-align: left;
+}
+
+.team-table th {
+  font-weight: 700;
+  color: var(--text-color);
+  background: rgba(255, 255, 255, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.team-table td {
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease;
+}
+
+.team-table tr:hover td {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.table-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  border: 1px solid var(--card-border);
+  transition: transform 0.3s ease;
+}
+
+.table-image:hover {
+  transform: scale(1.1);
+}
+
+/* Action Buttons */
+.edit-button,
+.delete-button {
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 0.75rem;
+}
+
+.edit-button {
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+}
+
+.edit-button:hover {
+  background: #d97706;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.delete-button {
+  background: var(--error-color);
+  color: white;
+  border: none;
+}
+
+.delete-button:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* No Members Message */
+.no-members {
+  text-align: center;
+  font-size: 1.125rem;
+  color: #6b7280;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .team-dashboard {
+    padding: 1.5rem;
+  }
+
+  .dashboard-title {
+    font-size: 2.25rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .form-section,
+  .table-section {
+    padding: 2rem;
+  }
+
+  .team-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .submit-button,
+  .cancel-button {
+    width: 100%;
+  }
+
+  .table-image {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-title {
+    font-size: 1.875rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 0.875rem;
+  }
+
+  .edit-button,
+  .delete-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .form-section,
+  .table-section {
+    padding: 1.5rem;
+  }
+}

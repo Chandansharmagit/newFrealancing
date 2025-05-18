@@ -119,7 +119,7 @@ const ToursSection = () => {
         <div className="tours-section-container">
           <div className="tours-section-header">
             <h2>Featured Tours</h2>
-            <p>Handcrafted itineraries to create your perfect journey</p>
+            <p className='hands'>Handcrafted itineraries to create your perfect journey</p>
           </div>
           <div className="tours-section-no-tours">
             <svg className="tours-section-empty-icon" viewBox="0 0 24 24" width="48" height="48">

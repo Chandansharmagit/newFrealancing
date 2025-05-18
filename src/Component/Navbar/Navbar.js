@@ -174,7 +174,7 @@ const Navbar = () => {
           </ul>
 
           <div className="navbar-actions">
-            <Link to="/booking" className="btn-primary">
+            <Link to="/destinations" className="btn-primary">
               Book Now
             </Link>
 

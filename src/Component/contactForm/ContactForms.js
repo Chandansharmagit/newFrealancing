@@ -216,9 +216,9 @@ const ContactForm = () => {
 
         <div className="twcf-contact-container">
           <div className="twcf-contact-info">
-            <h2>Why Travel World?</h2>
+            <h2>Why Travel Sansar?</h2>
             <p className="twcf-company-description">
-              Since 2005, Travel World has crafted unforgettable journeys for
+              Since 2005, Travel Sansar has crafted unforgettable journeys for
               adventurers, families, and travelers worldwide. Our expert
               consultants bring firsthand destination expertise.
             </p>
@@ -226,7 +226,7 @@ const ContactForm = () => {
             <div className="twcf-testimonial">
               <div className="twcf-quote-icon"></div>
               <p className="twcf-quote-text">
-                "Travel World made our honeymoon perfect! Their personalized
+                "Travel Sansar made our honeymoon perfect! Their personalized
                 service was beyond expectations."
               </p>
               <p className="twcf-quote-author">
@@ -254,7 +254,8 @@ const ContactForm = () => {
                 <div className="twcf-contact-icon twcf-email-icon"></div>
                 <div>
                   <h3>Email Us</h3>
-                  <p>info@travelworld.com</p>
+                  <p>travelsansar0@gmail.com</p>
+                  <p>info@travelsansr.com</p>
                   <p className="twcf-response-time">Response within 24 hours</p>
                 </div>
               </div>
@@ -263,8 +264,8 @@ const ContactForm = () => {
                 <div className="twcf-contact-icon twcf-phone-icon"></div>
                 <div>
                   <h3>Call Us</h3>
-                  <p>+1 (555) 123-4567</p>
-                  <p className="twcf-response-time">Mon-Fri: 9am-8pm</p>
+                  <p>+9779855051795</p>
+                  <p className="twcf-response-time">Sun-Fri: 9am-8pm</p>
                 </div>
               </div>
 
@@ -272,7 +273,7 @@ const ContactForm = () => {
                 <div className="twcf-contact-icon twcf-location-icon"></div>
                 <div>
                   <h3>Visit Us</h3>
-                  <p>123 Travel Street, Adventure City</p>
+                  <p>Sahidchowk,Narayanghat,Chitwan</p>
                   <p className="twcf-response-time">Mon-Sat, 10am-6pm</p>
                 </div>
               </div>
@@ -557,7 +558,7 @@ const ContactForm = () => {
             <div className="twcf-contact-cta">
               <p>
                 Need help now? Call{" "}
-                <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                <a href="tel:+9779855051795">+9779855051795</a>
               </p>
             </div>
           </div>

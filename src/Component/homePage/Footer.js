@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="ft-footer-grid">
           <div className="ft-footer-column">
             <div className="ft-footer-logo">
-              <span>Travel</span>World
+              <span>Travel</span>Sansar
             </div>
             <p className="ft-footer-description">
               Creating unforgettable travel experiences for adventurers around the globe since 2010.
@@ -79,7 +79,7 @@ const Footer = () => {
         </div>
 
         <div className="ft-footer-bottom">
-          <p className="ft-copyright">© 2025 Travel World. All Rights Reserved.</p>
+          <p className="ft-copyright">© 2025 Travel Sansar. All Rights Reserved.</p>
           <div className="ft-footer-bottom-links">
             <a href="/privacy-policy">Privacy Policy</a>
             <a href="/terms-of-service">Terms of Service</a>

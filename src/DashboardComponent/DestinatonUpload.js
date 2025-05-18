@@ -283,7 +283,7 @@ const DestinationUpload = () => {
                 </label>
                 <div {...getImageRootProps()} className="dropzone">
                   <input {...getImageInputProps()} />
-                  <p>Drop images here or click to browse</p>
+                  <p>Drop images here or click to browse | please upload more than 5 images for better user experience</p>
                 </div>
 
                 {images.length > 0 && (

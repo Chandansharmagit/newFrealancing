@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { setMetaTags } from '../../ViewallDestinations/Utils/setMetaTags';
 import './ViewAllTours.css';
-import Footer from '../../Footer';
+
 
 const ViewAllTours = () => {
   const [tours, setTours] = useState([]);
@@ -378,7 +378,7 @@ const ViewAllTours = () => {
         </div>
       </div>
     </section>
-    <Footer/>
+  
     </>
   );
 };

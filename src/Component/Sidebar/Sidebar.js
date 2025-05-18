@@ -2,8 +2,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Sidebar.css';
 
-// Icons import - assuming you're using react-icons
-import { FiHome, FiMap, FiCalendar, FiHeart, FiSettings, FiUser, FiMenu, FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+// Icons import - using react-icons
+import { 
+  FiHome, 
+  FiMap, 
+  FiCalendar, 
+  FiHeart, 
+  FiSettings, 
+  FiUser, 
+  FiMenu, 
+  FiX, 
+  FiChevronLeft, 
+  FiChevronRight, 
+  FiUsers, 
+  FiUpload, 
+  FiEdit, 
+  FiBook, 
+  FiMessageSquare 
+} from 'react-icons/fi';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(window.innerWidth > 768);
@@ -23,7 +39,6 @@ const Sidebar = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isMobile && isOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-        // Check if the click is not on the toggle button (which has its own handler)
         if (!event.target.closest('.sidebar-toggle')) {
           setIsOpen(false);
         }
@@ -40,11 +55,9 @@ const Sidebar = () => {
       const newIsMobile = window.innerWidth <= 768;
       setIsMobile(newIsMobile);
       
-      // Only auto-close on transition from desktop to mobile
       if (!isMobile && newIsMobile) {
         setIsOpen(false);
       } else if (isMobile && !newIsMobile && !isOpen) {
-        // Auto-open when transitioning from mobile to desktop
         setIsOpen(true);
       }
     };
@@ -53,35 +66,36 @@ const Sidebar = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobile, isOpen]);
 
-  // Group menu items by category for better organization
+  // Menu items with updated icons
   const menuItems = [
     { 
       category: "Main",
       items: [
-        { path: '/dashboard/dashboard', name: 'Dashboard', icon: <FiHome /> }
+        { path: '/dashboard/dashboard', name: 'Dashboard', icon: <FiHome /> },
+        { path: '/dashboard/teams-managements', name: 'Team Management', icon: <FiUsers /> } // Updated icon
       ]
     },
     {
       category: "Destinations",
       items: [
-        { path: '/dashboard/upload-destination', name: 'Upload Destinations', icon: <FiMap /> },
-        { path: '/dashboard/update-destinations', name: 'Update Destinations', icon: <FiMap /> }
+        { path: '/dashboard/upload-destination', name: 'Upload Destinations', icon: <FiUpload /> }, // Updated icon
+        { path: '/dashboard/update-destinations', name: 'Update Destinations', icon: <FiEdit /> } // Updated icon
       ]
     },
     {
       category: "Tours",
       items: [
-        { path: '/dashboard/Create-plan-tour', name: 'Upload Plan Tour', icon: <FiHeart /> },
-        { path: '/dashboard/Tour-page-dashboard', name: 'Manage Plan Tour', icon: <FiHeart /> }
+        { path: '/dashboard/Create-plan-tour', name: 'Upload Plan Tour', icon: <FiUpload /> }, // Updated icon
+        { path: '/dashboard/Tour-page-dashboard', name: 'Manage Plan Tour', icon: <FiEdit /> } // Updated icon
       ]
     },
     {
       category: "Users",
       items: [
-        { path: '/dashboard/Booking-data', name: 'Bookings', icon: <FiCalendar /> },
+        { path: '/dashboard/Booking-data', name: 'Bookings', icon: <FiBook /> }, // Updated icon
         { path: '/dashboard/user-tracking', name: 'User Tracking', icon: <FiUser /> },
-        { path: '/dashboard/Allusers', name: 'All Users', icon: <FiUser /> },
-        { path: '/dashboard/users-feedback', name: 'feedback users', icon: <FiUser /> }
+        { path: '/dashboard/Allusers', name: 'All Users', icon: <FiUsers /> }, // Updated icon
+        { path: '/dashboard/users-feedback', name: 'Users Feedback', icon: <FiMessageSquare /> } // Updated icon
       ]
     },
     {
@@ -94,7 +108,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Floating Toggle Button - visible on all screen sizes */}
+      {/* Floating Toggle Button */}
       <button 
         className="sidebar-toggle" 
         onClick={toggleSidebar} 
@@ -112,7 +126,12 @@ const Sidebar = () => {
         aria-hidden={!isOpen}
       >
         <div className="sidebar-header">
-          <h2>Travel App</h2>
+          {/* Logo instead of text */}
+          {isOpen ? (
+            <img src="/path/to/logo.png" alt="Travel App Logo" className="sidebar-logo" />
+          ) : (
+            <img src="/path/to/logo-icon.png" alt="Travel App Icon" className="sidebar-logo-collapsed" />
+          )}
           {!isMobile && (
             <button 
               className="collapse-toggle" 
@@ -152,7 +171,7 @@ const Sidebar = () => {
         </div>
       </div>
       
-      {/* Overlay to close sidebar when clicking outside on mobile */}
+      {/* Overlay for mobile */}
       {isMobile && isOpen && (
         <div className="sidebar-overlay" onClick={toggleSidebar}></div>
       )}

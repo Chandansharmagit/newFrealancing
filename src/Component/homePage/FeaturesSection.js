@@ -8,7 +8,7 @@ FeaturesSection = () => {
     <section className="fs-features-section">
       <div className="fs-container">
         <div className="fs-section-header">
-          <h2 className="fs-section-title">Why Choose Travel World</h2>
+          <h2 className="fs-section-title">Why Choose Travel Sansar</h2>
           <p className="fs-section-subtitle">Making your travel dreams a reality since 2010</p>
         </div>
 
