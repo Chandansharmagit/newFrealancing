@@ -14,7 +14,7 @@ import DestinationsSection from './DestinationsSection';
 import ToursSection from './ToursSection';
 import FeaturesSection from './FeaturesSection';
 import TestimonialsSection from './TestimonialsSection';
-import NewsletterSection from './TeamSection';
+
 import TeamSection from './TeamSection';
 
 
