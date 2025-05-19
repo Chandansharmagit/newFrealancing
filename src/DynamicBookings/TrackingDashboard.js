@@ -14,7 +14,7 @@ const TrackingDashboard = () => {
   const [tourTracking, setTourTracking] = useState(null);
   const [combinedTracking, setCombinedTracking] = useState(null);
   const [allToursUsers, setAllToursUsers] = useState(null);
-  const [tourDetails, setTourDetails] = useState(null); // New state for tour details
+  const [tourDetails, setTourDetails] = useState(null);
   const [error, setError] = useState(null);
   const [userId, setUserId] = useState('');
   const [tourId, setTourId] = useState('');
@@ -62,18 +62,43 @@ const TrackingDashboard = () => {
   }, []);
 
   const fetchUserData = useCallback(async (id = userId) => {
+    if (!id) {
+      setError('User ID is required to fetch tracking data');
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
-      const response = await getUserTrackingData(id);
-      if (response.success) {
-        setUserTracking(response.data);
+      // Fetch tracking data
+      const trackingResponse = await getUserTrackingData(id);
+      if (!trackingResponse.success) {
+        setError(trackingResponse.error || 'Failed to fetch user tracking data');
+        setLoading(false);
+        return;
+      }
+
+      // Fetch user details
+      const userDetailsResponse = await axios.get(
+        `https://backendtravelagency.onrender.com/api/tracking/user/${id}`,
+        { timeout: 5000 }
+      );
+      if (userDetailsResponse.data.success) {
+        setUserTracking({
+          ...trackingResponse.data,
+          userDetails: userDetailsResponse.data.data, // Add user details to state
+        });
       } else {
-        setError(response.error || 'Failed to fetch user tracking data');
+        setError(userDetailsResponse.data.message || 'Failed to fetch user details');
+        setUserTracking({
+          ...trackingResponse.data,
+          userDetails: null,
+        });
       }
     } catch (err) {
-      setError('Error loading tracking data');
+      setError('Error loading user data');
       console.error(err);
+      setUserTracking(null);
     } finally {
       setLoading(false);
     }
@@ -140,11 +165,15 @@ const TrackingDashboard = () => {
     }
   }, [userId, tourId, findTourId]);
 
+  // Initialize userId from localStorage
   useEffect(() => {
     const currentUserId = localStorage.getItem('userId');
     if (currentUserId) {
       setUserId(currentUserId);
+      setActiveTab('user'); // Ensure user tab is active
       fetchUserData(currentUserId);
+    } else {
+      setError('No user ID found in local storage. Please enter a user ID.');
     }
   }, [fetchUserData]);
 
@@ -237,16 +266,28 @@ const TrackingDashboard = () => {
               <h3>Summary</h3>
               <p>Total Interactions: {userTracking.summary.totalInteractions}</p>
               <p>Tours Interacted With: {userTracking.summary.tourInteractions.length}</p>
+              {userTracking.userDetails && (
+                <>
+                  <p><strong>User Name:</strong> {userTracking.userDetails.name || 'N/A'}</p>
+                  <p><strong>Email:</strong> {userTracking.userDetails.email || 'N/A'}</p>
+                  <p><strong>Phone:</strong> {userTracking.userDetails.phone || 'N/A'}</p>
+                  <p><strong>Description:</strong> {userTracking.userDetails.description || 'N/A'}</p>
+                </>
+              )}
             </div>
             <div className="pie-chart">
-              <Pie data={{
-                labels: userTracking.summary.tourInteractions.map(tour => tour._id),
-                datasets: [{
-                  label: 'Interactions per Tour',
-                  data: userTracking.summary.tourInteractions.map(tour => tour.count),
-                  backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
-                }],
-              }} />
+              <Pie
+                data={{
+                  labels: userTracking.summary.tourInteractions.map((tour) => tour._id),
+                  datasets: [
+                    {
+                      label: 'Interactions per Tour',
+                      data: userTracking.summary.tourInteractions.map((tour) => tour.count),
+                      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                    },
+                  ],
+                }}
+              />
             </div>
             <h3>Tour Interactions</h3>
             <table className="data-table">
@@ -256,15 +297,31 @@ const TrackingDashboard = () => {
                   <th>Interactions</th>
                   <th>First Interaction</th>
                   <th>Last Interaction</th>
+                  {userTracking.userDetails && (
+                    <>
+                      <th>User Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Description</th>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>
-                {userTracking.summary.tourInteractions.map(tour => (
+                {userTracking.summary.tourInteractions.map((tour) => (
                   <tr key={tour._id}>
                     <td data-label="Tour ID">{tour._id}</td>
                     <td data-label="Interactions">{tour.count}</td>
                     <td data-label="First Interaction">{formatDate(tour.firstInteraction)}</td>
                     <td data-label="Last Interaction">{formatDate(tour.lastInteraction)}</td>
+                    {userTracking.userDetails && (
+                      <>
+                        <td data-label="User Name">{userTracking.userDetails.name || 'N/A'}</td>
+                        <td data-label="Email">{userTracking.userDetails.email || 'N/A'}</td>
+                        <td data-label="Phone">{userTracking.userDetails.phone || 'N/A'}</td>
+                        <td data-label="Description">{userTracking.userDetails.description || 'N/A'}</td>
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -276,6 +333,12 @@ const TrackingDashboard = () => {
                   <th>Date</th>
                   <th>Tour ID</th>
                   <th>Source</th>
+                  {userTracking.userDetails && (
+                    <>
+                      <th>User Name</th>
+                      <th>Email</th>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -284,6 +347,12 @@ const TrackingDashboard = () => {
                     <td data-label="Date">{formatDate(interaction.timestamp)}</td>
                     <td data-label="Tour ID">{interaction.tourId}</td>
                     <td data-label="Source">{interaction.source}</td>
+                    {userTracking.userDetails && (
+                      <>
+                        <td data-label="User Name">{userTracking.userDetails.name || 'N/A'}</td>
+                        <td data-label="Email">{userTracking.userDetails.email || 'N/A'}</td>
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -299,14 +368,18 @@ const TrackingDashboard = () => {
               <p>Unique Users: {tourTracking.summary.uniqueUsers}</p>
             </div>
             <div className="pie-chart">
-              <Pie data={{
-                labels: tourTracking.summary.userInteractions.map(user => user._id),
-                datasets: [{
-                  label: 'Interactions per User',
-                  data: tourTracking.summary.userInteractions.map(user => user.count),
-                  backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
-                }],
-              }} />
+              <Pie
+                data={{
+                  labels: tourTracking.summary.userInteractions.map((user) => user._id),
+                  datasets: [
+                    {
+                      label: 'Interactions per User',
+                      data: tourTracking.summary.userInteractions.map((user) => user.count),
+                      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                    },
+                  ],
+                }}
+              />
             </div>
             <h3>User Interactions</h3>
             <table className="data-table">
@@ -319,7 +392,7 @@ const TrackingDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {tourTracking.summary.userInteractions.map(user => (
+                {tourTracking.summary.userInteractions.map((user) => (
                   <tr key={user._id}>
                     <td data-label="User ID">{user._id}</td>
                     <td data-label="Interactions">{user.count}</td>
@@ -338,7 +411,7 @@ const TrackingDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {tourTracking.summary.dailyInteractions.map(day => (
+                {tourTracking.summary.dailyInteractions.map((day) => (
                   <tr key={day._id}>
                     <td data-label="Date">{day._id}</td>
                     <td data-label="Interactions">{day.count}</td>
@@ -358,14 +431,18 @@ const TrackingDashboard = () => {
               <p>Last Interaction: {formatDate(combinedTracking.stats.lastInteraction)}</p>
             </div>
             <div className="pie-chart">
-              <Pie data={{
-                labels: Object.keys(combinedTracking.stats.sources),
-                datasets: [{
-                  label: 'Interactions by Source',
-                  data: Object.values(combinedTracking.stats.sources),
-                  backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
-                }],
-              }} />
+              <Pie
+                data={{
+                  labels: Object.keys(combinedTracking.stats.sources),
+                  datasets: [
+                    {
+                      label: 'Interactions by Source',
+                      data: Object.values(combinedTracking.stats.sources),
+                      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                    },
+                  ],
+                }}
+              />
             </div>
             <h3>Interaction Sources</h3>
             <ul className="source-list">
@@ -389,7 +466,9 @@ const TrackingDashboard = () => {
                   <tr key={index}>
                     <td data-label="Date">{formatDate(interaction.timestamp)}</td>
                     <td data-label="Source">{interaction.source}</td>
-                    <td data-label="User Agent" className="user-agent">{interaction.userAgent}</td>
+                    <td data-label="User Agent" className="user-agent">
+                      {interaction.userAgent}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -405,14 +484,18 @@ const TrackingDashboard = () => {
               <p>Total Users: {allToursUsers.totalUsers}</p>
             </div>
             <div className="pie-chart">
-              <Pie data={{
-                labels: ['Total Tours', 'Total Users'],
-                datasets: [{
-                  label: 'Tours vs Users',
-                  data: [allToursUsers.totalTours, allToursUsers.totalUsers],
-                  backgroundColor: ['#FF6384', '#36A2EB'],
-                }],
-              }} />
+              <Pie
+                data={{
+                  labels: ['Total Tours', 'Total Users'],
+                  datasets: [
+                    {
+                      label: 'Tours vs Users',
+                      data: [allToursUsers.totalTours, allToursUsers.totalUsers],
+                      backgroundColor: ['#FF6384', '#36A2EB'],
+                    },
+                  ],
+                }}
+              />
             </div>
             <h3>Tours</h3>
             <table className="data-table">
@@ -462,21 +545,24 @@ const TrackingDashboard = () => {
               <div className="tour-images">
                 {tourDetails.images && tourDetails.images.length > 0 ? (
                   tourDetails.images.map((image, index) => (
-                    <img
-                      key={index}
-                      src={image.url}
-                      alt='Tour'
-                      className="tour-image"
-                    />
+                    <img key={index} src={image.url} alt="Tour" className="tour-image" />
                   ))
                 ) : (
                   <p>No images available</p>
                 )}
               </div>
-              <p><strong>Description:</strong> {tourDetails.description || 'N/A'}</p>
-              <p><strong>Price:</strong> {tourDetails.price ? `$${tourDetails.price}` : 'N/A'}</p>
-              <p><strong>Duration:</strong> {tourDetails.duration || 'N/A'}</p>
-              <p><strong>Location:</strong> {tourDetails.location || 'N/A'}</p>
+              <p>
+                <strong>Description:</strong> {tourDetails.description || 'N/A'}
+              </p>
+              <p>
+                <strong>Price:</strong> {tourDetails.price ? `$${tourDetails.price}` : 'N/A'}
+              </p>
+              <p>
+                <strong>Duration:</strong> {tourDetails.duration || 'N/A'}
+              </p>
+              <p>
+                <strong>Location:</strong> {tourDetails.location || 'N/A'}
+              </p>
             </div>
           </div>
         )}

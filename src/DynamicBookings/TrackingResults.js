@@ -65,6 +65,14 @@ const TrackingResults = ({ activeTab, userTracking, tourTracking, combinedTracki
             <h3>Summary</h3>
             <p>Total Interactions: {userTracking.summary.totalInteractions}</p>
             <p>Tours Interacted With: {userTracking.summary.tourInteractions.length}</p>
+            {userTracking.userDetails && (
+              <>
+                <p><strong>User Name:</strong> {userTracking.userDetails.name || 'N/A'}</p>
+                <p><strong>Email:</strong> {userTracking.userDetails.email || 'N/A'}</p>
+                <p><strong>Phone:</strong> {userTracking.userDetails.phone || 'N/A'}</p>
+                <p><strong>Description:</strong> {userTracking.userDetails.description || 'N/A'}</p>
+              </>
+            )}
           </div>
           <div className="pie-chart">
             <Pie data={getPieChartData()} />
@@ -77,6 +85,14 @@ const TrackingResults = ({ activeTab, userTracking, tourTracking, combinedTracki
                 <th>Interactions</th>
                 <th>First Interaction</th>
                 <th>Last Interaction</th>
+                {userTracking.userDetails && (
+                  <>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Description</th>
+                  </>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -86,6 +102,14 @@ const TrackingResults = ({ activeTab, userTracking, tourTracking, combinedTracki
                   <td>{tour.count}</td>
                   <td>{formatDate(tour.firstInteraction)}</td>
                   <td>{formatDate(tour.lastInteraction)}</td>
+                  {userTracking.userDetails && (
+                    <>
+                      <td>{userTracking.userDetails.name || 'N/A'}</td>
+                      <td>{userTracking.userDetails.email || 'N/A'}</td>
+                      <td>{userTracking.userDetails.phone || 'N/A'}</td>
+                      <td>{userTracking.userDetails.description || 'N/A'}</td>
+                    </>
+                  )}
                 </tr>
               ))}
             </tbody>
@@ -97,6 +121,12 @@ const TrackingResults = ({ activeTab, userTracking, tourTracking, combinedTracki
                 <th>Date</th>
                 <th>Tour ID</th>
                 <th>Source</th>
+                {userTracking.userDetails && (
+                  <>
+                    <th>User Name</th>
+                    <th>Email</th>
+                  </>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -105,6 +135,12 @@ const TrackingResults = ({ activeTab, userTracking, tourTracking, combinedTracki
                   <td>{formatDate(interaction.timestamp)}</td>
                   <td>{interaction.tourId}</td>
                   <td>{interaction.source}</td>
+                  {userTracking.userDetails && (
+                    <>
+                      <td>{userTracking.userDetails.name || 'N/A'}</td>
+                      <td>{userTracking.userDetails.email || 'N/A'}</td>
+                    </>
+                  )}
                 </tr>
               ))}
             </tbody>
@@ -187,7 +223,7 @@ const TrackingResults = ({ activeTab, userTracking, tourTracking, combinedTracki
             <thead>
               <tr>
                 <th>Date</th>
-                <th>Source</th>
+                <th>Sourcebirds</th>
                 <th>User Agent</th>
               </tr>
             </thead>
@@ -225,14 +261,12 @@ const TrackingResults = ({ activeTab, userTracking, tourTracking, combinedTracki
               </tr>
             </thead>
             <tbody>
-              {allToursUsers.tours.map((tour, index) => (
-                <tr key={index}>
-                  <td>{tour.tourId}</td>
-                  <td>{tour.details?.name || 'N/A'}</td>
-                  <td>{tour.details?.description || 'No details available'}</td>
-                  <td>{tour.addedOn}</td>
-                </tr>
-              ))}
+              <tr>
+                <td>{tour.tourId}</td>
+                <td>{tour.details?.name || 'N/A'}</td>
+                <td>{tour.details?.description || 'No details available'}</td>
+                <td>{tour.addedOn}</td>
+              </tr>
             </tbody>
           </table>
           <h3>Users</h3>
