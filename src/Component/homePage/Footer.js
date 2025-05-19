@@ -1,8 +1,57 @@
 import React from 'react';
-import { FaFacebookF, FaTwitter, FaInstagram, FaPinterestP, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaInstagram, FaPinterestP, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCcVisa, FaCcMastercard, FaCcAmex, FaPaypal, FaUniversity, FaMobile, FaCreditCard } from 'react-icons/fa';
 import './Footer.css';
 
 const Footer = () => {
+  // SVG Icons for Nepali payment systems
+  const ESewaIcon = () => (
+    <div className="ft-payment-logo esewa-logo" title="eSewa">
+      <svg viewBox="0 0 100 40" className="ft-payment-svg">
+        <rect width="100" height="40" rx="6" fill="#60c84c"/>
+        <text x="50" y="26" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">eSewa</text>
+      </svg>
+    </div>
+  );
+
+  const KhaltiIcon = () => (
+    <div className="ft-payment-logo khalti-logo" title="Khalti">
+      <svg viewBox="0 0 100 40" className="ft-payment-svg">
+        <rect width="100" height="40" rx="6" fill="#5c2d91"/>
+        <text x="50" y="26" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">Khalti</text>
+      </svg>
+    </div>
+  );
+
+  const IMEPayIcon = () => (
+    <div className="ft-payment-logo imepay-logo" title="IME Pay">
+      <svg viewBox="0 0 100 40" className="ft-payment-svg">
+        <rect width="100" height="40" rx="6" fill="#ed1c24"/>
+        <text x="50" y="22" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold">IME</text>
+        <text x="50" y="34" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold">Pay</text>
+      </svg>
+    </div>
+  );
+
+  const ConnectIPSIcon = () => (
+    <div className="ft-payment-logo connectips-logo" title="ConnectIPS">
+      <svg viewBox="0 0 100 40" className="ft-payment-svg">
+        <rect width="100" height="40" rx="6" fill="#1e88e5"/>
+        <text x="50" y="18" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">Connect</text>
+        <text x="50" y="30" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">IPS</text>
+      </svg>
+    </div>
+  );
+
+  const NepaliBank = ({ name, color }) => (
+    <div className="ft-payment-logo" title={name}>
+      <svg viewBox="0 0 100 40" className="ft-payment-svg">
+        <rect width="100" height="40" rx="6" fill={color}/>
+        <FaUniversity className="ft-bank-icon" />
+        <text x="50" y="35" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">{name}</text>
+      </svg>
+    </div>
+  );
+
   return (
     <footer className="ft-footer">
       <div className="ft-container">
@@ -68,12 +117,64 @@ const Footer = () => {
               </li>
             </ul>
             <div className="ft-payment-methods">
-              <img
-                src="https://via.placeholder.com/200x30"
-                alt="Accepted payment methods"
-                className="ft-payment-image"
-                loading="lazy"
-              />
+              <h4 className="ft-payment-title">
+                <FaCreditCard className="ft-payment-title-icon" />
+                We Accept
+              </h4>
+              <div className="ft-payment-grid">
+                {/* Nepali Payment Systems */}
+                <div className="ft-payment-group">
+                  <span className="ft-payment-label">
+                    <FaMobile className="ft-label-icon" />
+                    Mobile Payments
+                  </span>
+                  <div className="ft-payment-icons">
+                    <ESewaIcon />
+                    <KhaltiIcon />
+                    <IMEPayIcon />
+                    <ConnectIPSIcon />
+                  </div>
+                </div>
+
+                {/* Nepali Banks */}
+                <div className="ft-payment-group">
+                  <span className="ft-payment-label">
+                    <FaUniversity className="ft-label-icon" />
+                    Local Banks
+                  </span>
+                  <div className="ft-payment-icons">
+                    <NepaliBank name="Nepal Bank" color="#2c5aa0" />
+                    <NepaliBank name="Rastriya Banijya" color="#cc0000" />
+                    <NepaliBank name="Nabil Bank" color="#1e4d3e" />
+                    <NepaliBank name="Standard Chartered" color="#007ec6" />
+                  </div>
+                </div>
+
+                {/* International Cards */}
+                <div className="ft-payment-group">
+                  <span className="ft-payment-label">
+                    <FaCreditCard className="ft-label-icon" />
+                    International
+                  </span>
+                  <div className="ft-payment-icons">
+                    <div className="ft-payment-logo visa-logo" title="Visa">
+                      <FaCcVisa size={40} color="#1A1F71" />
+                    </div>
+                    <div className="ft-payment-logo mastercard-logo" title="Mastercard">
+                      <FaCcMastercard size={40} color="#EB001B" />
+                    </div>
+                    <div className="ft-payment-logo amex-logo" title="American Express">
+                      <FaCcAmex size={40} color="#006FCF" />
+                    </div>
+                    <div className="ft-payment-logo paypal-logo" title="PayPal">
+                      <FaPaypal size={40} color="#003087" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p className="ft-payment-note">
+                🔒 Your payment information is secure and encrypted
+              </p>
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import './ChatBox.css';
 const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hello! Welcome to Travel World. How can I help you today?", sender: "agent" }
+    { text: "Hello! Welcome to Travel Sansar. How can I help you today?", sender: "agent" }
   ]);
   const [inputText, setInputText] = useState("");
   const messagesEndRef = useRef(null);
@@ -58,7 +58,7 @@ const ChatBox = () => {
       {isOpen && (
         <div className="chat-box">
           <div className="chat-header">
-            <h3>Travel World</h3>
+            <h3>Travel Sansar</h3>
           </div>
           <div className="chat-messages">
             {messages.map((message, index) => (
