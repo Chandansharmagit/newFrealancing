@@ -35,6 +35,7 @@ import SearchQuery from "./searchquery/SearchQuery";
 import Dashboard from "./Component/contactForm/Dashboards/Dashboard";
 import LoginDashboardAuth from "./DashboardLinks/LoginDashboardAuth";
 import TeamDashboard from "./Component/AboutUs/Teamdashboard/TeamDashboard";
+import NotFound from "./PageNotFound/PageNotfound";
 
 function PrivateRoute({ children, isAuthenticated, setShowAuthPopup }) {
   if (!isAuthenticated) {
@@ -142,6 +143,7 @@ function AppContent() {
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/sidebar" element={<Sidebar />} />
         <Route path="/u" element={<Allusers />} />
+         <Route path="*" element={<NotFound />} />
         <Route
           path="/dashboard/*"
           element={
