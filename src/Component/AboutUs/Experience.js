@@ -1,204 +1,230 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { setMetaTags } from '../homePage/ViewallDestinations/Utils/setMetaTags';
-import { Star, Users, Calendar, MapPin, ChevronRight, Heart } from 'lucide-react';
+import { Star, Users, Calendar, MapPin, ChevronRight, Heart, Loader } from 'lucide-react';
 import './Experiences.css';
 
 const Experiences = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [visibleCount, setVisibleCount] = useState(8);
-  
-  // Enhanced experience data with more realistic details and categories
-  const experiences = [
-    {
-      id: 1,
-      title: 'Himalayan Trek & Mountain Expedition',
-      description: 'Challenge yourself with our 7-day Himalayan adventure through pristine trails with expert local guides and breathtaking summit views.',
-      image: 'https://data.1freewallpapers.com/download/mountain-peak-tourists-trekking-nature.jpg',
-      imageAuthor: 'freepik',
-      category: 'adventure',
-      duration: '7 days',
-      price: '$1,499',
-      rating: 4.9,
-      reviews: 243,
-      featured: true,
-      location: 'Nepal'
-    },
-    {
-      id: 2,
-      title: 'Traditional Festival & Artisan Workshop Tour',
-      description: 'Immerse yourself in authentic local traditions with this 5-day cultural journey featuring ceremonial participation and hands-on craft workshops.',
-      image: 'https://vnn-imgs-f.vgcloud.vn/2019/04/18/11/10.jpg',
-      imageAuthor: 'freepik',
-      category: 'cultural',
-      duration: '5 days',
-      price: '$899',
-      rating: 4.8,
-      reviews: 178,
-      featured: true,
-      location: 'Bali, Indonesia'
-    },
-    {
-      id: 3,
-      title: 'Beachfront Wellness & Yoga Retreat',
-      description: 'Rejuvenate mind and body at our exclusive oceanside sanctuary offering daily yoga, meditation, and personalized spa treatments.',
-      image: 'https://img.freepik.com/premium-photo/beachfront-yoga-retreat-with-daily-classes-healthy-meals_674594-7314.jpg',
-      imageAuthor: 'freepik',
-      category: 'relaxation',
-      duration: '6 days',
-      price: '$1,299',
-      rating: 4.9,
-      reviews: 312,
-      featured: true,
-      location: 'Koh Samui, Thailand'
-    },
-    {
-      id: 4,
-      title: 'African Savanna Wildlife Photography Safari',
-      description: 'Capture stunning wildlife photography on this guided 8-day safari through premium game reserves with expert naturalists and comfortable lodging.',
-      image: 'https://img.freepik.com/free-photo/elephants-wilderness-african-savanna_23-2151732492.jpg',
-      imageAuthor: 'freepik',
-      category: 'wildlife',
-      duration: '8 days',
-      price: '$2,599',
-      rating: 4.7,
-      reviews: 156,
-      featured: true,
-      location: 'Tanzania'
-    },
-    {
-      id: 5,
-      title: 'Kayaking & Canoeing Expedition',
-      description: 'Navigate pristine waterways on this guided 4-day paddling adventure with riverside camping and wildlife spotting opportunities.',
-      image: 'https://img.freepik.com/free-photo/kayaking-adventure-scenic-river_23-2151732511.jpg',
-      imageAuthor: 'freepik',
-      category: 'adventure',
-      duration: '4 days',
-      price: '$799',
-      rating: 4.6,
-      reviews: 98,
-      featured: false,
-      location: 'Oregon, USA'
-    },
-    {
-      id: 6,
-      title: 'Historic City Walking Tour & Culinary Experience',
-      description: 'Explore ancient streets and savor authentic local cuisine with expert guides on this immersive 3-day cultural exploration.',
-      image: 'https://img.freepik.com/free-photo/historic-european-city-streets_23-2151732512.jpg',
-      imageAuthor: 'freepik',
-      category: 'cultural',
-      duration: '3 days',
-      price: '$649',
-      rating: 4.8,
-      reviews: 215,
-      featured: false,
-      location: 'Florence, Italy'
-    },
-    {
-      id: 7,
-      title: 'Mountain Hot Springs & Spa Journey',
-      description: 'Unwind in natural thermal springs and receive premium treatments at this 5-day mountain retreat with luxury accommodations.',
-      image: 'https://img.freepik.com/free-photo/natural-hot-springs-mountains_23-2151732513.jpg',
-      imageAuthor: 'freepik',
-      category: 'relaxation',
-      duration: '5 days',
-      price: '$1,199',
-      rating: 4.8,
-      reviews: 187,
-      featured: false,
-      location: 'Iceland'
-    },
-    {
-      id: 8,
-      title: 'Rainforest Conservation & Wildlife Expedition',
-      description: 'Contribute to wildlife conservation while exploring biodiverse ecosystems on this 6-day guided rainforest adventure.',
-      image: 'https://img.freepik.com/free-photo/rainforest-canopy-wildlife-expedition_23-2151732514.jpg',
-      imageAuthor: 'freepik',
-      category: 'wildlife',
-      duration: '6 days',
-      price: '$1,399',
-      rating: 4.7,
-      reviews: 132,
-      featured: false,
-      location: 'Costa Rica'
-    },
-    {
-      id: 9,
-      title: 'Desert Stargazing & Astronomy Tour',
-      description: 'Experience breathtaking night skies on this 3-day desert astronomy adventure with professional equipment and expert guides.',
-      image: 'https://img.freepik.com/free-photo/desert-night-sky-stargazing_23-2151732515.jpg',
-      imageAuthor: 'freepik',
-      category: 'adventure',
-      duration: '3 days',
-      price: '$699',
-      rating: 4.9,
-      reviews: 74,
-      featured: false,
-      location: 'Atacama Desert, Chile'
-    },
-    {
-      id: 10,
-      title: 'Indigenous Art & Heritage Experience',
-      description: 'Connect with indigenous communities through authentic art workshops and cultural exchanges on this immersive 4-day journey.',
-      image: 'https://img.freepik.com/free-photo/indigenous-cultural-heritage-experience_23-2151732516.jpg',
-      imageAuthor: 'freepik',
-      category: 'cultural',
-      duration: '4 days',
-      price: '$899',
-      rating: 4.8,
-      reviews: 106,
-      featured: false,
-      location: 'Australia'
-    }
-  ];
+  const [destinations, setDestinations] = useState([]);
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Filter experiences based on active category
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        
+        const [destinationsResponse, toursResponse] = await Promise.all([
+          fetch('https://backendtravelagency.onrender.com/api/destinations').catch(err => {
+            console.error('Destinations API fetch error:', err);
+            return { ok: false, status: 500 };
+          }),
+          fetch('https://backendtravelagencytwomicroservice.onrender.com/api/tours').catch(err => {
+            console.error('Tours API fetch error:', err);
+            return { ok: false, status: 500 };
+          })
+        ]);
+
+        let destinationsArray = [];
+        let toursArray = [];
+
+        if (destinationsResponse.ok) {
+          const destinationsData = await destinationsResponse.json();
+          console.log('Destinations API Response:', {
+            isArray: Array.isArray(destinationsData),
+            data: destinationsData,
+            hasData: destinationsData && destinationsData.length > 0,
+            hasIds: Array.isArray(destinationsData) && destinationsData.every(item => item._id)
+          });
+          destinationsArray = Array.isArray(destinationsData)
+            ? destinationsData
+            : destinationsData && Array.isArray(destinationsData.data)
+              ? destinationsData.data
+              : [];
+        } else {
+          console.error(`Destinations API failed with status: ${destinationsResponse.status}`);
+        }
+
+        if (toursResponse.ok) {
+          const toursData = await toursResponse.json();
+          console.log('Tours API Response:', {
+            isArray: Array.isArray(toursData),
+            data: toursData,
+            hasData: toursData && toursData.length > 0,
+            hasIds: Array.isArray(toursData) && toursData.every(item => item._id)
+          });
+          toursArray = Array.isArray(toursData)
+            ? toursData
+            : toursData && Array.isArray(toursData.data)
+              ? toursData.data
+              : [];
+        } else {
+          console.error(`Tours API failed with status: ${toursResponse.status}`);
+        }
+
+        console.log('Setting destinations:', destinationsArray);
+        console.log('Setting tours:', toursArray);
+
+        setDestinations(destinationsArray);
+        setTours(toursArray);
+
+        if (destinationsArray.length === 0 && toursArray.length === 0) {
+          setError('No data available from either API');
+        } else if (toursArray.length === 0) {
+          console.warn('No tours data available; displaying destinations only');
+        }
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const transformedExperiences = React.useMemo(() => {
+    const experiences = [];
+
+    const getStableRandom = (seed, min, max) => {
+      const hash = seed.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      return min + (hash % (max - min + 1));
+    };
+
+    console.log('Processing destinations:', destinations);
+    if (Array.isArray(destinations)) {
+      destinations.forEach(destination => {
+        const featuredImage = Array.isArray(destination.images) 
+          ? destination.images.find(img => img.isFeatured) || destination.images[0] 
+          : null;
+        
+        const description = destination.description?.toLowerCase() || '';
+        let category = 'cultural';
+        if (description.includes('hiking') || description.includes('trekking') || destination.title?.toLowerCase().includes('trek')) {
+          category = 'adventure';
+        } else if (description.includes('wildlife') || destination.title?.toLowerCase().includes('safari')) {
+          category = 'wildlife';
+        } else if (description.includes('relax') || description.includes('spa')) {
+          category = 'relaxation';
+        }
+
+        const experience = {
+          id: `dest-${destination._id || 'unknown'}`,
+          rawId: destination._id || 'unknown',
+          title: destination.title || 'Unnamed Destination',
+          description: destination.description?.substring(0, 150) + '...' || 'Explore this amazing destination',
+          image: featuredImage?.path || 'https://via.placeholder.com/400x300',
+          category,
+          duration: destination.duration || 'Variable',
+          price: destination.price || 'Contact for pricing',
+          rating: 4.5 + (getStableRandom(destination._id || 'default', 0, 5) / 10),
+          reviews: getStableRandom(destination._id || 'default', 50, 200),
+          featured: getStableRandom(destination._id || 'default', 0, 100) > 70,
+          location: destination.location || 'Nepal',
+          type: 'destination',
+          bestTimeToVisit: destination.bestTimeToVisit,
+          thingsToDo: destination.thingsToDo
+        };
+
+        experiences.push(experience);
+        console.log('Added destination:', {
+          title: experience.title,
+          category: experience.category,
+          image: experience.image,
+          location: experience.location,
+          price: experience.price,
+          duration: experience.duration,
+          featured: experience.featured,
+          rating: experience.rating,
+          reviews: experience.reviews
+        });
+      });
+    } else {
+      console.warn('Destinations is not an array:', destinations);
+    }
+
+    console.log('Processing tours:', tours);
+    if (Array.isArray(tours)) {
+      tours.forEach(tour => {
+        const featuredImage = Array.isArray(tour.images) 
+          ? tour.images.find(img => img.isFeatured) || tour.images[0] 
+          : null;
+        
+        const description = tour.description?.toLowerCase() || '';
+        let category = 'adventure';
+        if (description.includes('cultural') || tour.name?.toLowerCase().includes('cultural')) {
+          category = 'cultural';
+        } else if (description.includes('wildlife') || tour.name?.toLowerCase().includes('safari')) {
+          category = 'wildlife';
+        } else if (description.includes('relax') || tour.name?.toLowerCase().includes('retreat')) {
+          category = 'relaxation';
+        }
+
+        const experience = {
+          id: `tour-${tour._id || 'unknown'}`,
+          rawId: tour._id || 'unknown',
+          title: tour.name || 'Unnamed Tour',
+          description: tour.description?.substring(0, 150) + '...' || 'Join this amazing tour experience',
+          image: featuredImage?.url || 'https://via.placeholder.com/400x300',
+          category,
+          duration: tour.duration || '1 day',
+          price: tour.price ? `$${tour.price}` : 'Contact for pricing',
+          rating: 4.3 + (getStableRandom(tour._id || 'default', 0, 7) / 10),
+          reviews: getStableRandom(tour._id || 'default', 30, 150),
+          featured: getStableRandom(tour._id || 'default', 0, 100) > 60,
+          location: tour.location || 'Nepal',
+          type: 'tour',
+          maxTravelers: tour.maxTravelers,
+          itinerary: tour.itinerary,
+          inclusions: tour.inclusions
+        };
+
+        experiences.push(experience);
+        console.log('Added tour:', {
+          title: experience.title,
+          category: experience.category,
+          image: experience.image,
+          location: experience.location,
+          price: experience.price,
+          duration: experience.duration,
+          featured: experience.featured
+        });
+      });
+    } else {
+      console.warn('Tours is not an array:', tours);
+    }
+
+    if (experiences.length > 0 && experiences.every(exp => !exp.featured)) {
+      const sortedExperiences = experiences.sort((a, b) => b.rating - a.rating);
+      sortedExperiences[0].featured = true;
+      console.log('Forced featured experience:', sortedExperiences[0].title);
+    }
+
+    console.log('Final transformed experiences:', experiences.map(exp => ({
+      title: exp.title,
+      category: exp.category,
+      featured: exp.featured
+    })));
+    return experiences;
+  }, [destinations, tours]);
+
   const filteredExperiences = activeCategory === 'all' 
-    ? experiences 
-    : experiences.filter(exp => exp.category === activeCategory);
+    ? transformedExperiences 
+    : transformedExperiences.filter(exp => exp.category === activeCategory);
 
-  // Filter featured experiences
-  const featuredExperiences = experiences.filter(exp => exp.featured);
-
-  // Testimonials data
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      location: "New York, USA",
-      quote: "The Himalayan Trek was life-changing! Our guide was incredibly knowledgeable and the scenery was breathtaking. TravelSansar handled everything perfectly.",
-      image: "/api/placeholder/80/80",
-      rating: 5,
-      experience: "Himalayan Trek & Mountain Expedition"
-    },
-    {
-      id: 2,
-      name: "David Chen",
-      location: "Melbourne, Australia",
-      quote: "The cultural immersion in Bali exceeded all expectations. We participated in ceremonies that tourists typically don't see and made connections with local artisans.",
-      image: "/api/placeholder/80/80",
-      rating: 5,
-      experience: "Traditional Festival & Artisan Workshop Tour"
-    },
-    {
-      id: 3,
-      name: "Priya Patel",
-      location: "London, UK",
-      quote: "The beachfront retreat was exactly what I needed. The yoga instructors were world-class and the private villa accommodations were stunning.",
-      image: "/api/placeholder/80/80",
-      rating: 4,
-      experience: "Beachfront Wellness & Yoga Retreat"
-    }
-  ];
-
-  // Load more experiences
   const handleLoadMore = () => {
     setVisibleCount(prev => Math.min(prev + 4, filteredExperiences.length));
   };
 
-  // Set Meta Tags and Structured Data
+  const handleNewsletterSubscribe = () => {
+    alert('Subscribed to newsletter!');
+  };
+
   useEffect(() => {
-    // Structured Data for Organization (JSON-LD)
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'Organization',
@@ -232,14 +258,50 @@ const Experiences = () => {
     return cleanup;
   }, []);
 
-  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  if (loading) {
+    return (
+      <main className="experiences-page">
+        <div className="experiences-loading">
+          <div className="experiences-container">
+            <div className="experiences-loading-content">
+              <Loader className="experiences-loading-spinner" size={48} aria-label="Loading experiences" />
+              <h2>Loading Amazing Experiences...</h2>
+              <p>We're fetching the best travel experiences for you</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="experiences-page">
+        <div className="experiences-error">
+          <div className="experiences-container">
+            <div className="experiences-error-content">
+              <h2>Oops! Something went wrong</h2>
+              <p>{error}</p>
+              <button 
+                onClick={() => window.location.reload()} 
+                className="experiences-primary-button"
+                aria-label="Reload page"
+              >
+                Try Again
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="experiences-page">
-      {/* Hero Section */}
       <section className="experiences-hero">
         <div className="experiences-hero-content">
           <div className="experiences-container">
@@ -249,18 +311,18 @@ const Experiences = () => {
               Curated travel experiences designed by experts with a passion for authenticity and sustainability
             </p>
             <div className="experiences-hero-cta">
-              <Link to="/tours" className="experiences-primary-button">Explore All Experiences</Link>
-              <Link to="/contact" className="experiences-secondary-button">Speak to an Expert</Link>
+              <Link to="/tours" className="experiences-primary-button" aria-label="Explore all experiences">Explore All Experiences</Link>
+              <Link to="/contact" className="experiences-secondary-button" aria-label="Contact an expert">Speak to an Expert</Link>
             </div>
             <div className="experiences-trust-indicators">
               <div className="experiences-trust-item">
-                <img src="/api/placeholder/120/40" alt="TripAdvisor Choice Award" className="experiences-trust-logo" />
+                <img src="https://via.placeholder.com/120x40" alt="TripAdvisor Choice Award" className="experiences-trust-logo" />
               </div>
               <div className="experiences-trust-item">
-                <img src="/api/placeholder/120/40" alt="National Geographic Featured" className="experiences-trust-logo" />
+                <img src="https://via.placeholder.com/120x40" alt="National Geographic Featured" className="experiences-trust-logo" />
               </div>
               <div className="experiences-trust-item">
-                <img src="/api/placeholder/120/40" alt="Responsible Tourism Certified" className="experiences-trust-logo" />
+                <img src="https://via.placeholder.com/120x40" alt="Responsible Tourism Certified" className="experiences-trust-logo" />
               </div>
             </div>
           </div>
@@ -274,7 +336,6 @@ const Experiences = () => {
         <p className="experiences-image-credit">Image by <a href="https://www.freepik.com">Freepik</a></p>
       </section>
 
-      {/* Featured Experiences */}
       <section className="experiences-featured-section">
         <div className="experiences-container">
           <div className="experiences-section-header">
@@ -282,56 +343,74 @@ const Experiences = () => {
             <p className="experiences-section-subtitle">Our most popular and highly-rated travel experiences</p>
           </div>
           
-          <div className="experiences-featured-grid">
-            {featuredExperiences.map(experience => (
-              <article key={experience.id} className="experiences-featured-card">
-                <div className="experiences-card-image-container">
-                  <img
-                    src={experience.image}
-                    alt={experience.title}
-                    className="experiences-card-img"
-                    loading="lazy"
-                  />
-                  <div className="experiences-card-price">{experience.price}</div>
-                  <button className="experiences-card-favorite" aria-label="Save to favorites">
-                    <Heart size={18} />
-                  </button>
-                </div>
-                <div className="experiences-card-content">
-                  <div className="experiences-card-meta">
-                    <span className="experiences-card-category">{experience.category}</span>
-                    <span className="experiences-card-rating">
-                      <Star size={14} className="experiences-icon" /> {experience.rating} 
-                      <span className="experiences-card-reviews">({experience.reviews})</span>
-                    </span>
-                  </div>
-                  <h3 className="experiences-card-title">{experience.title}</h3>
-                  <p className="experiences-card-description">{experience.description}</p>
-                  <div className="experiences-card-details">
-                    <div className="experiences-card-detail">
-                      <Calendar size={16} className="experiences-icon" />
-                      <span>{experience.duration}</span>
+          {transformedExperiences.length > 0 ? (
+            <div className="experiences-featured-grid">
+              {transformedExperiences
+                .sort((a, b) => (b.featured - a.featured) || (b.rating - a.rating))
+                .slice(0, 4)
+                .map(experience => (
+                  <article key={experience.id} className="experiences-featured-card">
+                    <div className="experiences-card-image-container">
+                      <img
+                        src={experience.image}
+                        alt='images of exp'
+                        className="experiences-card-img"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.target.src = 'https://via.placeholder.com/400x300';
+                        }}
+                      />
+                      <div className="experiences-card-price">{experience.price}</div>
+                      <button 
+                        className="experiences-card-favorite" 
+                        aria-label={`Add ${experience.title} to favorites`}
+                      >
+                        <Heart size={18} />
+                      </button>
                     </div>
-                    <div className="experiences-card-detail">
-                      <MapPin size={16} className="experiences-icon" />
-                      <span>{experience.location}</span>
+                    <div className="experiences-card-content">
+                      <div className="experiences-card-meta">
+                        <span className="experiences-card-category">{experience.category}</span>
+                        <span className="experiences-card-rating">
+                          <Star size={14} className="experiences-icon" /> {experience.rating.toFixed(1)} 
+                          <span className="experiences-card-reviews">({experience.reviews})</span>
+                        </span>
+                      </div>
+                      <h3 className="experiences-card-title">{experience.title}</h3>
+                      <p className="experiences-card-description">{experience.description}</p>
+                      <div className="experiences-card-details">
+                        <div className="experiences-card-detail">
+                          <Calendar size={16} className="experiences-icon" />
+                          <span>{experience.duration}</span>
+                        </div>
+                        <div className="experiences-card-detail">
+                          <MapPin size={16} className="experiences-icon" />
+                          <span>{experience.location}</span>
+                        </div>
+                        <div className="experiences-card-detail">
+                          <Users size={16} className="experiences-icon" />
+                          <span>{experience.type === 'tour' && experience.maxTravelers ? `Max ${experience.maxTravelers}` : 'Small groups'}</span>
+                        </div>
+                      </div>
+                      <Link 
+                        to={experience.type === 'tour' ? `/tour/${experience.rawId}` : `/destination/${experience.rawId}`} 
+                        className="experiences-card-button"
+                        aria-label={`View details for ${experience.title}`}
+                      >
+                        View Details <ChevronRight size={16} className="experiences-icon" />
+                      </Link>
                     </div>
-                    <div className="experiences-card-detail">
-                      <Users size={16} className="experiences-icon" />
-                      <span>Small groups</span>
-                    </div>
-                  </div>
-                  <Link to={`/experiences/${experience.id}`} className="experiences-card-button">
-                    View Details <ChevronRight size={16} className="experiences-icon" />
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+                  </article>
+                ))}
+            </div>
+          ) : (
+            <div className="experiences-no-results">
+              <p>No experiences available at the moment.</p>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
       <section className="experiences-why-us-section">
         <div className="experiences-container">
           <div className="experiences-section-header">
@@ -342,7 +421,7 @@ const Experiences = () => {
           <div className="experiences-why-us-grid">
             <div className="experiences-why-us-item">
               <div className="experiences-why-us-icon">
-                <img src="/api/placeholder/60/60" alt="Expert guides icon" />
+                <img src="https://via.placeholder.com/60" alt="Expert guides icon" />
               </div>
               <h3 className="experiences-why-us-title">Expert Local Guides</h3>
               <p className="experiences-why-us-description">
@@ -352,7 +431,7 @@ const Experiences = () => {
             
             <div className="experiences-why-us-item">
               <div className="experiences-why-us-icon">
-                <img src="/api/placeholder/60/60" alt="Small groups icon" />
+                <img src="https://via.placeholder.com/60" alt="Small groups icon" />
               </div>
               <h3 className="experiences-why-us-title">Small Group Sizes</h3>
               <p className="experiences-why-us-description">
@@ -362,7 +441,7 @@ const Experiences = () => {
             
             <div className="experiences-why-us-item">
               <div className="experiences-why-us-icon">
-                <img src="/api/placeholder/60/60" alt="Responsible tourism icon" />
+                <img src="https://via.placeholder.com/60" alt="Responsible tourism icon" />
               </div>
               <h3 className="experiences-why-us-title">Responsible Tourism</h3>
               <p className="experiences-why-us-description">
@@ -372,7 +451,7 @@ const Experiences = () => {
             
             <div className="experiences-why-us-item">
               <div className="experiences-why-us-icon">
-                <img src="/api/placeholder/60/60" alt="24/7 support icon" />
+                <img src="https://via.placeholder.com/60" alt="24/7 support icon" />
               </div>
               <h3 className="experiences-why-us-title">24/7 Support</h3>
               <p className="experiences-why-us-description">
@@ -383,7 +462,6 @@ const Experiences = () => {
         </div>
       </section>
       
-      {/* All Experiences Section */}
       <section className="experiences-all-section">
         <div className="experiences-container">
           <div className="experiences-section-header">
@@ -391,95 +469,124 @@ const Experiences = () => {
             <p className="experiences-section-subtitle">Find your perfect journey from our curated collection</p>
           </div>
           
-          {/* Category Filters */}
+          {tours.length === 0 && destinations.length > 0 && (
+            <div className="experiences-warning">
+              <p>Currently displaying destinations only. Tours are temporarily unavailable.</p>
+            </div>
+          )}
+
           <div className="experiences-categories">
             <button 
               className={`experiences-category-button ${activeCategory === 'all' ? 'active' : ''}`}
               onClick={() => setActiveCategory('all')}
+              aria-label="Show all experiences"
             >
-              All Experiences
+              All Experiences ({transformedExperiences.length})
             </button>
             <button 
               className={`experiences-category-button ${activeCategory === 'adventure' ? 'active' : ''}`}
               onClick={() => setActiveCategory('adventure')}
+              aria-label="Show adventure experiences"
             >
-              Adventure
+              Adventure ({transformedExperiences.filter(exp => exp.category === 'adventure').length})
             </button>
             <button 
               className={`experiences-category-button ${activeCategory === 'cultural' ? 'active' : ''}`}
               onClick={() => setActiveCategory('cultural')}
+              aria-label="Show cultural experiences"
             >
-              Cultural
+              Cultural ({transformedExperiences.filter(exp => exp.category === 'cultural').length})
             </button>
             <button 
               className={`experiences-category-button ${activeCategory === 'relaxation' ? 'active' : ''}`}
               onClick={() => setActiveCategory('relaxation')}
+              aria-label="Show relaxation experiences"
             >
-              Relaxation
+              Relaxation ({transformedExperiences.filter(exp => exp.category === 'relaxation').length})
             </button>
             <button 
               className={`experiences-category-button ${activeCategory === 'wildlife' ? 'active' : ''}`}
               onClick={() => setActiveCategory('wildlife')}
+              aria-label="Show wildlife experiences"
             >
-              Wildlife
+              Wildlife ({transformedExperiences.filter(exp => exp.category === 'wildlife').length})
             </button>
           </div>
           
-          {/* Experiences Grid */}
-          <div className="experiences-grid">
-            {filteredExperiences.slice(0, visibleCount).map(experience => (
-              <article key={experience.id} className="experiences-card">
-                <div className="experiences-card-image-container">
-                  <img
-                    src={experience.image}
-                    alt={experience.title}
-                    className="experiences-card-img"
-                    loading="lazy"
-                  />
-                  <div className="experiences-card-price">{experience.price}</div>
-                  <button className="experiences-card-favorite" aria-label="Save to favorites">
-                    <Heart size={18} />
+          {filteredExperiences.length > 0 ? (
+            <>
+              <div className="experiences-grid">
+                {filteredExperiences.slice(0, visibleCount).map(experience => (
+                  <article key={experience.id} className="experiences-card">
+                    <div className="experiences-card-image-container">
+                      <img
+                        src={experience.image}
+                        alt="images if dest"
+                        className="experiences-card-img"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.target.src = 'https://via.placeholder.com/400x300';
+                        }}
+                      />
+                      <div className="experiences-card-price">{experience.price}</div>
+                      <button 
+                        className="experiences-card-favorite" 
+                        aria-label={`Add ${experience.title} to favorites`}
+                      >
+                        <Heart size={18} />
+                      </button>
+                    </div>
+                    <div className="experiences-card-content">
+                      <div className="experiences-card-meta">
+                        <span className="experiences-card-category">{experience.category}</span>
+                        <span className="experiences-card-rating">
+                          <Star size={14} className="experiences-icon" /> {experience.rating.toFixed(1)} 
+                          <span className="experiences-card-reviews">({experience.reviews})</span>
+                        </span>
+                      </div>
+                      <h3 className="experiences-card-title">{experience.title}</h3>
+                      <div className="experiences-card-details">
+                        <div className="experiences-card-detail">
+                          <Calendar size={16} className="experiences-icon" />
+                          <span>{experience.duration}</span>
+                        </div>
+                        <div className="experiences-card-detail">
+                          <MapPin size={16} className="experiences-icon" />
+                          <span>{experience.location}</span>
+                        </div>
+                      </div>
+                      <Link 
+                        to={experience.type === 'tour' ? `/tour/${experience.rawId}` : `/destination/${experience.rawId}`} 
+                        className="experiences-card-button"
+                        aria-label={`View details for ${experience.title}`}
+                      >
+                        View Details <ChevronRight size={16} className="experiences-icon" />
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              
+              {visibleCount < filteredExperiences.length && (
+                <div className="experiences-load-more">
+                  <button 
+                    onClick={handleLoadMore} 
+                    className="experiences-load-button"
+                    aria-label={`Load more experiences, ${filteredExperiences.length - visibleCount} remaining`}
+                  >
+                    Load More Experiences ({filteredExperiences.length - visibleCount} remaining)
                   </button>
                 </div>
-                <div className="experiences-card-content">
-                  <div className="experiences-card-meta">
-                    <span className="experiences-card-category">{experience.category}</span>
-                    <span className="experiences-card-rating">
-                      <Star size={14} className="experiences-icon" /> {experience.rating} 
-                      <span className="experiences-card-reviews">({experience.reviews})</span>
-                    </span>
-                  </div>
-                  <h3 className="experiences-card-title">{experience.title}</h3>
-                  <div className="experiences-card-details">
-                    <div className="experiences-card-detail">
-                      <Calendar size={16} className="experiences-icon" />
-                      <span>{experience.duration}</span>
-                    </div>
-                    <div className="experiences-card-detail">
-                      <MapPin size={16} className="experiences-icon" />
-                      <span>{experience.location}</span>
-                    </div>
-                  </div>
-                  <Link to={`/experiences/${experience.id}`} className="experiences-card-button">
-                    View Details <ChevronRight size={16} className="experiences-icon" />
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-          
-          {/* Load More Button */}
-          {visibleCount < filteredExperiences.length && (
-            <div className="experiences-load-more">
-              <button onClick={handleLoadMore} className="experiences-load-button">
-                Load More Experiences
-              </button>
+              )}
+            </>
+          ) : (
+            <div className="experiences-no-results">
+              <p>No experiences found for the selected category.</p>
             </div>
           )}
         </div>
       </section>
 
-      {/* Testimonials Section */}
       <section className="experiences-testimonials-section">
         <div className="experiences-container">
           <div className="experiences-section-header">
@@ -488,7 +595,35 @@ const Experiences = () => {
           </div>
           
           <div className="experiences-testimonials-grid">
-            {testimonials.map(testimonial => (
+            {[
+              {
+                id: 1,
+                name: "Sarah Johnson",
+                location: "New York, USA",
+                quote: "The Himalayan Trek was life-changing! Our guide was incredibly knowledgeable and the scenery was breathtaking. TravelSansar handled everything perfectly.",
+                image: "https://via.placeholder.com/80",
+                rating: 5,
+                experience: "Himalayan Trek & Mountain Expedition"
+              },
+              {
+                id: 2,
+                name: "David Chen",
+                location: "Melbourne, Australia",
+                quote: "The cultural immersion in Bali exceeded all expectations. We participated in ceremonies that tourists typically don't see and made connections with local artisans.",
+                image: "https://via.placeholder.com/80",
+                rating: 5,
+                experience: "Traditional Festival & Artisan Workshop Tour"
+              },
+              {
+                id: 3,
+                name: "Priya Patel",
+                location: "London, UK",
+                quote: "The beachfront retreat was exactly what I needed. The yoga instructors were world-class and the private villa accommodations were stunning.",
+                image: "https://via.placeholder.com/80",
+                rating: 4,
+                experience: "Beachfront Wellness & Yoga Retreat"
+              }
+            ].map(testimonial => (
               <div key={testimonial.id} className="experiences-testimonial-card">
                 <div className="experiences-testimonial-rating">
                   {[...Array(5)].map((_, i) => (
@@ -496,6 +631,7 @@ const Experiences = () => {
                       key={i} 
                       size={16} 
                       className={`experiences-icon ${i < testimonial.rating ? 'filled' : ''}`} 
+                      aria-hidden="true"
                     />
                   ))}
                 </div>
@@ -503,7 +639,7 @@ const Experiences = () => {
                 <div className="experiences-testimonial-footer">
                   <img 
                     src={testimonial.image} 
-                    alt={testimonial.name} 
+                    alt="images of experience"
                     className="experiences-testimonial-image" 
                   />
                   <div className="experiences-testimonial-info">
@@ -517,12 +653,17 @@ const Experiences = () => {
           </div>
           
           <div className="experiences-testimonials-cta">
-            <Link to="/reviews" className="experiences-secondary-button">Read All Reviews</Link>
+            <Link 
+              to="/reviews" 
+              className="experiences-secondary-button" 
+              aria-label="Read all customer reviews"
+            >
+              Read All Reviews
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="experiences-cta-section">
         <div className="experiences-container">
           <div className="experiences-cta-content">
@@ -531,18 +672,33 @@ const Experiences = () => {
               Join thousands of travelers who have trusted TravelSansar for their most memorable experiences
             </p>
             <div className="experiences-cta-buttons">
-              <Link to="/tours" className="experiences-primary-button">Browse Experiences</Link>
-              <Link to="/custom" className="experiences-secondary-button">Create Custom Trip</Link>
+              <Link 
+                to="/tours" 
+                className="experiences-primary-button" 
+                aria-label="Browse all experiences"
+              >
+                Browse Experiences
+              </Link>
+              <Link 
+                to="/custom" 
+                className="experiences-secondary-button" 
+                aria-label="Create a custom trip"
+              >
+                Create Custom Trip
+              </Link>
             </div>
             <div className="experiences-cta-guarantee">
-              <img src="/api/placeholder/24/24" alt="Guarantee icon" className="experiences-guarantee-icon" />
+              <img 
+                src="https://via.placeholder.com/24" 
+                alt="Satisfaction guarantee icon" 
+                className="experiences-guarantee-icon" 
+              />
               <p>100% Satisfaction Guarantee | Flexible Booking & Free Cancellation Policy</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Newsletter Section */}
       <section className="experiences-newsletter-section">
         <div className="experiences-container">
           <div className="experiences-newsletter-content">
@@ -550,16 +706,22 @@ const Experiences = () => {
             <p className="experiences-newsletter-text">
               Subscribe to our newsletter for early access to new experiences and special promotions
             </p>
-            <form className="experiences-newsletter-form">
+            <div className="experiences-newsletter-form">
               <input 
                 type="email" 
                 placeholder="Your email address" 
                 className="experiences-newsletter-input" 
-                aria-label="Email address"
+                aria-label="Enter your email address for newsletter"
                 required 
               />
-              <button type="submit" className="experiences-newsletter-button">Subscribe</button>
-            </form>
+              <button 
+                onClick={handleNewsletterSubscribe} 
+                className="experiences-newsletter-button"
+                aria-label="Subscribe to newsletter"
+              >
+                Subscribe
+              </button>
+            </div>
             <p className="experiences-newsletter-privacy">
               We respect your privacy. Unsubscribe at any time.
             </p>
