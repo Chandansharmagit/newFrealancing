@@ -17,6 +17,8 @@ const Navbar = () => {
   const navRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
+  console.log(mousePosition)
+
   // Handle scroll for navbar effects
   useEffect(() => {
     const handleScroll = () => {
