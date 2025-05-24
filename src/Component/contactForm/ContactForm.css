@@ -1,485 +1,674 @@
+/* General styles for the contact section */
 .twcf-contact-section {
-    position: relative;
-    min-height: 100vh;
-    padding: 3rem 1rem;
-    overflow: hidden;
-    margin-top: 3rem;
-  }
-  
-  .twcf-background-split {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    z-index: 1;
-  }
-  
-  .twcf-white-half {
-    background: #ffffff;
-    width: 50%;
-    clip-path: polygon(0 0, 60% 0, 40% 100%, 0 100%);
-  }
-  
-  .twcf-image-half {
-    background-size: cover;
-    background-position: center;
-    width: 50%;
-    clip-path: polygon(60% 0, 100% 0, 100% 100%, 40% 100%);
-  }
-  
-  .twcf-section-header {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  .twcf-section-header h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 0.5rem;
-  }
-  
-  .twcf-section-subheading {
-    font-size: 1.125rem;
-    color: #475569;
-    text-align: center;
-  }
-  
-  .twcf-trust-badges {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin: 2rem auto;
-    max-width: 1400px;
-    padding: 0 1rem;
-  }
-  
-  .twcf-trust-badge {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-  }
-  
-  .twcf-trust-badge:hover {
-    transform: translateY(-5px);
-  }
-  
-  .twcf-badge-icon {
-    width: 40px;
-    height: 40px;
-    background: #7c3aed;
-    margin: 0 auto 0.5rem;
-    border-radius: 50%;
-  }
-  
-  .twcf-trust-badge h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 0.25rem;
-  }
-  
-  .twcf-trust-badge p {
-    font-size: 0.875rem;
-    color: #475569;
-  }
-  
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #ffffff;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Subtle particle background effect */
+.twcf-contact-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* Background split (removed as it conflicts with glassmorphism) */
+.twcf-background-split,
+.twcf-white-half,
+.twcf-image-half {
+  display: none;
+}
+
+/* Section header */
+.twcf-section-header {
+  text-align: center;
+  margin-bottom: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.twcf-section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 12px;
+}
+
+.twcf-section-subheading {
+  font-size: 1.1rem;
+  color: #d1d1d1;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Trust badges */
+.twcf-trust-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+  padding: 0 15px;
+}
+
+.twcf-trust-badge {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.twcf-trust-badge:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.twcf-badge-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 12px;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.twcf-trust-badge:hover .twcf-badge-icon {
+  transform: scale(1.1);
+}
+
+.twcf-satisfaction {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>');
+}
+
+.twcf-support {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m-9.9 0a9 9 0 010-12.728m12.728 0l-2.829 2.829m-9.9 0l2.829-2.829M12 21a9 9 0 100-18 9 9 0 000 18z"></path></svg>');
+}
+
+.twcf-secure {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0-1.1.9-2 2-2s2 .9 2 2-2 4-2 4m0-8a9 9 0 00-9 9v4a2 2 0 002 2h10a2 2 0 002-2v-4a9 9 0 00-9-9z"></path></svg>');
+}
+
+.twcf-best-price {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-2 4-2 4m0 8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-2-4-2-4m-9-3h4m10 0h4"></path></svg>');
+}
+
+.twcf-trust-badge h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px;
+}
+
+.twcf-trust-badge p {
+  font-size: 0.9rem;
+  color: #d1d1d1;
+  margin: 0;
+}
+
+/* Contact container */
+.twcf-contact-container {
+  display: flex;
+  gap: 40px;
+  max-width: 1650px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+@media (max-width: 1024px) {
   .twcf-contact-container {
-    position: relative;
-    z-index: 2;
-    display: flex;
     flex-direction: column;
-    max-width: 1400px;
-    margin: 0 auto;
-    gap: 2rem;
-    padding: 0 1rem;
   }
-  
-  .twcf-contact-info {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 1.5rem;
-    padding: 2rem;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact info */
+.twcf-contact-info {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.twcf-contact-info h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 16px;
+}
+
+.twcf-company-description {
+  font-size: 1rem;
+  color: #d1d1d1;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+/* Testimonial */
+.twcf-testimonial {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.twcf-quote-icon {
+  width: 24px;
+  height: 24px;
+  background: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11V7a4 4 0 018 0v4m-8 0h8m-8 0v6a2 2 0 002 2h4a2 2 0 002-2v-6"></path></svg>') no-repeat center;
+  margin-bottom: 12px;
+}
+
+.twcf-quote-text {
+  font-size: 1rem;
+  color: #d1d1d1;
+  font-style: italic;
+  margin: 0 0 12px;
+}
+
+.twcf-quote-author {
+  font-size: 0.9rem;
+  color: #4bffb4;
+  text-align: right;
+}
+
+/* Credentials */
+.twcf-credentials {
+  margin-bottom: 24px;
+}
+
+.twcf-credentials h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 16px;
+}
+
+.twcf-credential-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.twcf-credential-badge {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  color: #ffffff;
+  transition: background 0.3s ease;
+}
+
+.twcf-credential-badge:hover {
+  background: rgba(75, 255, 180, 0.2);
+}
+
+/* Contact details */
+.twcf-contact-details {
+  display: grid;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.twcf-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  transition: transform 0.3s ease;
+}
+
+.twcf-contact-item:hover {
+  transform: translateY(-3px);
+}
+
+.twcf-contact-icon {
+  width: 24px;
+  height: 24px;
+  background-size: cover;
+}
+
+.twcf-email-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l9 6 9-6m0 0v10a2 2 0 01-2 2H5a2 2 0 01-2-2V8m18 0H3"></path></svg>');
+}
+
+.twcf-phone-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>');
+}
+
+.twcf-location-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L12 21l-5.657-5.657m11.314 0A7.975 7.975 0 0012 13a7.975 7.975 0 00-5.657 2.343m11.314 0A7.975 7.975 0 0112 5a7.975 7.975 0 015.657 2.343"></path></svg>');
+}
+
+.twcf-contact-item h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px;
+}
+
+.twcf-contact-item p {
+  font-size: 0.9rem;
+  color: #d1d1d1;
+  margin: 0 0 4px;
+}
+
+.twcf-response-time {
+  font-size: 0.85rem;
+  color: #4bffb4;
+}
+
+/* Social links */
+.twcf-social-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.twcf-social-icon {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.twcf-social-icon:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.twcf-facebook {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path></svg>');
+}
+
+.twcf-instagram {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"></path></svg>');
+}
+
+.twcf-twitter {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path></svg>');
+}
+
+.twcf-youtube {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186 31.247 31.247 0 000 12a31.247 31.247 0 00.502 5.814 3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.016 3.016 0 002.122-2.136A31.247 31.247 0 0024 12a31.247 31.247 0 00-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>');
+}
+
+.twcf-attribution {
+  font-size: 0.8rem;
+  color: #d1d1d1;
+  text-align: center;
+}
+
+.twcf-attribution a {
+  color: #4bffb4;
+  text-decoration: none;
+}
+
+.twcf-attribution a:hover {
+  text-decoration: underline;
+}
+
+/* Contact form container */
+.twcf-contact-form-container {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.twcf-contact-form-container h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 16px;
+}
+
+.twcf-form-intro {
+  font-size: 1rem;
+  color: #d1d1d1;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+/* Form message */
+.twcf-form-message {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  animation: slideIn 0.3s ease;
+}
+
+.twcf-success {
+  background: rgba(75, 255, 180, 0.2);
+  border: 1px solid #4bffb4;
+  color: #4bffb4;
+}
+
+.twcf-error {
+  background: rgba(255, 107, 107, 0.2);
+  border: 1px solid #ff6b6b;
+  color: #ff6b6b;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Contact form */
+.twcf-contact-form {
+  display: grid;
+  gap: 24px;
+}
+
+.twcf-form-section {
+  display: grid;
+  gap: 20px;
+}
+
+.twcf-form-section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 16px;
+}
+
+.twcf-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.twcf-form-group label {
+  font-size: 0.9rem;
+  color: #d1d1d1;
+  margin-bottom: 8px;
+}
+
+.twcf-required {
+  color: #ff6b6b;
+}
+
+.twcf-form-group input,
+.twcf-form-group select,
+.twcf-form-group textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.twcf-form-group input:focus,
+.twcf-form-group select:focus,
+.twcf-form-group textarea:focus {
+  border-color: #4bffb4;
+  box-shadow: 0 0 8px rgba(75, 255, 180, 0.3);
+}
+
+.twcf-form-group input::placeholder,
+.twcf-form-group textarea::placeholder {
+  color: #d1d1d1;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.twcf-form-group input:focus::placeholder,
+.twcf-form-group textarea:focus::placeholder {
+  opacity: 0.3;
+}
+
+.twcf-form-group select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="%23d1d1d1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+.twcf-form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.twcf-half {
+  flex: 1;
+}
+
+.twcf-full-width textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.twcf-checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.twcf-checkbox-group input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #4bffb4;
+  cursor: pointer;
+}
+
+.twcf-checkbox-group label {
+  font-size: 0.9rem;
+  color: #d1d1d1;
+  cursor: pointer;
+}
+
+.twcf-terms-link {
+  color: #4bffb4;
+  text-decoration: none;
+}
+
+.twcf-terms-link:hover {
+  text-decoration: underline;
+}
+
+/* Data security notice */
+.twcf-data-security-notice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+.twcf-security-icon {
+  width: 20px;
+  height: 20px;
+  background: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0-1.1.9-2 2-2s2 .9 2 2-2 4-2 4m0-8a9 9 0 00-9 9v4a2 2 0 002 2h10a2 2 0 002-2v-4a9 9 0 00-9-9z"></path></svg>') no-repeat center;
+}
+
+.twcf-data-security-notice p {
+  font-size: 0.85rem;
+  color: #d1d1d1;
+  margin: 0;
+}
+
+/* Submit button */
+.twcf-submit-button {
+  background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.twcf-submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
+}
+
+.twcf-submit-button:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.twcf-submit-button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.twcf-submit-button:hover::after {
+  opacity: 1;
+  transform: rotate(45deg) translate(50%, 50%);
+}
+
+/* Contact CTA */
+.twcf-contact-cta {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.twcf-contact-cta p {
+  font-size: 0.9rem;
+  color: #d1d1d1;
+}
+
+.twcf-contact-cta a {
+  color: #4bffb4;
+  text-decoration: none;
+}
+
+.twcf-contact-cta a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .twcf-contact-section {
+    padding: 60px 15px;
   }
-  
-  .twcf-contact-info h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 1rem;
+
+  .twcf-section-header h2 {
+    font-size: 2.2rem;
   }
-  
-  .twcf-company-description {
+
+  .twcf-section-subheading {
     font-size: 1rem;
-    color: #475569;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
   }
-  
-  .twcf-testimonial {
-    background: #f8fafc;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .twcf-quote-icon {
-    width: 30px;
-    height: 30px;
-    background: #7c3aed;
-    border-radius: 50%;
-    margin-bottom: 0.5rem;
-  }
-  
-  .twcf-quote-text {
-    font-size: 1rem;
-    color: #1e293b;
-    font-style: italic;
-    margin-bottom: 0.5rem;
-  }
-  
-  .twcf-quote-author {
-    font-size: 0.875rem;
-    color: #475569;
-    font-weight: 600;
-  }
-  
-  .twcf-credentials h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 1rem;
-  }
-  
-  .twcf-credential-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .twcf-credential-badge {
-    background: #7c3aed;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-  
-  .twcf-contact-details {
-    margin-top: 1.5rem;
-    display: grid;
-    gap: 1rem;
-  }
-  
-  .twcf-contact-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .twcf-contact-icon {
-    width: 30px;
-    height: 30px;
-    background: #7c3aed;
-    border-radius: 50%;
-  }
-  
-  .twcf-contact-item h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 0.25rem;
-  }
-  
-  .twcf-contact-item p {
-    font-size: 0.875rem;
-    color: #475569;
-  }
-  
-  .twcf-response-time {
-    font-size: 0.75rem;
-    color: #6b7280;
-  }
-  
-  .twcf-social-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-  
-  .twcf-social-icon {
-    width: 30px;
-    height: 30px;
-    background: #7c3aed;
-    border-radius: 50%;
-    display: block;
-  }
-  
-  .twcf-attribution {
-    font-size: 0.75rem;
-    color: #6b7280;
-    margin-top: 1rem;
-    text-align: center;
-  }
-  
-  .twcf-attribution a {
-    color: #7c3aed;
-    text-decoration: none;
-  }
-  
-  .twcf-attribution a:hover {
-    text-decoration: underline;
-  }
-  
+
+  .twcf-contact-info,
   .twcf-contact-form-container {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 1.5rem;
-    padding: 2rem;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
   }
-  
-  .twcf-contact-form-container h2 {
+}
+
+@media (max-width: 768px) {
+  .twcf-contact-section {
+    padding: 40px 10px;
+  }
+
+  .twcf-section-header {
+    padding: 20px;
+  }
+
+  .twcf-section-header h2 {
     font-size: 2rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 0.5rem;
   }
-  
-  .twcf-form-intro {
-    font-size: 1rem;
-    color: #475569;
-    margin-bottom: 1.5rem;
+
+  .twcf-section-subheading {
+    font-size: 0.9rem;
   }
-  
-  .twcf-form-message {
-    padding: 1rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
-    font-size: 0.875rem;
+
+  .twcf-trust-badges {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
-  
-  .twcf-success {
-    background: #d1fae5;
-    color: #065f46;
-  }
-  
-  .twcf-error {
-    background: #fee2e2;
-    color: #991b1b;
-  }
-  
-  .twcf-contact-form {
-    display: grid;
-    gap: 1.5rem;
-  }
-  
-  .twcf-form-section {
-    display: grid;
-    gap: 1rem;
-  }
-  
-  .twcf-form-section-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 0.5rem;
-  }
-  
-  .twcf-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .twcf-form-group label {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #1e293b;
-  }
-  
-  .twcf-required {
-    color: #dc2626;
-  }
-  
-  .twcf-form-group input,
-  .twcf-form-group select,
-  .twcf-form-group textarea {
-    padding: 0.75rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    color: #1e293b;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-  
-  .twcf-form-group input:focus,
-  .twcf-form-group select:focus,
-  .twcf-form-group textarea:focus {
-    border-color: #7c3aed;
-    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
-  }
-  
+
   .twcf-form-row {
-    display: grid;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 16px;
   }
-  
-  .twcf-half {
-    width: 100%;
+
+  .twcf-contact-info h2,
+  .twcf-contact-form-container h2 {
+    font-size: 1.8rem;
   }
-  
-  .twcf-full-width textarea {
-    resize: vertical;
+
+  .twcf-form-section-title {
+    font-size: 1.4rem;
   }
-  
-  .twcf-checkbox-group {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .twcf-contact-section {
+    padding: 30px 10px;
   }
-  
-  .twcf-checkbox-group input[type="checkbox"] {
-    width: 1rem;
-    height: 1rem;
+
+  .twcf-section-header h2 {
+    font-size: 1.8rem;
   }
-  
-  .twcf-checkbox-group label {
-    font-size: 0.875rem;
-    color: #475569;
+
+  .twcf-section-subheading {
+    font-size: 0.85rem;
   }
-  
-  .twcf-terms-link {
-    color: #7c3aed;
-    text-decoration: none;
+
+  .twcf-contact-info,
+  .twcf-contact-form-container {
+    padding: 15px;
   }
-  
-  .twcf-terms-link:hover {
-    text-decoration: underline;
+
+  .twcf-trust-badges {
+    grid-template-columns: 1fr;
   }
-  
-  .twcf-data-security-notice {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  
-  .twcf-security-icon {
-    width: 20px;
-    height: 20px;
-    background: #7c3aed;
-    border-radius: 50%;
-  }
-  
-  .twcf-data-security-notice p {
-    font-size: 0.75rem;
-    color: #475569;
-  }
-  
+
   .twcf-submit-button {
-    padding: 0.75rem 2rem;
-    background: linear-gradient(90deg, #7c3aed, #db2777);
-    color: white;
-    font-size: 1rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
-  
-  .twcf-submit-button:hover:not(:disabled) {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  .twcf-submit-button:disabled {
-    background: #9ca3af;
-    cursor: not-allowed;
-  }
-  
-  .twcf-contact-cta {
-    text-align: center;
-    margin-top: 1.5rem;
-  }
-  
-  .twcf-contact-cta p {
-    font-size: 0.875rem;
-    color: #475569;
-  }
-  
-  .twcf-contact-cta a {
-    color: #7c3aed;
-    text-decoration: none;
-  }
-  
-  .twcf-contact-cta a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Responsive Design */
-  @media (min-width: 640px) {
-    .twcf-contact-section {
-      padding: 4rem 1.5rem;
-    }
-  
-    .twcf-trust-badges {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  
-    .twcf-contact-container {
-      flex-direction: row;
-    }
-  
-    .twcf-contact-info,
-    .twcf-contact-form-container {
-      width: 50%;
-    }
-  
-    .twcf-form-row {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .twcf-contact-section {
-      padding: 5rem 2rem;
-    }
-  
-    .twcf-trust-badges {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  
-    .twcf-section-header h2 {
-      font-size: 3rem;
-    }
-  
-    .twcf-white-half {
-      clip-path: polygon(0 0, 65% 0, 45% 100%, 0 100%);
-    }
-  
-    .twcf-image-half {
-      clip-path: polygon(65% 0, 100% 0, 100% 100%, 45% 100%);
-    }
-  }
-  
-  @media (max-width: 639px) {
-    .twcf-white-half {
-      clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%);
-    }
-  
-    .twcf-image-half {
-      clip-path: polygon(100% 0, 100% 100%, 80% 100%, 100% 0);
-    }
-  }
+}

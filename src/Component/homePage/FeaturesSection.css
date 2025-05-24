@@ -1,209 +1,188 @@
-/* Base Styles */
+/* General styles for the features section */
 .fs-features-section {
-    padding: 60px 0;
-    background-color: #f5f7fa; /* Match DestinationsGrid background */
+  background: linear-gradient(135deg, #38383b 0%, #16213e 100%);
+  color: #ffffff;
+  padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
+  min-height: 80vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Subtle animated background particles */
+.fs-features-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  opacity: 0.3;
+  pointer-events: none;
+  animation: subtlePulse 15s infinite ease-in-out;
+}
+
+@keyframes subtlePulse {
+  0% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.05); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 0.3; }
+}
+
+/* Container for centering content */
+.fs-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Header styles */
+.fs-section-header {
+  text-align: center;
+  margin-bottom: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.fs-section-header .fs-section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+  background: linear-gradient(90deg, #ffffff, #a1a1ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.fs-section-header .fs-section-subtitle {
+  font-size: 1.1rem;
+  color: #d1d1d1;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Grid layout for feature cards */
+.fs-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* Feature card styles with glassmorphism */
+.fs-feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.fs-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Feature icon styles */
+.fs-feature-icon {
+  font-size: 2.5rem;
+  color: #4bffb4;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.fs-feature-card:hover .fs-feature-icon {
+  transform: scale(1.1);
+  color: #6b8cff;
+}
+
+/* Feature title and description */
+.fs-feature-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: left;
+  margin: 0 0 10px;
+}
+
+.fs-feature-description {
+  font-size: 1rem;
+  color: #d1d1d1;
+  line-height: 1.5;
+  margin: 0;
+  text-align: left;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .fs-features-section {
+    padding: 40px 15px;
   }
-  
-  .fs-container {
-    width: 95vw;
-    max-width: 1600px; /* Consistent with DestinationsGrid */
-    margin: 0 auto;
+
+  .fs-section-header .fs-section-title {
+    font-size: 2rem;
   }
-  
-  /* Header Styles */
-  .fs-section-header {
-    text-align: center;
-    margin-bottom: 40px;
+
+  .fs-section-header .fs-section-subtitle {
+    font-size: 1rem;
   }
-  
-  .fs-section-title {
-    font-size: 32px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .fs-section-subtitle {
-    font-size: 16px;
-    color: #666;
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  /* Grid Layout */
+
   .fs-features-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns by default */
-    gap: 24px;
-    margin-bottom: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
   }
-  
-  /* Feature Card Styles */
+
   .fs-feature-card {
-    background-color: #fff;
-    border-radius: 12px; /* Match DestinationsGrid */
-    padding: 24px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Match DestinationsGrid */
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 15px;
   }
-  
-  .fs-feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); /* Match DestinationsGrid hover */
-  }
-  
+
   .fs-feature-icon {
-    font-size: 32px; /* Larger icons for visibility */
-    color: #0066cc; /* Match DestinationsGrid primary color */
-    margin-bottom: 16px;
+    font-size: 2rem;
   }
-  
+
   .fs-feature-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 12px;
+    font-size: 1.3rem;
   }
-  
+
   .fs-feature-description {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.5;
-    flex-grow: 1;
-    word-break: break-word; /* Handle long words */
+    font-size: 0.9rem;
   }
-  
-  /* Responsive Design */
-  
-  /* Medium screens (tablets, 600px - 900px) */
-  @media (max-width: 900px) {
-    .fs-features-grid {
-      grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
-      gap: 20px;
-    }
-  
-    .fs-section-title {
-      font-size: 28px;
-    }
-  
-    .fs-section-subtitle {
-      font-size: 15px;
-    }
-  
-    .fs-feature-card {
-      padding: 20px;
-    }
-  
-    .fs-feature-icon {
-      font-size: 28px;
-    }
-  
-    .fs-feature-title {
-      font-size: 17px;
-    }
-  
-    .fs-feature-description {
-      font-size: 13px;
-    }
+}
+
+@media (max-width: 480px) {
+  .fs-features-section {
+    padding: 30px 10px;
   }
-  
-  /* Small screens (mobile, <= 600px) */
-  @media (max-width: 600px) {
-    .fs-features-section {
-      padding: 30px 0; /* Reduced padding */
-    }
-  
-    .fs-container {
-      width: 90vw; /* Narrower container */
-    }
-  
-    .fs-section-header {
-      margin-bottom: 24px;
-    }
-  
-    .fs-section-title {
-      font-size: 22px; /* Smaller title */
-    }
-  
-    .fs-section-subtitle {
-      font-size: 14px;
-      padding: 0 12px; /* Prevent edge touch */
-    }
-  
-    .fs-features-grid {
-      grid-template-columns: 1fr; /* Single column */
-      gap: 16px; /* Smaller gap */
-    }
-  
-    .fs-feature-card {
-      padding: 16px;
-      border-radius: 8px; /* Slightly smaller radius */
-    }
-  
-    .fs-feature-icon {
-      font-size: 24px; /* Smaller icons */
-      margin-bottom: 12px;
-    }
-  
-    .fs-feature-title {
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-  
-    .fs-feature-description {
-      font-size: 13px;
-      line-height: 1.4;
-      max-height: 60px; /* Limit height */
-      display: -webkit-box;
-      -webkit-line-clamp: 3; /* Limit to 3 lines */
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
+
+  .fs-section-header .fs-section-title {
+    font-size: 1.8rem;
   }
-  
-  /* Very small screens (e.g., old smartphones, <= 400px) */
-  @media (max-width: 400px) {
-    .fs-container {
-      width: 92vw; /* Even narrower */
-    }
-  
-    .fs-features-section {
-      padding: 20px 0; /* Minimal padding */
-    }
-  
-    .fs-features-grid {
-      gap: 12px; /* Minimal gap */
-    }
-  
-    .fs-section-title {
-      font-size: 20px;
-    }
-  
-    .fs-section-subtitle {
-      font-size: 13px;
-    }
-  
-    .fs-feature-card {
-      padding: 12px;
-    }
-  
-    .fs-feature-icon {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-  
-    .fs-feature-title {
-      font-size: 15px;
-    }
-  
-    .fs-feature-description {
-      font-size: 12px;
-      max-height: 50px;
-      -webkit-line-clamp: 2; /* Limit to 2 lines */
-    }
+
+  .fs-section-header .fs-section-subtitle {
+    font-size: 0.9rem;
   }
+
+  .fs-features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fs-feature-icon {
+    font-size: 1.8rem;
+  }
+
+  .fs-feature-title {
+    font-size: 1.2rem;
+  }
+}

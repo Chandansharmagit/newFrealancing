@@ -1,130 +1,125 @@
-/* Base Styles */
+/* General styles for the stats section */
 .ss-stats-section {
-    padding: 60px 0;
-    background-color: #f5f7fa; /* Match other components */
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #ffffff;
+  padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Subtle animated background particles */
+.ss-stats-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  opacity: 0.3;
+  pointer-events: none;
+  animation: subtlePulse 15s infinite ease-in-out;
+}
+
+@keyframes subtlePulse {
+  0% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.05); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 0.3; }
+}
+
+/* Container for centering content */
+.ss-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Stats container with grid layout */
+.ss-stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* Individual stat item with glassmorphism */
+.ss-stat-item {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.ss-stat-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Stat value */
+.ss-stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+  background: linear-gradient(90deg, #4bffb4, #6b8cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Stat label */
+.ss-stat-label {
+  font-size: 1.1rem;
+  color: #d1d1d1;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ss-stats-section {
+    padding: 40px 15px;
   }
-  
-  .ss-container {
-    width: 95vw;
-    max-width: 1600px; /* Consistent with other components */
-    margin: 0 auto;
-  }
-  
+
   .ss-stats-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns by default */
-    gap: 24px;
-    max-width: 1600px; /* Limit width for balance */
-    margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
   }
-  
+
   .ss-stat-item {
-    background-color: #fff;
-    border-radius: 12px; /* Match other components */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Match other components */
-    padding: 24px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 15px;
   }
-  
-  .ss-stat-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); /* Match other components */
-  }
-  
+
   .ss-stat-value {
-    font-size: 36px;
-    font-weight: 700;
-    color: #0066cc; /* Match primary color */
-    margin: 0 0 12px;
+    font-size: 2rem;
   }
-  
+
   .ss-stat-label {
-    font-size: 16px;
-    color: #666;
-    margin: 0;
-    word-break: break-word; /* Handle long labels */
+    font-size: 1rem;
   }
-  
-  /* Responsive Design */
-  
-  /* Medium screens (tablets, 600px - 900px) */
-  @media (max-width: 900px) {
-    .ss-stats-container {
-      grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
-      gap: 20px;
-      max-width: 800px;
-    }
-  
-    .ss-stat-item {
-      padding: 20px;
-    }
-  
-    .ss-stat-value {
-      font-size: 32px;
-    }
-  
-    .ss-stat-label {
-      font-size: 15px;
-    }
+}
+
+@media (max-width: 480px) {
+  .ss-stats-section {
+    padding: 30px 10px;
   }
-  
-  /* Small screens (mobile, <= 600px) */
-  @media (max-width: 600px) {
-    .ss-stats-section {
-      padding: 30px 0; /* Reduced padding */
-    }
-  
-    .ss-container {
-      width: 90vw; /* Narrower container */
-    }
-  
-    .ss-stats-container {
-      grid-template-columns: 1fr; /* Single column */
-      gap: 16px;
-      max-width: 600px; /* Limit width for mobile */
-    }
-  
-    .ss-stat-item {
-      padding: 16px;
-      border-radius: 8px; /* Slightly smaller radius */
-    }
-  
-    .ss-stat-value {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-  
-    .ss-stat-label {
-      font-size: 14px;
-    }
+
+  .ss-stats-container {
+    grid-template-columns: 1fr;
   }
-  
-  /* Very small screens (e.g., old smartphones, <= 400px) */
-  @media (max-width: 400px) {
-    .ss-container {
-      width: 92vw; /* Even narrower */
-    }
-  
-    .ss-stats-section {
-      padding: 20px 0; /* Minimal padding */
-    }
-  
-    .ss-stats-container {
-      gap: 12px;
-      max-width: 320px;
-    }
-  
-    .ss-stat-item {
-      padding: 12px;
-    }
-  
-    .ss-stat-value {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-  
-    .ss-stat-label {
-      font-size: 13px;
-    }
+
+  .ss-stat-item {
+    padding: 12px;
   }
+
+  .ss-stat-value {
+    font-size: 1.8rem;
+  }
+
+  .ss-stat-label {
+    font-size: 0.9rem;
+  }
+}

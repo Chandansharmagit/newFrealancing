@@ -201,7 +201,8 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #222;
+  text-align: left;
+  color: #d4d3d3;
 }
 
 .section-header p {
