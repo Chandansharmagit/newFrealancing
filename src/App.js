@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 
 import HomePage from "./Component/homePage/Homepage";
@@ -51,7 +51,8 @@ function AppContent() {
   const [hasShownPopup, setHasShownPopup] = useState(false);
   const [isDashboardAuthOpen, setIsDashboardAuthOpen] = useState(false);
   const [isDashboardAuthenticated, setIsDashboardAuthenticated] = useState(false);
-  const navigate = useNavigate(); // Use navigate within router context
+  const navigate = useNavigate();
+  const location = useLocation(); // Added to track current route
 
   const checkAuth = useCallback(async () => {
     try {
@@ -74,7 +75,6 @@ function AppContent() {
     }
   }, []);
 
-  // Initial auth check and 8-second popup timer for general login
   useEffect(() => {
     checkAuth();
 
@@ -88,7 +88,6 @@ function AppContent() {
     return () => clearTimeout(timer);
   }, [isAuthenticated, hasShownPopup, checkAuth]);
 
-  // Periodic auth check every 30 seconds for general auth
   useEffect(() => {
     const interval = setInterval(checkAuth, 30000);
     return () => clearInterval(interval);
@@ -105,9 +104,9 @@ function AppContent() {
 
   const handleDashboardAuth = (isSuccess) => {
     setIsDashboardAuthenticated(isSuccess);
-    setIsDashboardAuthOpen(!isSuccess); // Close popup on success, keep open on failure
+    setIsDashboardAuthOpen(!isSuccess);
     if (isSuccess) {
-      navigate("/dashboard/dashboard"); // Redirect to /dashboard/dashboard on success
+      navigate("/dashboard/dashboard");
     }
   };
 
@@ -115,10 +114,13 @@ function AppContent() {
     setIsDashboardAuthOpen(false);
   };
 
+  // Check if the current route is a dashboard route
+  const isDashboardRoute = location.pathname.startsWith("/dashboard");
+
   return (
     <>
-      <Navbar openLoginPopup={openLoginPopup} />
-
+      {!isDashboardRoute && <Navbar openLoginPopup={openLoginPopup} />}
+      
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/tour/:id" element={<TourDetailPage />} />
@@ -143,7 +145,7 @@ function AppContent() {
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/sidebar" element={<Sidebar />} />
         <Route path="/u" element={<Allusers />} />
-         <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
         <Route
           path="/dashboard/*"
           element={
@@ -171,7 +173,7 @@ function AppContent() {
         </Route>
       </Routes>
 
-      <Footer />
+      {!isDashboardRoute && <Footer />}
       <LoginPopup isOpen={isLoginOpen} onClose={closeLoginPopup} />
       <LoginDashboardAuth
         isOpen={isDashboardAuthOpen}

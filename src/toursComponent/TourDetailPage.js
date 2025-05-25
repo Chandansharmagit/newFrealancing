@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Footer from "../Component/homePage/Footer";
+
 import {
   FiMapPin,
   FiCalendar,
@@ -326,7 +326,7 @@ const TourDetailPage = () => {
           </button>
         </div>
       </div>
-      <Footer />
+     
     </>
   );
 };

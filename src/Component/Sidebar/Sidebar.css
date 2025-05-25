@@ -16,8 +16,8 @@
 
 /* Sidebar Toggle Button */
 .sidebar-toggle {
-  /* position: fixed; */
-  top: 120px;
+  position: fixed;
+  top: 0;
   left: 20px;
   z-index: 1001;
   background: var(--primary-color);
@@ -52,7 +52,7 @@
 .sidebar {
   position: fixed;
   left: 0;
-  top: 70px;
+  top: 0;
   height: 100vh;
   background: white;
   box-shadow: var(--box-shadow);
