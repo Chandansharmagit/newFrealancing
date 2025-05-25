@@ -1,56 +1,56 @@
 import React from 'react';
-import { FaFacebookF, FaTwitter, FaInstagram, FaPinterestP, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCcVisa, FaCcMastercard, FaCcAmex, FaPaypal, FaUniversity, FaMobile, FaCreditCard, FaHeart } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaInstagram, FaPinterestP, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCcVisa, FaCreditCard, FaHeart } from 'react-icons/fa';
 import './Footer.css';
 
 const Footer = () => {
   // SVG Icons for Nepali payment systems
-  const ESewaIcon = () => (
-    <div className="ft-payment-logo esewa-logo" title="eSewa">
-      <svg viewBox="0 0 100 40" className="ft-payment-svg">
-        <rect width="100" height="40" rx="6" fill="#60c84c"/>
-        <text x="50" y="26" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">eSewa</text>
-      </svg>
-    </div>
-  );
+  // const ESewaIcon = () => (
+  //   <div className="ft-payment-logo esewa-logo" title="eSewa">
+  //     <svg viewBox="0 0 100 40" className="ft-payment-svg">
+  //       <rect width="100" height="40" rx="6" fill="#60c84c"/>
+  //       <text x="50" y="26" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">eSewa</text>
+  //     </svg>
+  //   </div>
+  // );
 
-  const KhaltiIcon = () => (
-    <div className="ft-payment-logo khalti-logo" title="Khalti">
-      <svg viewBox="0 0 100 40" className="ft-payment-svg">
-        <rect width="100" height="40" rx="6" fill="#5c2d91"/>
-        <text x="50" y="26" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">Khalti</text>
-      </svg>
-    </div>
-  );
+  // const KhaltiIcon = () => (
+  //   <div className="ft-payment-logo khalti-logo" title="Khalti">
+  //     <svg viewBox="0 0 100 40" className="ft-payment-svg">
+  //       <rect width="100" height="40" rx="6" fill="#5c2d91"/>
+  //       <text x="50" y="26" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">Khalti</text>
+  //     </svg>
+  //   </div>
+  // );
 
-  const IMEPayIcon = () => (
-    <div className="ft-payment-logo imepay-logo" title="IME Pay">
-      <svg viewBox="0 0 100 40" className="ft-payment-svg">
-        <rect width="100" height="40" rx="6" fill="#ed1c24"/>
-        <text x="50" y="22" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold">IME</text>
-        <text x="50" y="34" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold">Pay</text>
-      </svg>
-    </div>
-  );
+  // const IMEPayIcon = () => (
+  //   <div className="ft-payment-logo imepay-logo" title="IME Pay">
+  //     <svg viewBox="0 0 100 40" className="ft-payment-svg">
+  //       <rect width="100" height="40" rx="6" fill="#ed1c24"/>
+  //       <text x="50" y="22" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold">IME</text>
+  //       <text x="50" y="34" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold">Pay</text>
+  //     </svg>
+  //   </div>
+  // );
 
-  const ConnectIPSIcon = () => (
-    <div className="ft-payment-logo connectips-logo" title="ConnectIPS">
-      <svg viewBox="0 0 100 40" className="ft-payment-svg">
-        <rect width="100" height="40" rx="6" fill="#1e88e5"/>
-        <text x="50" y="18" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">Connect</text>
-        <text x="50" y="30" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">IPS</text>
-      </svg>
-    </div>
-  );
+  // const ConnectIPSIcon = () => (
+  //   <div className="ft-payment-logo connectips-logo" title="ConnectIPS">
+  //     <svg viewBox="0 0 100 40" className="ft-payment-svg">
+  //       <rect width="100" height="40" rx="6" fill="#1e88e5"/>
+  //       <text x="50" y="18" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">Connect</text>
+  //       <text x="50" y="30" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">IPS</text>
+  //     </svg>
+  //   </div>
+  // );
 
-  const NepaliBank = ({ name, color }) => (
-    <div className="ft-payment-logo" title={name}>
-      <svg viewBox="0 0 100 40" className="ft-payment-svg">
-        <rect width="100" height="40" rx="6" fill={color}/>
-        <FaUniversity className="ft-bank-icon" />
-        <text x="50" y="35" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">{name}</text>
-      </svg>
-    </div>
-  );
+  // const NepaliBank = ({ name, color }) => (
+  //   <div className="ft-payment-logo" title={name}>
+  //     <svg viewBox="0 0 100 40" className="ft-payment-svg">
+  //       <rect width="100" height="40" rx="6" fill={color}/>
+  //       <FaUniversity className="ft-bank-icon" />
+  //       <text x="50" y="35" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">{name}</text>
+  //     </svg>
+  //   </div>
+  // );
 
   return (
     <footer className="ft-footer">
