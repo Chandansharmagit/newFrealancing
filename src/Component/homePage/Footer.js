@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebookF, FaTwitter, FaInstagram, FaPinterestP, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCcVisa, FaCcMastercard, FaCcAmex, FaPaypal, FaUniversity, FaMobile, FaCreditCard } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaInstagram, FaPinterestP, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCcVisa, FaCcMastercard, FaCcAmex, FaPaypal, FaUniversity, FaMobile, FaCreditCard, FaHeart } from 'react-icons/fa';
 import './Footer.css';
 
 const Footer = () => {
@@ -123,7 +123,7 @@ const Footer = () => {
               </h4>
               <div className="ft-payment-grid">
                 {/* Nepali Payment Systems */}
-                <div className="ft-payment-group">
+                {/* <div className="ft-payment-group">
                   <span className="ft-payment-label">
                     <FaMobile className="ft-label-icon" />
                     Mobile Payments
@@ -134,10 +134,10 @@ const Footer = () => {
                     <IMEPayIcon />
                     <ConnectIPSIcon />
                   </div>
-                </div>
+                </div> */}
 
                 {/* Nepali Banks */}
-                <div className="ft-payment-group">
+                {/* <div className="ft-payment-group">
                   <span className="ft-payment-label">
                     <FaUniversity className="ft-label-icon" />
                     Local Banks
@@ -148,7 +148,7 @@ const Footer = () => {
                     <NepaliBank name="Nabil Bank" color="#1e4d3e" />
                     <NepaliBank name="Standard Chartered" color="#007ec6" />
                   </div>
-                </div>
+                </div> */}
 
                 {/* International Cards */}
                 <div className="ft-payment-group">
@@ -160,7 +160,7 @@ const Footer = () => {
                     <div className="ft-payment-logo visa-logo" title="Visa">
                       <FaCcVisa size={40} color="#1A1F71" />
                     </div>
-                    <div className="ft-payment-logo mastercard-logo" title="Mastercard">
+                    {/* <div className="ft-payment-logo mastercard-logo" title="Mastercard">
                       <FaCcMastercard size={40} color="#EB001B" />
                     </div>
                     <div className="ft-payment-logo amex-logo" title="American Express">
@@ -168,7 +168,7 @@ const Footer = () => {
                     </div>
                     <div className="ft-payment-logo paypal-logo" title="PayPal">
                       <FaPaypal size={40} color="#003087" />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -180,10 +180,23 @@ const Footer = () => {
         </div>
 
         <div className="ft-footer-bottom">
-          <p className="ft-copyright">© 2025 Travel Sansar. All Rights Reserved.</p>
-          <div className="ft-footer-bottom-links">
-            <a href="/privacy-policy">Privacy Policy</a>
-            <a href="/terms-of-service">Terms of Service</a>
+          <div className="ft-footer-bottom-content">
+            <div className="ft-copyright-section">
+              <p className="ft-copyright">© 2025 Travel Sansar. All Rights Reserved.</p>
+              <div className="ft-developer-credit">
+                <span>Designed & Developed with</span>
+                <FaHeart className="ft-heart-icon" />
+                <span>by</span>
+                <a href="https://www.facebook.com/Chandan.Sharma.8689" target="_blank" rel="noopener noreferrer" className="ft-developer-link">
+                  <FaFacebookF className="ft-dev-fb-icon" />
+                  Chandan Sharma
+                </a>
+              </div>
+            </div>
+            <div className="ft-footer-bottom-links">
+              <a href="/privacy-policy">Privacy Policy</a>
+              <a href="/terms-of-service">Terms of Service</a>
+            </div>
           </div>
         </div>
       </div>
