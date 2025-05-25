@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "../Component/homePage/Footer";
-import LoginPopup from "../Component/Authentications/LoginPopup";
 import {
   FiMapPin,
   FiCalendar,
@@ -11,7 +10,6 @@ import {
   FiStar,
   FiArrowRight,
 } from "react-icons/fi";
-
 import { trackWhatsAppRequest } from "./trackWhatsAppRequest";
 import { ensureUserId } from "./trackWhatsAppRequest";
 import "./TourDetailPage.css";
@@ -20,15 +18,15 @@ const API_BASE_URL = "https://backendtravelagencytwomicroservice.onrender.com/";
 
 const TourDetailPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // Added for navigation
   const [tour, setTour] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-  // WhatsApp number from environment variable or fallback
-  const whatsappNumber = process.env.REACT_APP_WHATSAPP_NUMBER || "9855051795";
+  // WhatsApp number with country code
+  const whatsappNumber = process.env.REACT_APP_WHATSAPP_NUMBER || "+919855051795";
 
   // Check authentication status
   const checkAuth = useCallback(async () => {
@@ -40,15 +38,9 @@ const TourDetailPage = () => {
       const data = await response.json();
       console.log("Auth check response:", data);
       setIsAuthenticated(data.isAuthenticated);
-      if (data.isAuthenticated) {
-        setIsLoginOpen(false); // Close popup if authenticated
-      } else {
-        setIsLoginOpen(true); // Show login popup if not authenticated
-      }
     } catch (error) {
       console.error("Error checking auth:", error.message);
       setIsAuthenticated(false);
-      setIsLoginOpen(true); // Show login popup on error
     }
   }, []);
 
@@ -108,23 +100,31 @@ const TourDetailPage = () => {
     }
   };
 
-  // Handle WhatsApp button click with tracking
+  // Handle WhatsApp button click with navigation for unauthenticated users
   const handleWhatsAppClick = async () => {
+    console.log("WhatsApp button clicked, isAuthenticated:", isAuthenticated);
     if (!isAuthenticated) {
-      setIsLoginOpen(true);
+      console.log("User not authenticated, navigating to login page");
+      navigate("/login");
       return;
     }
-    // Track the click event
-    await trackWhatsAppRequest(id);
-    
-    // Pre-filled WhatsApp message with tour name and ID
-    const whatsappMessage = encodeURIComponent(
-      `Hello! I'm interested in the "${tour?.name || "tour"}" tour (ID: ${id}). Can you provide more details about availability and booking?`
+    // Track asynchronously to avoid blocking
+    trackWhatsAppRequest(id).catch((error) =>
+      console.error("Tracking failed:", error)
     );
-    
-    // Open WhatsApp in new tab
+    const whatsappMessage = encodeURIComponent(
+      `Hello! I'm interested in the "${tour?.name || "Unknown Tour"}" tour (ID: ${id}). Can you provide more details about availability and booking?`
+    );
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
-    window.open(whatsappUrl, '_blank');
+    try {
+      const newWindow = window.open(whatsappUrl, "_blank");
+      if (!newWindow) {
+        alert("Unable to open WhatsApp. Please ensure pop-ups are enabled or open WhatsApp manually.");
+      }
+    } catch (error) {
+      console.error("Failed to open WhatsApp:", error);
+      alert("An error occurred while opening WhatsApp. Please try again.");
+    }
   };
 
   if (loading)
@@ -249,9 +249,12 @@ const TourDetailPage = () => {
                 )}
               </div>
 
-              {/* WhatsApp Button for Availability - Updated with tracking onClick */}
+              {/* WhatsApp Button for Availability */}
               <button
-                onClick={handleWhatsAppClick}
+                onClick={() => {
+                  console.log("Inquiry button clicked");
+                  handleWhatsAppClick();
+                }}
                 className="inquiry-button"
               >
                 Check Availability via WhatsApp <FiArrowRight />
@@ -307,30 +310,21 @@ const TourDetailPage = () => {
           </section>
         </div>
 
-        {/* Fixed CTA for mobile - Updated with tracking onClick */}
+        {/* Fixed CTA for mobile */}
         <div className="mobile-cta">
           <div className="mobile-price">
             From ${tour.price?.toLocaleString() || "..."}
           </div>
           <button
-            onClick={handleWhatsAppClick}
+            onClick={() => {
+              console.log("Mobile book button clicked");
+              handleWhatsAppClick();
+            }}
             className="mobile-book-button"
           >
             Book via WhatsApp
           </button>
         </div>
-
-        {/* Login Popup */}
-        {isLoginOpen && !isAuthenticated && (
-          <LoginPopup
-            onClose={() => setIsLoginOpen(false)}
-            onLoginSuccess={() => {
-              setIsAuthenticated(true);
-              setIsLoginOpen(false);
-              checkAuth(); // Re-check auth after login
-            }}
-          />
-        )}
       </div>
       <Footer />
     </>

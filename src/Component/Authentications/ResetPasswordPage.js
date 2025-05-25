@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-
+import "./ResetPassword.css";
 export const ResetPasswordPage = () => {
   const navigate = useNavigate();
   const location = useLocation();

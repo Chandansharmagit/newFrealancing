@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import BookingForm from './BookingForm';
-import LoginPopup from '../../Authentications/LoginPopup';
+
+import LoginPage from '../../Authentications/Login';
 
 const DestinationCTA = ({ title, id }) => {
   const [showBookingForm, setShowBookingForm] = useState(false);
@@ -65,7 +66,7 @@ const DestinationCTA = ({ title, id }) => {
       )}
 
       {showLoginPopup && (
-        <LoginPopup 
+        <LoginPage 
           isOpen={showLoginPopup}
           onClose={handleCloseLoginPopup}
           onLoginSuccess={() => {
