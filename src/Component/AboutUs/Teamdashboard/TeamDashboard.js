@@ -14,10 +14,12 @@ const TeamDashboard = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Fetch team members
   useEffect(() => {
     const fetchTeamMembers = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get('https://backendtravelagencytwomicroservice.onrender.com/api/team');
         setTeamMembers(response.data);
@@ -25,6 +27,8 @@ const TeamDashboard = () => {
       } catch (error) {
         console.error('Error fetching team members:', error);
         setError(error.response?.data?.message || 'Failed to load team members.');
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchTeamMembers();
@@ -38,7 +42,12 @@ const TeamDashboard = () => {
 
   // Handle image file change
   const handleImageChange = (e) => {
-    setFormData({ ...formData, image: e.target.files[0] });
+    const file = e.target.files[0];
+    if (file && !['image/jpeg', 'image/jpg', 'image/png'].includes(file.type)) {
+      setError('Please upload a valid image (JPEG, JPG, or PNG).');
+      return;
+    }
+    setFormData({ ...formData, image: file });
   };
 
   // Handle form submission (Create/Update)
@@ -46,6 +55,7 @@ const TeamDashboard = () => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+    setIsLoading(true);
 
     const data = new FormData();
     data.append('name', formData.name);
@@ -58,7 +68,6 @@ const TeamDashboard = () => {
     try {
       let response;
       if (isEditing) {
-        // Update team member
         response = await axios.put(
           `https://backendtravelagencytwomicroservice.onrender.com/api/team/${formData.id}`,
           data,
@@ -71,7 +80,6 @@ const TeamDashboard = () => {
         );
         setSuccess('Team member updated successfully!');
       } else {
-        // Create team member
         response = await axios.post(
           'https://backendtravelagencytwomicroservice.onrender.com/api/team',
           data,
@@ -84,6 +92,8 @@ const TeamDashboard = () => {
     } catch (error) {
       console.error('Error saving team member:', error);
       setError(error.response?.data?.message || 'Failed to save team member.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -104,6 +114,7 @@ const TeamDashboard = () => {
   // Handle delete button click
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this team member?')) return;
+    setIsLoading(true);
     try {
       await axios.delete(`https://backendtravelagencytwomicroservice.onrender.com/api/team/${id}`);
       setTeamMembers(teamMembers.filter((member) => member._id !== id));
@@ -112,6 +123,8 @@ const TeamDashboard = () => {
     } catch (error) {
       console.error('Error deleting team member:', error);
       setError(error.response?.data?.message || 'Failed to delete team member.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -120,22 +133,23 @@ const TeamDashboard = () => {
     setFormData({ id: '', name: '', role: '', bio: '', image: null });
     setIsEditing(false);
     setError(null);
+    setSuccess(null);
   };
 
   return (
-    <div className="team-dashboard">
-      <div className="container">
-        <h1 className="dashboard-title">Team Management Dashboard</h1>
+    <div className="td-team-dashboard">
+      <div className="td-container">
+        <h1 className="td-dashboard-title">Team Management Dashboard</h1>
 
         {/* Form Section */}
-        <section className="form-section">
-          <h2 className="section-title">
+        <section className="td-form-section">
+          <h2 className="td-section-title">
             {isEditing ? 'Edit Team Member' : 'Add Team Member'}
           </h2>
-          {error && <p className="error-message">{error}</p>}
-          {success && <p className="success-message">{success}</p>}
+          {error && <p className="td-error-message">{error}</p>}
+          {success && <p className="td-success-message">{success}</p>}
           <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <div className="form-group">
+            <div className="td-form-group">
               <label htmlFor="name">Name</label>
               <input
                 type="text"
@@ -145,9 +159,10 @@ const TeamDashboard = () => {
                 onChange={handleInputChange}
                 required
                 maxLength="100"
+                disabled={isLoading}
               />
             </div>
-            <div className="form-group">
+            <div className="td-form-group">
               <label htmlFor="role">Role</label>
               <input
                 type="text"
@@ -157,9 +172,10 @@ const TeamDashboard = () => {
                 onChange={handleInputChange}
                 required
                 maxLength="100"
+                disabled={isLoading}
               />
             </div>
-            <div className="form-group">
+            <div className="td-form-group">
               <label htmlFor="bio">Bio</label>
               <textarea
                 id="bio"
@@ -168,9 +184,10 @@ const TeamDashboard = () => {
                 onChange={handleInputChange}
                 required
                 maxLength="500"
+                disabled={isLoading}
               ></textarea>
             </div>
-            <div className="form-group">
+            <div className="td-form-group">
               <label htmlFor="image">Image</label>
               <input
                 type="file"
@@ -179,17 +196,19 @@ const TeamDashboard = () => {
                 accept="image/jpeg,image/jpg,image/png"
                 onChange={handleImageChange}
                 required={!isEditing}
+                disabled={isLoading}
               />
             </div>
-            <div className="form-actions">
-              <button type="submit" className="submit-button">
-                {isEditing ? 'Update' : 'Add'} Team Member
+            <div className="td-form-actions">
+              <button type="submit" className="td-submit-button" disabled={isLoading}>
+                {isLoading ? 'Processing...' : isEditing ? 'Update' : 'Add'} Team Member
               </button>
               {isEditing && (
                 <button
                   type="button"
-                  className="cancel-button"
+                  className="td-cancel-button"
                   onClick={resetForm}
+                  disabled={isLoading}
                 >
                   Cancel
                 </button>
@@ -198,54 +217,46 @@ const TeamDashboard = () => {
           </form>
         </section>
 
-        {/* Team Members Table */}
-        <section className="table-section">
-          <h2 className="section-title">Team Members</h2>
-          {error && <p className="error-message">{error}</p>}
+        {/* Team Members Section */}
+        <section className="td-table-section">
+          <h2 className="td-section-title">Team Members</h2>
+          {isLoading && <p className="td-loading-message">Loading...</p>}
+          {error && <p className="td-error-message">{error}</p>}
           {teamMembers.length > 0 ? (
-            <table className="team-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Role</th>
-                  <th>Image</th>
-                  <th>Bio</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {teamMembers.map((member) => (
-                  <tr key={member._id}>
-                    <td>{member.name}</td>
-                    <td>{member.role}</td>
-                    <td>
-                      <img
-                        src={member.image}
-                        alt={`${member.name}`}
-                        className="table-image"
-                      />
-                    </td>
-                    <td>{member.bio.substring(0, 50)}...</td>
-                    <td>
+            <div className="td-team-grid">
+              {teamMembers.map((member) => (
+                <div key={member._id} className="td-team-card">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="td-team-image"
+                  />
+                  <div className="td-team-info">
+                    <h3>{member.name}</h3>
+                    <p className="td-role">{member.role}</p>
+                    <p className="td-bio">{member.bio.substring(0, 100)}...</p>
+                    <div className="td-team-actions">
                       <button
-                        className="edit-button"
+                        className="td-edit-button"
                         onClick={() => handleEdit(member)}
+                        disabled={isLoading}
                       >
                         Edit
                       </button>
                       <button
-                        className="delete-button"
+                        className="td-delete-button"
                         onClick={() => handleDelete(member._id)}
+                        disabled={isLoading}
                       >
                         Delete
                       </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : (
-            <p className="no-members">No team members available.</p>
+            <p className="td-no-members">No team members available.</p>
           )}
         </section>
       </div>

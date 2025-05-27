@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Sidebar.css';
-
-// Icons import - using react-icons
 import { 
   FiHome, 
-
   FiSettings, 
   FiUser, 
   FiMenu, 
@@ -37,7 +34,7 @@ const Sidebar = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isMobile && isOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-        if (!event.target.closest('.sidebar-toggle')) {
+        if (!event.target.closest('.sb-sidebar-toggle')) {
           setIsOpen(false);
         }
       }
@@ -70,30 +67,30 @@ const Sidebar = () => {
       category: "Main",
       items: [
         { path: '/dashboard/dashboard', name: 'Dashboard', icon: <FiHome /> },
-        { path: '/dashboard/teams-managements', name: 'Team Management', icon: <FiUsers /> } // Updated icon
+        { path: '/dashboard/teams-managements', name: 'Team Management', icon: <FiUsers /> }
       ]
     },
     {
       category: "Destinations",
       items: [
-        { path: '/dashboard/upload-destination', name: 'Upload Destinations', icon: <FiUpload /> }, // Updated icon
-        { path: '/dashboard/update-destinations', name: 'Update Destinations', icon: <FiEdit /> } // Updated icon
+        { path: '/dashboard/upload-destination', name: 'Upload Destinations', icon: <FiUpload /> },
+        { path: '/dashboard/update-destinations', name: 'Update Destinations', icon: <FiEdit /> }
       ]
     },
     {
       category: "Tours",
       items: [
-        { path: '/dashboard/Create-plan-tour', name: 'Upload Plan Tour', icon: <FiUpload /> }, // Updated icon
-        { path: '/dashboard/Tour-page-dashboard', name: 'Manage Plan Tour', icon: <FiEdit /> } // Updated icon
+        { path: '/dashboard/Create-plan-tour', name: 'Upload Plan Tour', icon: <FiUpload /> },
+        { path: '/dashboard/Tour-page-dashboard', name: 'Manage Plan Tour', icon: <FiEdit /> }
       ]
     },
     {
       category: "Users",
       items: [
-        { path: '/dashboard/Booking-data', name: 'Bookings', icon: <FiBook /> }, // Updated icon
+        { path: '/dashboard/Booking-data', name: 'Bookings', icon: <FiBook /> },
         { path: '/dashboard/user-tracking', name: 'User Tracking', icon: <FiUser /> },
-        { path: '/dashboard/Allusers', name: 'All Users', icon: <FiUsers /> }, // Updated icon
-        { path: '/dashboard/users-feedback', name: 'Users Feedback', icon: <FiMessageSquare /> } // Updated icon
+        { path: '/dashboard/Allusers', name: 'All Users', icon: <FiUsers /> },
+        { path: '/dashboard/users-feedback', name: 'Users Feedback', icon: <FiMessageSquare /> }
       ]
     },
     {
@@ -108,9 +105,10 @@ const Sidebar = () => {
     <>
       {/* Floating Toggle Button */}
       <button 
-        className="sidebar-toggle" 
+        className="sb-sidebar-toggle" 
         onClick={toggleSidebar} 
         aria-label={isOpen ? "Close Menu" : "Open Menu"}
+        data-testid="sidebar-toggle"
       >
         {isOpen && isMobile ? <FiX /> : 
          !isOpen ? <FiMenu /> : 
@@ -120,19 +118,29 @@ const Sidebar = () => {
       {/* Sidebar */}
       <div 
         ref={sidebarRef}
-        className={`sidebar ${isOpen ? 'open' : 'closed'}`}
+        className={`sb-sidebar ${isOpen ? 'sb-open' : 'sb-closed'}`}
         aria-hidden={!isOpen}
+        data-testid="sidebar"
       >
-        <div className="sidebar-header">
-          {/* Logo instead of text */}
+        <div className="sb-sidebar-header">
           {isOpen ? (
-            <img src="/path/to/logo.png" alt="Travel App Logo" className="sidebar-logo" />
+            <img 
+              src="/path/to/logo.png" 
+              alt="Travel App Logo" 
+              className="sb-sidebar-logo" 
+              onError={(e) => (e.target.src = 'https://via.placeholder.com/150?text=Logo')} 
+            />
           ) : (
-            <img src="/path/to/logo-icon.png" alt="Travel App Icon" className="sidebar-logo-collapsed" />
+            <img 
+              src="/path/to/logo-icon.png" 
+              alt="Travel App Icon" 
+              className="sb-sidebar-logo-collapsed" 
+              onError={(e) => (e.target.src = 'https://via.placeholder.com/40?text=Icon')} 
+            />
           )}
           {!isMobile && (
             <button 
-              className="collapse-toggle" 
+              className="sb-collapse-toggle" 
               onClick={toggleSidebar}
               aria-label={isOpen ? "Collapse Sidebar" : "Expand Sidebar"}
             >
@@ -141,21 +149,21 @@ const Sidebar = () => {
           )}
         </div>
         
-        <nav className="sidebar-menu" aria-label="Main Navigation">
+        <nav className="sb-sidebar-menu" aria-label="Main Navigation">
           {menuItems.map((category, index) => (
-            <div key={index} className="menu-category">
-              {isOpen && <h3 className="category-title">{category.category}</h3>}
+            <div key={index} className="sb-menu-category">
+              {isOpen && <h3 className="sb-category-title">{category.category}</h3>}
               <ul>
                 {category.items.map((item) => (
                   <li key={item.path}>
                     <Link 
                       to={item.path} 
-                      className={location.pathname === item.path ? 'active' : ''} 
+                      className={location.pathname === item.path ? 'sb-active' : ''} 
                       onClick={closeSidebarOnMobile}
                       title={item.name}
                     >
-                      <span className="icon">{item.icon}</span>
-                      <span className="label">{item.name}</span>
+                      <span className="sb-icon">{item.icon}</span>
+                      <span className="sb-label">{item.name}</span>
                     </Link>
                   </li>
                 ))}
@@ -164,14 +172,14 @@ const Sidebar = () => {
           ))}
         </nav>
         
-        <div className="sidebar-footer">
+        <div className="sb-sidebar-footer">
           <p>© 2025 Travel App</p>
         </div>
       </div>
       
       {/* Overlay for mobile */}
       {isMobile && isOpen && (
-        <div className="sidebar-overlay" onClick={toggleSidebar}></div>
+        <div className="sb-sidebar-overlay" onClick={toggleSidebar}></div>
       )}
     </>
   );

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
 import DestinationHeader from "./DestinationHeader";
 import MediaGallery from "./MediaGallery";
 import DestinationTabs from "./DestinationTabs";
@@ -11,9 +10,7 @@ import MapContent from "./MapContent";
 import ReviewsContent from "./ReviewsContent";
 import DestinationCTA from "./DestinationCTA";
 import RelatedDestinations from "./RelatedDestinations";
-
 import "./DestinationDetails.css";
-
 
 const DestinationDetails = () => {
   const { id } = useParams();
@@ -68,23 +65,23 @@ const DestinationDetails = () => {
 
   if (loading) {
     return (
-      <section className="destination-details-section">
-        <div className="destination-container">
-          <div className="skeleton-header pulse"></div>
-          <div className="skeleton-subheader pulse"></div>
-          <div className="skeleton-gallery">
-            <div className="skeleton-main-image pulse"></div>
-            <div className="skeleton-thumbnails">
-              {[...Array(2)].map((_, index) => (
-                <div key={index} className="skeleton-thumbnail pulse"></div>
+      <section className="dd-destination-details-section" data-testid="loading">
+        <div className="dd-destination-container">
+          <div className="dd-skeleton-header dd-pulse"></div>
+          <div className="dd-skeleton-subheader dd-pulse"></div>
+          <div className="dd-skeleton-gallery">
+            <div className="dd-skeleton-main-image dd-pulse"></div>
+            <div className="dd-skeleton-thumbnails">
+              {[...Array(3)].map((_, index) => (
+                <div key={index} className="dd-skeleton-thumbnail dd-pulse"></div>
               ))}
             </div>
           </div>
-          <div className="skeleton-tabs pulse"></div>
-          <div className="skeleton-content">
-            <div className="skeleton-paragraph pulse"></div>
-            <div className="skeleton-paragraph pulse"></div>
-            <div className="skeleton-paragraph pulse"></div>
+          <div className="dd-skeleton-tabs dd-pulse"></div>
+          <div className="dd-skeleton-content">
+            <div className="dd-skeleton-paragraph dd-pulse"></div>
+            <div className="dd-skeleton-paragraph dd-pulse"></div>
+            <div className="dd-skeleton-paragraph dd-pulse"></div>
           </div>
         </div>
       </section>
@@ -93,11 +90,11 @@ const DestinationDetails = () => {
 
   if (error) {
     return (
-      <section className="destination-details-section">
-        <div className="destination-container">
-          <div className="error-container" role="alert">
+      <section className="dd-destination-details-section" data-testid="error">
+        <div className="dd-destination-container">
+          <div className="dd-error-container" role="alert">
             <svg
-              className="error-icon"
+              className="dd-error-icon"
               viewBox="0 0 24 24"
               width="40"
               height="40"
@@ -127,10 +124,10 @@ const DestinationDetails = () => {
                 strokeWidth="2"
               ></line>
             </svg>
-            <h2 className="error-title">Failed to Load Destination</h2>
-            <p className="error-message">{error}</p>
+            <h2 className="dd-error-title">Failed to Load Destination</h2>
+            <p className="dd-error-message">{error}</p>
             <button
-              className="btn-retry"
+              className="dd-btn-retry"
               onClick={() => window.location.reload()}
               aria-label="Retry loading destination"
             >
@@ -138,7 +135,7 @@ const DestinationDetails = () => {
                 viewBox="0 0 24 24"
                 width="16"
                 height="16"
-                className="retry-icon"
+                className="dd-retry-icon"
               >
                 <path
                   fill="currentColor"
@@ -155,11 +152,11 @@ const DestinationDetails = () => {
 
   if (!destination) {
     return (
-      <section className="destination-details-section">
-        <div className="destination-container">
-          <div className="no-destination">
+      <section className="dd-destination-details-section" data-testid="not-found">
+        <div className="dd-destination-container">
+          <div className="dd-no-destination">
             <svg
-              className="empty-icon"
+              className="dd-empty-icon"
               viewBox="0 0 24 24"
               width="48"
               height="48"
@@ -169,11 +166,11 @@ const DestinationDetails = () => {
                 d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"
               />
             </svg>
-            <h2 className="empty-title">Destination Not Found</h2>
-            <p className="empty-message">
+            <h2 className="dd-empty-title">Destination Not Found</h2>
+            <p className="dd-empty-message">
               We couldn't find the destination you're looking for.
             </p>
-            <a href="/destinations" className="btn-back">
+            <a href="/destinations" className="dd-btn-back">
               <svg
                 viewBox="0 0 24 24"
                 width="16"
@@ -192,9 +189,8 @@ const DestinationDetails = () => {
   }
 
   return (
-    <>
-    <section className="destination-details-section">
-      <div className="destination-container">
+    <section className="dd-destination-details-section">
+      <div className="dd-destination-container">
         <MediaGallery destination={destination} />
         <DestinationHeader
           title={destination.title}
@@ -203,13 +199,12 @@ const DestinationDetails = () => {
           reviews={destination.reviews}
           bestTimeToVisit={destination.bestTimeToVisit}
         />
-
         <DestinationTabs
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           destination={destination}
         />
-        <div className="tab-content">
+        <div className="dd-tab-content">
           {activeTab === "overview" && (
             <OverviewContent destination={destination} />
           )}
@@ -230,8 +225,6 @@ const DestinationDetails = () => {
           )}
       </div>
     </section>
-   
-    </>
   );
 };
 

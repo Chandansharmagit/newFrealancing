@@ -10,7 +10,7 @@ import CookiePolicy from "./Component/userIpAdress/CookiePolicy";
 import CookieBanner from "./Component/userIpAdress/CookieBanner";
 import LoginPopup from "./Component/Authentications/LoginPopup";
 import UserProfile from "./Component/Authentications/userprofile/Userprofile";
-import ChatBox from "./chatbot/ChatBox";
+// import ChatBox from "./chatbot/ChatBox";
 import { ForgotPasswordPage } from "./Component/Authentications/Forgotpassword";
 import DestinationUpload from "./DashboardComponent/DestinatonUpload";
 import DestinationDetails from "./Component/homePage/DestinationsDetails/DestinatonsDetails";
@@ -181,7 +181,7 @@ function AppContent() {
         onAuthenticate={handleDashboardAuth}
       />
       <CookieBanner />
-      <ChatBox />
+      {/* <ChatBox /> */}
       <FeedbackPopup />
     </>
   );
