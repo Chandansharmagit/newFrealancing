@@ -28,7 +28,7 @@
 /* Register container */
 .ts-register-container {
   display: flex;
-  max-width: 1200px;
+  max-width: 900px;
   width: 100%;
   margin-top: 6rem;
   background: rgba(255, 255, 255, 0.05);

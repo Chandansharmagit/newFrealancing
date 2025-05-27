@@ -2,7 +2,7 @@
 
 /* Root variables for consistency */
 :root {
-  --primary-neon: #667eea;
+  --primary-neon: #cfd2df;
   --secondary-neon: #764ba2;
   --accent-neon: #8899ff;
   --background-dark: #0a0920;
@@ -44,7 +44,7 @@
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   padding: 40px;
-  max-width: 800px;
+  max-width: 500px;
   width: 90%;
   box-shadow: var(--shadow-glow);
   transform: translateZ(30px) scale(1);

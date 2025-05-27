@@ -28,6 +28,7 @@ const LoginPopup = ({ isOpen, onClose }) => {
         [name]: '',
       });
     }
+    if (message) setMessage('');
   };
 
   const validate = () => {
@@ -39,8 +40,8 @@ const LoginPopup = ({ isOpen, onClose }) => {
     }
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters';
     }
     return newErrors;
   };
@@ -58,20 +59,11 @@ const LoginPopup = ({ isOpen, onClose }) => {
     }
 
     try {
-      let ipAddress = '';
-      try {
-        const ipResponse = await axios.get('https://api.ipify.org?format=json');
-        ipAddress = ipResponse.data.ip;
-      } catch (ipError) {
-        console.error('Failed to get IP address:', ipError);
-      }
-
       const response = await axios.post(
         'https://authenticationagency.onrender.com/login',
         {
           email: formData.email,
           password: formData.password,
-          ipAddress: ipAddress,
         },
         {
           withCredentials: true,
@@ -81,33 +73,58 @@ const LoginPopup = ({ isOpen, onClose }) => {
         }
       );
 
-      const { user, message } = response.data;
+      setMessage(response.data.message || 'Login successful');
 
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('userId', user.id);
-      localStorage.setItem('userEmail', user.email);
-      localStorage.setItem('userContacts', user.contacts || '');
-      localStorage.setItem('username', user.username);
-      localStorage.setItem('userlocations', user.userlocation);
+      try {
+        const authResponse = await axios.get(
+          'https://authenticationagency.onrender.com/api/check-auth',
+          {
+            withCredentials: true,
+          }
+        );
+        const { user } = authResponse.data;
 
-      setMessage(message || 'Login successful');
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('userId', user.id);
+          localStorage.setItem('userEmail', user.email);
+          localStorage.setItem('userContacts', user.contacts || '');
+          localStorage.setItem('username', user.username);
+          localStorage.setItem('userlocations', user.userlocation || '');
+          localStorage.setItem('profilePic', user.profilePic || ''); // Store profilePic
+        }
+      } catch (authError) {
+        console.warn('Failed to fetch user data:', authError.message);
+      }
+
+      // Navigate first, then reload after a short delay
       navigate('/user-profile');
+      
+      // Reload the page after successful login and navigation
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+
       setErrors({});
       setFormData({ email: '', password: '', rememberMe: false });
-      onClose();
+      onClose(); // Close the popup
     } catch (error) {
       console.error('Login error:', error);
+      let errorMessage = 'An error occurred during login.';
+
       if (error.response) {
-        setMessage(
-          error.response.status === 401
-            ? 'Invalid email or password.'
-            : 'An error occurred during login.'
-        );
+        if (error.response.status === 401) {
+          errorMessage =
+            error.response.data.message || 'Invalid email or password.';
+        } else if (error.response.data.message) {
+          errorMessage = error.response.data.message;
+        }
       } else if (error.request) {
-        setMessage('Failed to connect to the server. Check CORS settings.');
-      } else {
-        setMessage('An unexpected error occurred.');
+        errorMessage =
+          'Unable to connect to the server. Please try again later.';
       }
+
+      setMessage(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -180,7 +197,7 @@ const LoginPopup = ({ isOpen, onClose }) => {
           {message && (
             <motion.div
               className={`login-popup-message-box ${
-                errors.email || errors.password ? 'error' : 'success'
+                message.includes('successful') ? 'success' : 'error'
               }`}
               variants={childVariants}
             >
@@ -250,7 +267,7 @@ const LoginPopup = ({ isOpen, onClose }) => {
               whileTap={{ scale: 0.95 }}
               disabled={isLoading}
             >
-              {isLoading ? 'Signing in...' : 'Login'}
+              {isLoading ? 'Signing in...' : 'Sign In'}
             </motion.button>
 
             <motion.div className="login-popup-or-divider" variants={childVariants}>

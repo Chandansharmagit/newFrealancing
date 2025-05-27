@@ -97,7 +97,14 @@ const LoginPage = () => {
         console.warn("Failed to fetch user data:", authError.message);
       }
 
+      // Navigate first, then reload after a short delay
       navigate("/user-profile");
+      
+      // Reload the page after successful login and navigation
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+
       setErrors({});
       setFormData({ email: "", password: "", rememberMe: false });
     } catch (error) {
