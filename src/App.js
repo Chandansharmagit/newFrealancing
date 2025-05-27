@@ -36,6 +36,7 @@ import Dashboard from "./Component/contactForm/Dashboards/Dashboard";
 import LoginDashboardAuth from "./DashboardLinks/LoginDashboardAuth";
 import TeamDashboard from "./Component/AboutUs/Teamdashboard/TeamDashboard";
 import NotFound from "./PageNotFound/PageNotfound";
+import BookingForm from "./Component/homePage/DestinationsDetails/BookingForm";
 
 function PrivateRoute({ children, isAuthenticated, setShowAuthPopup }) {
   if (!isAuthenticated) {
@@ -133,6 +134,10 @@ function AppContent() {
         <Route
           path="/login/register/forgot-password/Change-password"
           element={<ResetPasswordPage />}
+        />
+          <Route
+          path="/form"
+          element={<BookingForm />}
         />
         <Route path="/search" element={<SearchQuery />} />
         <Route path="/destination/:id" element={<DestinationDetails />} />
