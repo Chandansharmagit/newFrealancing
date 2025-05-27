@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import "./LoginPage.css";
@@ -10,7 +10,7 @@ const LoginPage = () => {
     password: "",
     rememberMe: false,
   });
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -98,8 +98,8 @@ const LoginPage = () => {
       }
 
       // Navigate and reload immediately
-      // navigate("/user-profile");
-      window.location.reload();
+      navigate("/user-profile");
+      // window.location.reload();
 
       setErrors({});
       setFormData({ email: "", password: "", rememberMe: false });

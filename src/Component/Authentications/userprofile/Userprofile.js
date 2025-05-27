@@ -9,7 +9,7 @@ import {
   Upload,
   LogOut,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // Add useLocation
 import "./UserProfile.css";
 
 const UserProfile = () => {
@@ -27,10 +27,21 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation(); // Hook to access URL query params
 
   // Fetch user data from the backend and sync with localStorage
-
   useEffect(() => {
+    // Check if coming from login page via query param
+    const queryParams = new URLSearchParams(location.search);
+    const fromLogin = queryParams.get("fromLogin");
+
+    // Refresh page only once if coming from login
+    if (fromLogin === "true" && !localStorage.getItem("hasRefreshed")) {
+      localStorage.setItem("hasRefreshed", "true"); // Prevent infinite refresh
+      window.location.reload();
+      return; // Exit useEffect to avoid running fetch logic before refresh
+    }
+
     const fetchUserData = async () => {
       try {
         const response = await fetch(
@@ -69,7 +80,7 @@ const UserProfile = () => {
           // Sync localStorage with fetched user data
           localStorage.setItem("username", userData.name);
           localStorage.setItem("userEmail", userData.email);
-          localStorage.setItem("profilePic", userData.profilePic); // Update profilePic in localStorage
+          localStorage.setItem("profilePic", userData.profilePic);
           localStorage.setItem(
             "user",
             JSON.stringify({
@@ -84,6 +95,9 @@ const UserProfile = () => {
           );
           // Trigger storage event to notify other components (e.g., Navbar)
           window.dispatchEvent(new Event("storage"));
+
+          // Clear the hasRefreshed flag after successful fetch
+          localStorage.removeItem("hasRefreshed");
         } else {
           // Clear localStorage if not authenticated
           localStorage.removeItem("user");
@@ -92,20 +106,21 @@ const UserProfile = () => {
           localStorage.removeItem("userId");
           localStorage.removeItem("userContacts");
           localStorage.removeItem("userlocations");
-          localStorage.removeItem("profilePic"); // Clear profilePic
+          localStorage.removeItem("profilePic");
+          localStorage.removeItem("hasRefreshed"); // Clear flag
           navigate("/login");
         }
       } catch (err) {
         console.error("Error fetching user data:", err.message);
         setError("Failed to load profile. Please try again.");
-        // Clear localStorage on error
         localStorage.removeItem("user");
         localStorage.removeItem("username");
         localStorage.removeItem("userEmail");
         localStorage.removeItem("userId");
         localStorage.removeItem("userContacts");
         localStorage.removeItem("userlocations");
-        localStorage.removeItem("profilePic"); // Clear profilePic
+        localStorage.removeItem("profilePic");
+        localStorage.removeItem("hasRefreshed"); // Clear flag
         navigate("/login");
       } finally {
         setLoading(false);
@@ -113,7 +128,7 @@ const UserProfile = () => {
     };
 
     fetchUserData();
-  }, [navigate]);
+  }, [navigate, location.search]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -130,7 +145,6 @@ const UserProfile = () => {
   const toggleEdit = async () => {
     if (isEditing) {
       try {
-        // Prepare form data for profile update
         const formData = new FormData();
         formData.append("name", user.name);
         formData.append("email", user.email);
@@ -143,7 +157,6 @@ const UserProfile = () => {
           );
         }
 
-        // Send PUT request to update profile
         const response = await fetch(
           "https://authenticationagency.onrender.com/api/update-profile",
           {
@@ -160,7 +173,6 @@ const UserProfile = () => {
         const data = await response.json();
         console.log("Profile updated:", data);
 
-        // Refetch user data after update
         const updatedResponse = await fetch(
           "https://authenticationagency.onrender.com/api/check-auth",
           {
@@ -185,10 +197,9 @@ const UserProfile = () => {
           };
           setUser(updatedUser);
 
-          // Update localStorage with new user data
           localStorage.setItem("username", updatedUser.name);
           localStorage.setItem("userEmail", updatedUser.email);
-          localStorage.setItem("profilePic", updatedUser.profilePic); // Update profilePic
+          localStorage.setItem("profilePic", updatedUser.profilePic);
           localStorage.setItem(
             "user",
             JSON.stringify({
@@ -201,7 +212,6 @@ const UserProfile = () => {
               profilePic: updatedUser.profilePic,
             })
           );
-          // Trigger storage event to notify Navbar
           window.dispatchEvent(new Event("storage"));
         }
       } catch (err) {
@@ -223,15 +233,14 @@ const UserProfile = () => {
       );
 
       if (response.ok) {
-        // Clear localStorage
         localStorage.removeItem("user");
         localStorage.removeItem("username");
         localStorage.removeItem("userEmail");
         localStorage.removeItem("userId");
         localStorage.removeItem("userContacts");
         localStorage.removeItem("userlocations");
-        localStorage.removeItem("profilePic"); // Clear profilePic
-        // Trigger storage event to notify Navbar
+        localStorage.removeItem("profilePic");
+        localStorage.removeItem("hasRefreshed"); // Clear flag
         window.dispatchEvent(new Event("storage"));
         navigate("/login");
       } else {
@@ -282,9 +291,6 @@ const UserProfile = () => {
 
   return (
     <div className="tw-profile-page">
-      {/* Top Navigation Bar */}
-
-      {/* Header with wave effect */}
       <header className="tw-profile-header">
         <div className="tw-header-content">
           <h1>Your TravelWorld Profile</h1>
@@ -301,11 +307,9 @@ const UserProfile = () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="tw-profile-main">
         <div className="tw-profile-card">
           <div className="tw-profile-layout">
-            {/* Profile Picture and Stats Section */}
             <div className="tw-profile-sidebar">
               <div className="tw-profile-image-container">
                 <div className="tw-profile-image-wrapper">
@@ -353,7 +357,6 @@ const UserProfile = () => {
               </div>
             </div>
 
-            {/* Profile Details Section */}
             <div className="tw-profile-details">
               <div className="tw-form-group">
                 <label className="tw-form-label">
