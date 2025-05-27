@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import axios from 'axios';
-import './LoginPopup.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import axios from "axios";
+import "./LoginPopup.css";
 
 const LoginPopup = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     rememberMe: false,
   });
   const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -19,36 +19,36 @@ const LoginPopup = ({ isOpen, onClose }) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     });
 
     if (errors[name]) {
       setErrors({
         ...errors,
-        [name]: '',
+        [name]: "",
       });
     }
-    if (message) setMessage('');
+    if (message) setMessage("");
   };
 
   const validate = () => {
     const newErrors = {};
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+      newErrors.email = "Email is invalid";
     }
     if (!formData.password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = "Password is required";
     } else if (formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters';
+      newErrors.password = "Password must be at least 8 characters";
     }
     return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('');
+    setMessage("");
     setIsLoading(true);
 
     const newErrors = validate();
@@ -60,7 +60,7 @@ const LoginPopup = ({ isOpen, onClose }) => {
 
     try {
       const response = await axios.post(
-        'https://authenticationagency.onrender.com/login',
+        "https://authenticationagency.onrender.com/login",
         {
           email: formData.email,
           password: formData.password,
@@ -68,16 +68,16 @@ const LoginPopup = ({ isOpen, onClose }) => {
         {
           withCredentials: true,
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
 
-      setMessage(response.data.message || 'Login successful');
+      setMessage(response.data.message || "Login successful");
 
       try {
         const authResponse = await axios.get(
-          'https://authenticationagency.onrender.com/api/check-auth',
+          "https://authenticationagency.onrender.com/api/check-auth",
           {
             withCredentials: true,
           }
@@ -85,43 +85,39 @@ const LoginPopup = ({ isOpen, onClose }) => {
         const { user } = authResponse.data;
 
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          localStorage.setItem('userId', user.id);
-          localStorage.setItem('userEmail', user.email);
-          localStorage.setItem('userContacts', user.contacts || '');
-          localStorage.setItem('username', user.username);
-          localStorage.setItem('userlocations', user.userlocation || '');
-          localStorage.setItem('profilePic', user.profilePic || ''); // Store profilePic
+          localStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("userId", user.id);
+          localStorage.setItem("userEmail", user.email);
+          localStorage.setItem("userContacts", user.contacts || "");
+          localStorage.setItem("username", user.username);
+          localStorage.setItem("userlocations", user.userlocation || "");
+          localStorage.setItem("profilePic", user.profilePic || "");
         }
       } catch (authError) {
-        console.warn('Failed to fetch user data:', authError.message);
+        console.warn("Failed to fetch user data:", authError.message);
       }
 
-      // Navigate first, then reload after a short delay
-      navigate('/user-profile');
-      
-      // Reload the page after successful login and navigation
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
+      // Navigate and reload immediately
+      navigate("/user-profile");
+      window.location.reload();
 
       setErrors({});
-      setFormData({ email: '', password: '', rememberMe: false });
+      setFormData({ email: "", password: "", rememberMe: false });
       onClose(); // Close the popup
     } catch (error) {
-      console.error('Login error:', error);
-      let errorMessage = 'An error occurred during login.';
+      console.error("Login error:", error);
+      let errorMessage = "An error occurred during login.";
 
       if (error.response) {
         if (error.response.status === 401) {
           errorMessage =
-            error.response.data.message || 'Invalid email or password.';
+            error.response.data.message || "Invalid email or password.";
         } else if (error.response.data.message) {
           errorMessage = error.response.data.message;
         }
       } else if (error.request) {
         errorMessage =
-          'Unable to connect to the server. Please try again later.';
+          "Unable to connect to the server. Please try again later.";
       }
 
       setMessage(errorMessage);
@@ -131,7 +127,8 @@ const LoginPopup = ({ isOpen, onClose }) => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'https://authenticationagency.onrender.com/auth/google';
+    window.location.href =
+      "https://authenticationagency.onrender.com/auth/google";
   };
 
   if (!isOpen) return null;
@@ -148,10 +145,10 @@ const LoginPopup = ({ isOpen, onClose }) => {
       opacity: 1,
       y: 0,
       transition: {
-        type: 'spring',
+        type: "spring",
         stiffness: 100,
         damping: 20,
-        when: 'beforeChildren',
+        when: "beforeChildren",
         staggerChildren: 0.1,
       },
     },
@@ -191,13 +188,15 @@ const LoginPopup = ({ isOpen, onClose }) => {
         <motion.div className="login-popup-content" variants={childVariants}>
           <motion.div className="login-popup-header" variants={childVariants}>
             <h2>Welcome Back</h2>
-            <button className="login-popup-close-button" onClick={onClose}>×</button>
+            <button className="login-popup-close-button" onClick={onClose}>
+              ×
+            </button>
           </motion.div>
 
           {message && (
             <motion.div
               className={`login-popup-message-box ${
-                message.includes('successful') ? 'success' : 'error'
+                message.includes("successful") ? "success" : "error"
               }`}
               variants={childVariants}
             >
@@ -210,7 +209,10 @@ const LoginPopup = ({ isOpen, onClose }) => {
             className="login-popup-form"
             variants={childVariants}
           >
-            <motion.div className="login-popup-form-group" variants={childVariants}>
+            <motion.div
+              className="login-popup-form-group"
+              variants={childVariants}
+            >
               <label htmlFor="email">Email</label>
               <input
                 type="email"
@@ -219,7 +221,7 @@ const LoginPopup = ({ isOpen, onClose }) => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter your email"
-                className={errors.email ? 'error' : ''}
+                className={errors.email ? "error" : ""}
                 required
               />
               {errors.email && (
@@ -227,7 +229,10 @@ const LoginPopup = ({ isOpen, onClose }) => {
               )}
             </motion.div>
 
-            <motion.div className="login-popup-form-group" variants={childVariants}>
+            <motion.div
+              className="login-popup-form-group"
+              variants={childVariants}
+            >
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -236,25 +241,33 @@ const LoginPopup = ({ isOpen, onClose }) => {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Enter your password"
-                className={errors.password ? 'error' : ''}
+                className={errors.password ? "error" : ""}
                 required
               />
               {errors.password && (
-                <div className="login-popup-error-message">{errors.password}</div>
+                <div className="login-popup-error-message">
+                  {errors.password}
+                </div>
               )}
             </motion.div>
 
-            <motion.div className="login-popup-form-options" variants={childVariants}>
+            <motion.div
+              className="login-popup-form-options"
+              variants={childVariants}
+            >
               <label className="login-popup-remember-me">
                 <input
                   type="checkbox"
                   name="rememberMe"
                   checked={formData.rememberMe}
                   onChange={handleChange}
-                />{' '}
+                />{" "}
                 Remember me
               </label>
-              <a href="/login/register/forgot-password" className="login-popup-forgot-password">
+              <a
+                href="/login/register/forgot-password"
+                className="login-popup-forgot-password"
+              >
                 Forgot Password?
               </a>
             </motion.div>
@@ -267,10 +280,13 @@ const LoginPopup = ({ isOpen, onClose }) => {
               whileTap={{ scale: 0.95 }}
               disabled={isLoading}
             >
-              {isLoading ? 'Signing in...' : 'Sign In'}
+              {isLoading ? "Signing in..." : "Sign In"}
             </motion.button>
 
-            <motion.div className="login-popup-or-divider" variants={childVariants}>
+            <motion.div
+              className="login-popup-or-divider"
+              variants={childVariants}
+            >
               OR
             </motion.div>
 
@@ -303,9 +319,11 @@ const LoginPopup = ({ isOpen, onClose }) => {
               Sign in with Google
             </motion.button>
 
-            <motion.div className="login-popup-signup-option" variants={childVariants}>
-              Don't have an account?{' '}
-              <a href="/login/register">Sign up</a>
+            <motion.div
+              className="login-popup-signup-option"
+              variants={childVariants}
+            >
+              Don't have an account? <a href="/login/register">Sign up</a>
             </motion.div>
           </motion.form>
         </motion.div>

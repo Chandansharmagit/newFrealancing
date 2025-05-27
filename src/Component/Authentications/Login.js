@@ -91,19 +91,15 @@ const LoginPage = () => {
           localStorage.setItem("userContacts", user.contacts || "");
           localStorage.setItem("username", user.username);
           localStorage.setItem("userlocations", user.userlocation || "");
-          localStorage.setItem("profilePic", user.profilePic || ""); // Store profilePic
+          localStorage.setItem("profilePic", user.profilePic || "");
         }
       } catch (authError) {
         console.warn("Failed to fetch user data:", authError.message);
       }
 
-      // Navigate first, then reload after a short delay
+      // Navigate and reload immediately
       navigate("/user-profile");
-      
-      // Reload the page after successful login and navigation
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
+      window.location.reload();
 
       setErrors({});
       setFormData({ email: "", password: "", rememberMe: false });
