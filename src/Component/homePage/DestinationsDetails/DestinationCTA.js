@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import BookingForm from './BookingForm';
 
-import LoginPage from '../../Authentications/Login';
+
 import LoginPopup from '../../Authentications/LoginPopup';
 
 const DestinationCTA = ({ title, id }) => {
