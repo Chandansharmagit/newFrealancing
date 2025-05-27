@@ -98,7 +98,7 @@ const LoginPage = () => {
       }
 
       // Navigate and reload immediately
-      navigate("/user-profile");
+      // navigate("/user-profile");
       window.location.reload();
 
       setErrors({});
