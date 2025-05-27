@@ -12,13 +12,14 @@ const Navbar = () => {
   const [profilePic, setProfilePic] = useState(
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
   );
-  const [userEmail, setUserEmail] = useState(""); // Added for email display
+  const [userEmail, setUserEmail] = useState("");
   const [activeLink, setActiveLink] = useState("Home");
   const dropdownRef = useRef(null);
   const navRef = useRef(null);
 
-  // Set active link based on current route
   const location = useLocation();
+
+  // Set active link based on current route
   useEffect(() => {
     const pathToName = {
       "/": "Home",
@@ -31,50 +32,69 @@ const Navbar = () => {
     setActiveLink(pathToName[location.pathname] || "Home");
   }, [location]);
 
-  // Check authentication status on mount
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await fetch(
-          "https://authenticationagency.onrender.com/api/check-auth",
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
-        const data = await response.json();
-        if (data.isAuthenticated) {
-          const storedUsername = localStorage.getItem("username") || "Guest";
-          const storedProfilePic =
-            localStorage.getItem("profilePic") ||
-            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face";
-          const storedEmail = localStorage.getItem("userEmail") || "";
-          setIsLoggedIn(true);
-          setUsername(storedUsername);
-          setProfilePic(storedProfilePic);
-          setUserEmail(storedEmail);
-        } else {
-          setIsLoggedIn(false);
-          setUsername("Guest");
-          setProfilePic(
-            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-          );
-          setUserEmail("");
+  // Function to check auth and update state
+  const checkAuth = async () => {
+    try {
+      const response = await fetch(
+        "https://authenticationagency.onrender.com/api/check-auth",
+        {
+          method: "GET",
+          credentials: "include",
         }
-      } catch (error) {
-        console.error("Error checking auth:", error.message);
-        // Fallback to localStorage if API fails
-        const storedUsername = localStorage.getItem("username");
-        setIsLoggedIn(!!storedUsername);
-        setUsername(storedUsername || "Guest");
-        setProfilePic(
+      );
+      const data = await response.json();
+      if (data.isAuthenticated) {
+        const storedUsername = localStorage.getItem("username") || "Guest";
+        const storedProfilePic =
           localStorage.getItem("profilePic") ||
-            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face";
+        const storedEmail = localStorage.getItem("userEmail") || "";
+        setIsLoggedIn(true);
+        setUsername(storedUsername);
+        setProfilePic(storedProfilePic);
+        setUserEmail(storedEmail);
+      } else {
+        setIsLoggedIn(false);
+        setUsername("Guest");
+        setProfilePic(
+          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
         );
-        setUserEmail(localStorage.getItem("userEmail") || "");
+        setUserEmail("");
       }
-    };
+    } catch (error) {
+      console.error("Error checking auth:", error.message);
+      const storedUsername = localStorage.getItem("username");
+      setIsLoggedIn(!!storedUsername);
+      setUsername(storedUsername || "Guest");
+      setProfilePic(
+        localStorage.getItem("profilePic") ||
+          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+      );
+      setUserEmail(localStorage.getItem("userEmail") || "");
+    }
+  };
+
+  // Initial auth check on mount
+  useEffect(() => {
     checkAuth();
+  }, []);
+
+  // Listen for storage events to update user data
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedUsername = localStorage.getItem("username") || "Guest";
+      const storedProfilePic =
+        localStorage.getItem("profilePic") ||
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face";
+      const storedEmail = localStorage.getItem("userEmail") || "";
+      setIsLoggedIn(!!storedUsername && storedUsername !== "Guest");
+      setUsername(storedUsername);
+      setProfilePic(storedProfilePic);
+      setUserEmail(storedEmail);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   // Handle scroll for navbar styling
@@ -141,6 +161,7 @@ const Navbar = () => {
       );
       setUserEmail("");
       setDropdownOpen(false);
+      window.dispatchEvent(new Event("storage")); // Notify other components
     } catch (err) {
       console.error("Error during logout:", err.message);
       alert("Failed to log out. Please try again.");
