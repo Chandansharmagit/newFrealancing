@@ -66,7 +66,8 @@ const Sidebar = () => {
     { 
       category: "Main",
       items: [
-        { path: '/dashboard/dashboard', name: 'Dashboard', icon: <FiHome /> },
+         { path: '/dashboard/google-analytics-realtime-traffic', name: 'Traffics Management', icon: <FiHome /> },
+        { path: '/dashboard/dashboard', name: 'Users Query', icon: <FiHome /> },
         { path: '/dashboard/teams-managements', name: 'Team Management', icon: <FiUsers /> }
       ]
     },

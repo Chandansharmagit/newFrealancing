@@ -1,4 +1,11 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 
 import HomePage from "./Component/homePage/Homepage";
@@ -37,6 +44,7 @@ import LoginDashboardAuth from "./DashboardLinks/LoginDashboardAuth";
 import TeamDashboard from "./Component/AboutUs/Teamdashboard/TeamDashboard";
 import NotFound from "./PageNotFound/PageNotfound";
 import BookingForm from "./Component/homePage/DestinationsDetails/BookingForm";
+import GoogleAnalytics from "./TrafficsManagement/GoogleAnalytics";
 
 function PrivateRoute({ children, isAuthenticated, setShowAuthPopup }) {
   if (!isAuthenticated) {
@@ -51,7 +59,8 @@ function AppContent() {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [hasShownPopup, setHasShownPopup] = useState(false);
   const [isDashboardAuthOpen, setIsDashboardAuthOpen] = useState(false);
-  const [isDashboardAuthenticated, setIsDashboardAuthenticated] = useState(false);
+  const [isDashboardAuthenticated, setIsDashboardAuthenticated] =
+    useState(false);
   const navigate = useNavigate();
   const location = useLocation(); // Added to track current route
 
@@ -121,10 +130,11 @@ function AppContent() {
   return (
     <>
       {!isDashboardRoute && <Navbar openLoginPopup={openLoginPopup} />}
-      
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/tour/:id" element={<TourDetailPage />} />
+      
         <Route path="/login" element={<LoginPage />} />
         <Route path="/login/register" element={<RegisterPage />} />
         <Route
@@ -135,10 +145,7 @@ function AppContent() {
           path="/login/register/forgot-password/Change-password"
           element={<ResetPasswordPage />}
         />
-          <Route
-          path="/form"
-          element={<BookingForm />}
-        />
+        <Route path="/form" element={<BookingForm />} />
         <Route path="/search" element={<SearchQuery />} />
         <Route path="/destination/:id" element={<DestinationDetails />} />
         <Route path="/destinations" element={<ViewAllDestinations />} />
@@ -166,6 +173,10 @@ function AppContent() {
           <Route
             path="update-destinations"
             element={<MainUploadingDestination />}
+          />
+          <Route
+            path="google-analytics-realtime-traffic"
+            element={<GoogleAnalytics />}
           />
           <Route path="Tour-page-dashboard" element={<TourDashboardPage />} />
           <Route path="dashboard" element={<Dashboard />} />

@@ -1,5 +1,7 @@
 /* Modern Responsive Navbar Styles */
 .ts-modern-navbar {
+
+ 
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +20,7 @@
 
 .ts-navbar-scrolled {
   background: radial-gradient(circle, rgba(136, 153, 255, 0.3), transparent 70%),
-              linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.9));
+              linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(248, 250, 252, 0.1));
   box-shadow: 0 8px 32px rgba(136, 153, 255, 0.2),
               0 4px 16px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(136, 153, 255, 0.2);
@@ -195,7 +197,7 @@
   align-items: center;
   padding: 12px 20px;
   text-decoration: none;
-  color: #475569;
+  color: #b4b6b8;
   font-weight: 500;
   font-size: 0.95rem;
   border-radius: 12px;

@@ -1,0 +1,31 @@
+.pageviews-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+}
+
+.pageviews-card {
+  width: 100%;
+  max-width: 900px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.pageviews-heading {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #222;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.pageviews-loading,
+.pageviews-nodata {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+}
