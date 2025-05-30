@@ -145,6 +145,10 @@ function AppContent() {
           path="/login/register/forgot-password/Change-password"
           element={<ResetPasswordPage />}
         />
+         {/* <Route
+            path="/google-analytics-realtime-traffic"
+            element={<GoogleAnalytics />}
+          /> */}
         <Route path="/form" element={<BookingForm />} />
         <Route path="/search" element={<SearchQuery />} />
         <Route path="/destination/:id" element={<DestinationDetails />} />
@@ -179,7 +183,7 @@ function AppContent() {
             element={<GoogleAnalytics />}
           />
           <Route path="Tour-page-dashboard" element={<TourDashboardPage />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="users-query" element={<Dashboard />} />
           <Route path="Allusers" element={<Allusers />} />
           <Route path="teams-managements" element={<TeamDashboard />} />
           <Route path="Create-plan-tour" element={<CreateTourPage />} />

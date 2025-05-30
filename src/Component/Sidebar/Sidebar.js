@@ -66,8 +66,8 @@ const Sidebar = () => {
     { 
       category: "Main",
       items: [
-         { path: '/dashboard/google-analytics-realtime-traffic', name: 'Traffics Management', icon: <FiHome /> },
-        { path: '/dashboard/dashboard', name: 'Users Query', icon: <FiHome /> },
+         { path: '/dashboard/dashboard', name: 'dashboard', icon: <FiHome /> },
+        { path: '/dashboard/users-query', name: 'Users Query', icon: <FiHome /> },
         { path: '/dashboard/teams-managements', name: 'Team Management', icon: <FiUsers /> }
       ]
     },
@@ -129,14 +129,14 @@ const Sidebar = () => {
               src="/path/to/logo.png" 
               alt="Travel App Logo" 
               className="sb-sidebar-logo" 
-              onError={(e) => (e.target.src = 'https://via.placeholder.com/150?text=Logo')} 
+             
             />
           ) : (
             <img 
               src="/path/to/logo-icon.png" 
               alt="Travel App Icon" 
               className="sb-sidebar-logo-collapsed" 
-              onError={(e) => (e.target.src = 'https://via.placeholder.com/40?text=Icon')} 
+             
             />
           )}
           {!isMobile && (
