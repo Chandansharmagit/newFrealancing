@@ -179,7 +179,7 @@ function AppContent() {
             element={<MainUploadingDestination />}
           />
           <Route
-            path="google-analytics-realtime-traffic"
+            path="dashboard"
             element={<GoogleAnalytics />}
           />
           <Route path="Tour-page-dashboard" element={<TourDashboardPage />} />
