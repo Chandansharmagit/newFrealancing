@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import './GoogleAnalytics.css';
 import {
@@ -37,26 +38,57 @@ const GoogleAnalytics = () => {
   const [error, setError] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const [dateRange, setDateRange] = useState('7d');
+  const [customStartDate, setCustomStartDate] = useState('');
+  const [customEndDate, setCustomEndDate] = useState('');
+  const [dateError, setDateError] = useState(null);
 
   // Map dateRange to startDate and endDate
   const getDateRangeParams = useCallback(() => {
-    const endDate = new Date().toISOString().split('T')[0]; // Today
+    const today = new Date();
+    const endDate = today.toISOString().split('T')[0]; // Today
     const startDateMap = {
-      '7d': new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      '30d': new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      '90d': new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      '7d': new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      '14d': new Date(today.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      '20d': new Date(today.getTime() - 20 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      '30d': new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      '90d': new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      'custom': customStartDate,
     };
+
+    if (dateRange === 'custom') {
+      const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
+      if (!dateFormatRegex.test(customStartDate) || !dateFormatRegex.test(customEndDate)) {
+        throw new Error('Custom dates must be in YYYY-MM-DD format');
+      }
+      const start = new Date(customStartDate);
+      const end = new Date(customEndDate);
+      if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+        throw new Error('Invalid custom date format');
+      }
+      if (end > today) {
+        throw new Error('End date cannot be in the future');
+      }
+      if (start > end) {
+        throw new Error('Start date cannot be after end date');
+      }
+      return { startDate: customStartDate, endDate: customEndDate };
+    }
+
     return { startDate: startDateMap[dateRange], endDate };
-  }, [dateRange]);
+  }, [dateRange, customStartDate, customEndDate]);
 
   const fetchAnalyticsData = useCallback(async () => {
     setRefreshing(true);
     setError(null);
-    const { startDate, endDate } = getDateRangeParams();
+    setDateError(null);
 
     try {
-      // Fetch /analytics
-      const analyticsResponse = await fetch('https://googleanalyticsdashboardbackend-1.onrender.com/analytics');
+      const { startDate, endDate } = getDateRangeParams();
+
+      // Fetch /analytics with date range
+      const analyticsResponse = await fetch(
+        `https://googleanalyticsdashboardbackend-1.onrender.com/analytics?startDate=${startDate}&endDate=${endDate}`
+      );
       if (!analyticsResponse.ok) throw new Error(`Analytics HTTP error: ${analyticsResponse.status}`);
       const analyticsData = await analyticsResponse.json();
       setAnalyticsData(analyticsData);
@@ -99,8 +131,12 @@ const GoogleAnalytics = () => {
       const realtimeData = await realtimeResponse.json();
       setRealtimeData(realtimeData);
     } catch (err) {
-      setError(`Failed to fetch analytics data: ${err.message}`);
-      console.error('Analytics fetch error:', err);
+      if (err.message.includes('Custom dates')) {
+        setDateError(err.message);
+      } else {
+        setError(`Failed to fetch analytics data: ${err.message}`);
+        console.error('Analytics fetch error:', err);
+      }
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -113,6 +149,15 @@ const GoogleAnalytics = () => {
 
   const handleRefresh = () => {
     fetchAnalyticsData();
+  };
+
+  const handleCustomDateChange = (e, type) => {
+    const value = e.target.value;
+    if (type === 'start') {
+      setCustomStartDate(value);
+    } else {
+      setCustomEndDate(value);
+    }
   };
 
   if (loading) {
@@ -131,7 +176,7 @@ const GoogleAnalytics = () => {
     );
   }
 
-  if (error) {
+  if (error || dateError) {
     return (
       <div className="dashboard-container">
         <div className="error-wrapper">
@@ -143,7 +188,7 @@ const GoogleAnalytics = () => {
             </svg>
           </div>
           <h3 className="error-title">Connection Failed</h3>
-          <p className="error-message">{error}</p>
+          <p className="error-message">{error || dateError}</p>
           <button className="retry-btn" onClick={fetchAnalyticsData}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M1 4v6h6" stroke="currentColor" strokeWidth="2" />
@@ -157,10 +202,10 @@ const GoogleAnalytics = () => {
   }
 
   // Process analytics data
-  const processedAnalyticsData = analyticsData?.rows?.map((row, index) => ({
-    day: `Day ${index + 1}`,
-    activeUsers: parseInt(row.metricValues[0]?.value || 0),
-    sessions: parseInt(row.metricValues[1]?.value || 0),
+  const processedAnalyticsData = analyticsData?.rows?.map((row) => ({
+    date: row.date,
+    activeUsers: parseInt(row.activeUsers || 0),
+    sessions: parseInt(row.sessions || 0),
   })) || [];
 
   const totalUsers = processedAnalyticsData.reduce((sum, day) => sum + day.activeUsers, 0);
@@ -268,7 +313,7 @@ const GoogleAnalytics = () => {
   };
 
   const barChartData = {
-    labels: processedAnalyticsData.map((item) => item.day),
+    labels: processedAnalyticsData.map((item) => item.date),
     datasets: [
       {
         label: 'Active Users',
@@ -292,7 +337,7 @@ const GoogleAnalytics = () => {
   };
 
   const lineChartData = {
-    labels: processedAnalyticsData.map((item) => item.day),
+    labels: processedAnalyticsData.map((item) => item.date),
     datasets: [
       {
         label: 'Active Users Trend',
@@ -390,9 +435,30 @@ const GoogleAnalytics = () => {
                 className="date-select"
               >
                 <option value="7d">Last 7 days</option>
+                <option value="14d">Last 14 days</option>
+                <option value="20d">Last 20 days</option>
                 <option value="30d">Last 30 days</option>
                 <option value="90d">Last 90 days</option>
+                <option value="custom">Custom Range</option>
               </select>
+              {dateRange === 'custom' && (
+                <div className="custom-date-inputs">
+                  <input
+                    type="date"
+                    value={customStartDate}
+                    onChange={(e) => handleCustomDateChange(e, 'start')}
+                    className="date-input"
+                    placeholder="Start Date (YYYY-MM-DD)"
+                  />
+                  <input
+                    type="date"
+                    value={customEndDate}
+                    onChange={(e) => handleCustomDateChange(e, 'end')}
+                    className="date-input"
+                    placeholder="End Date (YYYY-MM-DD)"
+                  />
+                </div>
+              )}
             </div>
             <button
               className={`refresh-btn ${refreshing ? 'refreshing' : ''}`}
@@ -608,6 +674,6 @@ const GoogleAnalytics = () => {
       </div>
     </div>
   );
-};
+}
 
 export default GoogleAnalytics;
