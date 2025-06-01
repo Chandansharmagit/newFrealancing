@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown, Zap, Globe, Rocket, Star, Search, Calendar, Filter, ArrowRight, MapPin } from 'lucide-react';
 import './HeroSection.css';
@@ -11,12 +11,12 @@ const HeroSection = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isLoaded, setIsLoaded] = useState(false);
-  const [hoveredElement, setHoveredElement] = useState(null);
   const [adventureType, setAdventureType] = useState('');
   const [budgetRange, setBudgetRange] = useState('');
   const [groupSize, setGroupSize] = useState('');
-  const canvasRef = useRef(null);
-  const particlesRef = useRef([]);
+  const canvasRef = React.useRef(null);
+  const particlesRef = React.useRef([]);
+  const animationFrameRef = React.useRef(null);
   const navigate = useNavigate();
 
   // Initialize particles and animations
@@ -36,6 +36,15 @@ const HeroSection = () => {
       });
     };
 
+    // Handle window resize
+    const handleResize = () => {
+      const canvas = canvasRef.current;
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    };
+
     // Initialize particle system
     const initParticles = () => {
       const canvas = canvasRef.current;
@@ -46,6 +55,7 @@ const HeroSection = () => {
       canvas.height = window.innerHeight;
 
       // Create particles
+      particlesRef.current = [];
       for (let i = 0; i < 100; i++) {
         particlesRef.current.push({
           x: Math.random() * canvas.width,
@@ -59,10 +69,11 @@ const HeroSection = () => {
       }
 
       const animate = () => {
+        if (!canvas) return;
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        particlesRef.current.forEach((particle, index) => {
+        particlesRef.current.forEach((particle) => {
           particle.x += particle.vx;
           particle.y += particle.vy;
           particle.life += 0.01;
@@ -83,17 +94,22 @@ const HeroSection = () => {
           ctx.fill();
         });
 
-        requestAnimationFrame(animate);
+        animationFrameRef.current = requestAnimationFrame(animate);
       };
       animate();
     };
 
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('resize', handleResize);
     initParticles();
 
     return () => {
       clearInterval(timeInterval);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', handleResize);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
   }, []);
 
@@ -103,9 +119,9 @@ const HeroSection = () => {
       destination: searchQuery,
       checkIn: checkInDate,
       checkOut: checkOutDate,
-      adventureType: adventureType,
-      budgetRange: budgetRange,
-      groupSize: groupSize,
+      adventureType,
+      budgetRange,
+      groupSize,
     }).toString();
     navigate(`/search?${queryParams}`);
   };
@@ -142,7 +158,6 @@ const HeroSection = () => {
 
       {/* Main Content */}
       <div className="main-content">
-        
         {/* Floating Status Bar */}
         <div className="status-bar">
           <div className="status-item online">
@@ -155,11 +170,7 @@ const HeroSection = () => {
         </div>
 
         {/* Epic Badge */}
-        <div 
-          className="epic-badge"
-          onMouseEnter={() => setHoveredElement('badge')}
-          onMouseLeave={() => setHoveredElement(null)}
-        >
+        <div className="epic-badge">
           <div className="badge-glow"></div>
           <div className="badge-content">
             <Rocket className="badge-icon rocket" />
@@ -203,8 +214,6 @@ const HeroSection = () => {
           <button 
             className="btn btn-explore"
             onClick={() => navigate('/destinations')}
-            onMouseEnter={() => setHoveredElement('explore')}
-            onMouseLeave={() => setHoveredElement(null)}
           >
             <div className="btn-glow"></div>
             <div className="btn-content">
@@ -217,8 +226,6 @@ const HeroSection = () => {
           <button 
             className="btn btn-discover"
             onClick={() => navigate('/tours')}
-            onMouseEnter={() => setHoveredElement('discover')}
-            onMouseLeave={() => setHoveredElement(null)}
           >
             <div className="btn-glow"></div>
             <div className="btn-content">
