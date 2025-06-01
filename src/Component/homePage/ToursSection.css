@@ -24,9 +24,20 @@
 }
 
 @keyframes subtlePulse {
-  0% { transform: scale(1); opacity: 0.3; }
-  50% { transform: scale(1.05); opacity: 0.5; }
-  100% { transform: scale(1); opacity: 0.3; }
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
 }
 
 /* Container for centering content */
@@ -287,8 +298,13 @@
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* Error state */
@@ -374,6 +390,15 @@
   .tours-section {
     padding: 40px 15px;
   }
+
+  .tours-section-container {
+    max-width: 96;
+    margin: 0 auto;
+    padding: 0 0px;
+    position: relative;
+    z-index: 2;
+  }
+
 
   .tours-section-header h2 {
     font-size: 2rem;

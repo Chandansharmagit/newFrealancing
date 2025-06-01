@@ -59,7 +59,10 @@
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.21",
     "patch-package": "^8.0.0",
-    "postinstall-postinstall": "^2.1.0"
+    "postcss": "^8.5.4",
+    "postinstall-postinstall": "^2.1.0",
+    "tailwindcss": "^4.1.8"
   }
 }
