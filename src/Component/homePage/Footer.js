@@ -1,6 +1,15 @@
-import React from 'react';
-import { FaFacebookF, FaInstagram,  FaMapMarkerAlt, FaPhone, FaEnvelope, FaCcVisa, FaCreditCard, FaHeart } from 'react-icons/fa';
-import './Footer.css';
+import React from "react";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope,
+  FaCcVisa,
+  FaCreditCard,
+  FaHeart,
+} from "react-icons/fa";
+import "./Footer.css";
 
 const Footer = () => {
   // SVG Icons for Nepali payment systems
@@ -61,45 +70,78 @@ const Footer = () => {
               <span>Travel</span>Sansar
             </div>
             <p className="ft-footer-description">
-              Creating unforgettable travel experiences for adventurers around the globe since 2010.
+              Creating unforgettable travel experiences for adventurers around
+              the globe since 2010.
             </p>
+
             <div className="ft-social-links">
-              <a href="/https://www.facebook.com/travelsansr" className="ft-social-link" aria-label="Follow us on Facebook">
+              <a
+                href="https://www.facebook.com/travelsansr"
+                className="ft-social-link"
+                aria-label="Follow us on Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaFacebookF />
               </a>
-              {/* <a href="/" className="ft-social-link" aria-label="Follow us on Twitter">
-                <FaTwitter />
-              </a> */}
-              <a href="/https://www.instagram.com/travel_sansar/" className="ft-social-link" aria-label="Follow us on Instagram">
+
+              <a
+                href="https://www.instagram.com/travel_sansar/"
+                className="ft-social-link"
+                aria-label="Follow us on Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaInstagram />
               </a>
-              {/* <a href="/" className="ft-social-link" aria-label="Follow us on Pinterest">
-                <FaPinterestP />
-              </a> */}
             </div>
           </div>
 
           <div className="ft-footer-column">
             <h3 className="ft-column-title">Quick Links</h3>
             <ul className="ft-footer-links">
-              <li><a href="/">Home</a></li>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/destinations">Destinations</a></li>
-              <li><a href="/tours">Tours</a></li>
-              <li><a href="/blog">Travel Blog</a></li>
-              <li><a href="/contact">Contact Us</a></li>
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/about">About Us</a>
+              </li>
+              <li>
+                <a href="/destinations">Destinations</a>
+              </li>
+              <li>
+                <a href="/tours">Tours</a>
+              </li>
+              <li>
+                <a href="/blog">Travel Blog</a>
+              </li>
+              <li>
+                <a href="/contact">Contact Us</a>
+              </li>
             </ul>
           </div>
 
           <div className="ft-footer-column">
             <h3 className="ft-column-title">Destinations</h3>
             <ul className="ft-footer-links">
-              <li><a href="/destinations/europe">Europe</a></li>
-              <li><a href="/destinations/asia">Asia</a></li>
-              <li><a href="/destinations/africa">Africa</a></li>
-              <li><a href="/destinations/north-america">North America</a></li>
-              <li><a href="/destinations/south-america">South America</a></li>
-              <li><a href="/destinations/australia">Australia & Oceania</a></li>
+              <li>
+                <a href="/destinations/europe">Europe</a>
+              </li>
+              <li>
+                <a href="/destinations/asia">Asia</a>
+              </li>
+              <li>
+                <a href="/destinations/africa">Africa</a>
+              </li>
+              <li>
+                <a href="/destinations/north-america">North America</a>
+              </li>
+              <li>
+                <a href="/destinations/south-america">South America</a>
+              </li>
+              <li>
+                <a href="/destinations/australia">Australia & Oceania</a>
+              </li>
             </ul>
           </div>
 
@@ -107,7 +149,8 @@ const Footer = () => {
             <h3 className="ft-column-title">Contact Info</h3>
             <ul className="ft-contact-info">
               <li>
-                <FaMapMarkerAlt className="ft-contact-icon" /> Sahidchowk,Narayanghat,Chitwan
+                <FaMapMarkerAlt className="ft-contact-icon" />{" "}
+                Sahidchowk,Narayanghat,Chitwan
               </li>
               <li>
                 <FaPhone className="ft-contact-icon" /> +9779855051795
@@ -182,12 +225,19 @@ const Footer = () => {
         <div className="ft-footer-bottom">
           <div className="ft-footer-bottom-content">
             <div className="ft-copyright-section">
-              <p className="ft-copyright">© 2025 Travel Sansar. All Rights Reserved.</p>
+              <p className="ft-copyright">
+                © 2025 Travel Sansar. All Rights Reserved.
+              </p>
               <div className="ft-developer-credit">
                 <span>Designed & Developed with</span>
                 <FaHeart className="ft-heart-icon" />
                 <span>by</span>
-                <a href="https://www.facebook.com/Chandan.Sharma.8689" target="_blank" rel="noopener noreferrer" className="ft-developer-link">
+                <a
+                  href="https://www.facebook.com/Chandan.Sharma.8689"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ft-developer-link"
+                >
                   <FaFacebookF className="ft-dev-fb-icon" />
                   Chandan Sharma
                 </a>
