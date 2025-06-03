@@ -64,18 +64,18 @@ const Footer = () => {
               Creating unforgettable travel experiences for adventurers around the globe since 2010.
             </p>
             <div className="ft-social-links">
-              <a href="/" className="ft-social-link" aria-label="Follow us on Facebook">
+              <a href="/https://www.facebook.com/travelsansr" className="ft-social-link" aria-label="Follow us on Facebook">
                 <FaFacebookF />
               </a>
-              <a href="/" className="ft-social-link" aria-label="Follow us on Twitter">
+              {/* <a href="/" className="ft-social-link" aria-label="Follow us on Twitter">
                 <FaTwitter />
-              </a>
-              <a href="/" className="ft-social-link" aria-label="Follow us on Instagram">
+              </a> */}
+              <a href="/https://www.instagram.com/travel_sansar/" className="ft-social-link" aria-label="Follow us on Instagram">
                 <FaInstagram />
               </a>
-              <a href="/" className="ft-social-link" aria-label="Follow us on Pinterest">
+              {/* <a href="/" className="ft-social-link" aria-label="Follow us on Pinterest">
                 <FaPinterestP />
-              </a>
+              </a> */}
             </div>
           </div>
 

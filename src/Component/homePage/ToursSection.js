@@ -162,7 +162,7 @@ const ToursSection = () => {
                 <h3>{tour.name}</h3>
                 <p>{tour.description}</p>
                 <div className="tours-section-tour-footer">
-                  <span className="tours-section-tour-price">${tour.price}</span>
+                  <span className="tours-section-tour-price">Nrs.{tour.price}</span>
                   <a href={`/tour/${tour.id}`} className="tours-section-btn-details">View Details</a>
                 </div>
               </div>

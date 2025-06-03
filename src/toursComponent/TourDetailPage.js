@@ -313,7 +313,7 @@ const TourDetailPage = () => {
         {/* Fixed CTA for mobile */}
         <div className="mobile-cta">
           <div className="mobile-price">
-            From ${tour.price?.toLocaleString() || "..."}
+            From Nrs.{tour.price?.toLocaleString() || "..."}
           </div>
           <button
             onClick={() => {
