@@ -27,8 +27,9 @@ jobs:
       - name: Deploy to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.yourdomain.com  # change this
-          username: ${{ secrets.CPANEL_USERNAME }}
+          server: ftp.travelsansr.com
+          username: Travelsansar@travelsansr.com
           password: ${{ secrets.CPANEL_PASSWORD }}
           local-dir: ./build
-          server-dir: /public_html    # change if needed
+          server-dir: /public_html
+          port: 21
