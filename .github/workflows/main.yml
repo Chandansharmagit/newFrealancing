@@ -31,5 +31,5 @@ jobs:
           username: Travelsansar@travelsansr.com
           password: ${{ secrets.CPANEL_PASSWORD }}
           local-dir: build/
-          server-dir: public_html/
+        
           port: 21
