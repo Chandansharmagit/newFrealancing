@@ -16,6 +16,7 @@ import FeaturesSection from './FeaturesSection';
 import TestimonialsSection from './TestimonialsSection';
 
 import TeamSection from './TeamSection';
+import TravelServices from '../serices/TravelServices';
 
 
 const HomePage = () => {
@@ -35,6 +36,7 @@ const HomePage = () => {
     <div className="home-page">
       {/* <Header /> */}
       <HeroSection />
+      <TravelServices/>
       <StatsSection />
       <DestinationsSection destinations={popularDestinations} />
       <ToursSection tours={featuredTours} />

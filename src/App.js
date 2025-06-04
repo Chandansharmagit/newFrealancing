@@ -45,6 +45,7 @@ import TeamDashboard from "./Component/AboutUs/Teamdashboard/TeamDashboard";
 import NotFound from "./PageNotFound/PageNotfound";
 import BookingForm from "./Component/homePage/DestinationsDetails/BookingForm";
 import GoogleAnalytics from "./TrafficsManagement/GoogleAnalytics";
+import TravelServices from "./Component/serices/TravelServices";
 
 function PrivateRoute({ children, isAuthenticated, setShowAuthPopup }) {
   if (!isAuthenticated) {
@@ -140,6 +141,10 @@ function AppContent() {
         <Route
           path="/login/register/forgot-password"
           element={<ForgotPasswordPage />}
+        />
+         <Route
+          path="/our-services"
+          element={<TravelServices />}
         />
         <Route
           path="/login/register/forgot-password/Change-password"
