@@ -46,6 +46,7 @@ import NotFound from "./PageNotFound/PageNotfound";
 import BookingForm from "./Component/homePage/DestinationsDetails/BookingForm";
 import GoogleAnalytics from "./TrafficsManagement/GoogleAnalytics";
 import TravelServices from "./Component/serices/TravelServices";
+import FlightBooking from "./Component/FlightBooking/Flightbooking";
 
 function PrivateRoute({ children, isAuthenticated, setShowAuthPopup }) {
   if (!isAuthenticated) {
@@ -145,6 +146,10 @@ function AppContent() {
          <Route
           path="/our-services"
           element={<TravelServices />}
+        />
+           <Route
+          path="/flight-booking"
+          element={<FlightBooking />}
         />
         <Route
           path="/login/register/forgot-password/Change-password"

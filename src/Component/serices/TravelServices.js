@@ -1,9 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './TravelServices.css';
 
 const TravelServices = () => {
-  const handleBookNow = (service) => {
-    alert(`Redirecting to ${service} booking page...`);
+  const navigate = useNavigate();
+
+  const handleBookNow = (service, serviceId) => {
+    // Navigate to the specific service page
+    navigate(`/${serviceId}`);
   };
 
   const services = [
@@ -34,33 +38,33 @@ const TravelServices = () => {
   ];
 
   return (
-    <div className="travel-services">
-      <div className="container-travel">
-        <header className="header">
+    <div className="ts-travel-services-2025">
+      <div className="ts-container-travel-2025">
+        <header className="ts-header-unique">
           <h1>Travel Booking Services</h1>
           <p>Your one-stop destination for all travel needs</p>
         </header>
 
-        <div className="services-grid">
+        <div className="ts-services-grids-2025">
           {services.map((service) => (
-            <div key={service.id} className="service-card">
-              <div className="service-icon">
+            <div key={service.id} className="ts-service-card-unique">
+              <div className="ts-service-icon-2025">
                 {service.icon}
               </div>
-              <h3 className="service-title">{service.title}</h3>
-              <p className="service-description">{service.description}</p>
+              <h3 className="ts-service-title-unique">{service.title}</h3>
+              <p className="ts-service-description-2025">{service.description}</p>
               
-              <ul className="service-features">
+              <ul className="ts-service-features-unique">
                 {service.features.map((feature, index) => (
                   <li key={index}>{feature}</li>
                 ))}
               </ul>
               
-              <div className="service-price">{service.price}</div>
+              <div className="ts-service-price-2025">{service.price}</div>
               
               <button 
-                className="book-now-btn"
-                onClick={() => handleBookNow(service.title)}
+                className="ts-book-now-btn-unique"
+                onClick={() => handleBookNow(service.title, service.id)}
               >
                 Book Now
               </button>
