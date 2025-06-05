@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import {
   Plane,
   Calendar,
@@ -119,14 +119,14 @@ const FlightBooking = () => {
     },
   ];
 
-  const popularDestinations = [
-    { code: "LAX", city: "Los Angeles", country: "USA" },
-    { code: "LHR", city: "London", country: "UK" },
-    { code: "NRT", city: "Tokyo", country: "Japan" },
-    { code: "CDG", city: "Paris", country: "France" },
-    { code: "DXB", city: "Dubai", country: "UAE" },
-    { code: "SYD", city: "Sydney", country: "Australia" },
-  ];
+  // const popularDestinations = [
+  //   { code: "LAX", city: "Los Angeles", country: "USA" },
+  //   { code: "LHR", city: "London", country: "UK" },
+  //   { code: "NRT", city: "Tokyo", country: "Japan" },
+  //   { code: "CDG", city: "Paris", country: "France" },
+  //   { code: "DXB", city: "Dubai", country: "UAE" },
+  //   { code: "SYD", city: "Sydney", country: "Australia" },
+  // ];
 
   const airlines = [
     "SkyLine Airways",
@@ -172,13 +172,13 @@ const FlightBooking = () => {
     }, 1500);
   };
 
-  const getTotalPassengers = () => {
-    return (
-      bookingData.passengers.adults +
-      bookingData.passengers.children +
-      bookingData.passengers.infants
-    );
-  };
+  // const getTotalPassengers = () => {
+  //   return (
+  //     bookingData.passengers.adults +
+  //     bookingData.passengers.children +
+  //     bookingData.passengers.infants
+  //   );
+  // };
 
   const getPassengerText = () => {
     const { adults, children, infants } = bookingData.passengers;
