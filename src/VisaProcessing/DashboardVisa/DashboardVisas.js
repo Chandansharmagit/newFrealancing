@@ -9,6 +9,17 @@ const DashboardVisa = () => {
   const [updating, setUpdating] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
 
+  // Base URL from environment variable or default to production
+  const BASE_API_URL = process.env.REACT_APP_API_BASE_URL || 'https://visaprocessing.travelsansr.com';
+
+  // Normalize URLs to replace localhost with production base URL
+  const normalizeUrl = (url) => {
+    if (url && typeof url === 'string' && url.startsWith('http://localhost:5000')) {
+      return url.replace('http://localhost:5000', BASE_API_URL);
+    }
+    return url || '/path/to/placeholder-image.jpg'; // Fallback if URL is invalid
+  };
+
   useEffect(() => {
     fetchApplications();
   }, []);
@@ -52,7 +63,6 @@ const DashboardVisa = () => {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to update status');
       }
-      // Refresh applications after update
       await fetchApplications();
       setSuccessMessage(`Application ${trackingId} ${status.toLowerCase()} successfully`);
       setRejectionReason({ ...rejectionReason, [trackingId]: '' });
@@ -68,11 +78,7 @@ const DashboardVisa = () => {
     else if (status === 'Rejected') statusClass += 'rejected';
     else statusClass += 'pending';
     
-    return (
-      <span className={statusClass}>
-        {status}
-      </span>
-    );
+    return <span className={statusClass}>{status}</span>;
   };
 
   if (loading) {
@@ -124,14 +130,22 @@ const DashboardVisa = () => {
                 <td data-label="Email">{app.email}</td>
                 <td data-label="Status">{getStatusBadge(app.status)}</td>
                 <td data-label="Documents">
-                  {app.documents?.length > 0 ? (
+                  {app.documents?.length > 0 && Array.isArray(app.documents) ? (
                     app.documents.map((doc, index) => (
-                      <a key={index} href={doc} target="_blank" rel="noopener noreferrer">
+                      <a
+                        key={index}
+                        href={normalizeUrl(doc)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <img
-                          src={doc}
+                          src={normalizeUrl(doc)}
                           alt={`Document ${index + 1}`}
                           className="thumbnail"
-                        
+                          onError={(e) => {
+                            e.target.src = '/path/to/placeholder-image.jpg';
+                            e.target.alt = 'Image not available';
+                          }}
                         />
                       </a>
                     ))
