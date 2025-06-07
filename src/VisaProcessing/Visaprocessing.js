@@ -114,7 +114,7 @@ const VisaProcessing = () => {
     }
     setIsLoading(true);
     const formDataToSend = new FormData();
-    documents.forEach((doc, index) => {https://visaprocessing.travelsansr.com/
+    documents.forEach((doc, index) => {
       formDataToSend.append('documents', doc);
     });
     formDataToSend.append('trackingId', submissionStatus);
