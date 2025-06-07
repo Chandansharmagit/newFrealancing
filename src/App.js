@@ -48,6 +48,8 @@ import GoogleAnalytics from "./TrafficsManagement/GoogleAnalytics";
 import TravelServices from "./Component/serices/TravelServices";
 import FlightBooking from "./Component/FlightBooking/Flightbooking";
 import DestinationHeader from "./Component/homePage/DestinationsDetails/DestinationHeader";
+import VisaProcessing from "./VisaProcessing/Visaprocessing";
+import DashboardVisa from "./VisaProcessing/DashboardVisa/DashboardVisas";
 
 function PrivateRoute({ children, isAuthenticated, setShowAuthPopup }) {
   if (!isAuthenticated) {
@@ -150,6 +152,14 @@ function AppContent() {
         <Route
           path="/login/register/forgot-password/Change-password"
           element={<ResetPasswordPage />}
+        />
+          <Route
+          path="/visa-processing"
+          element={<VisaProcessing />}
+        />
+            <Route
+          path="/d"
+          element={<DashboardVisa />}
         />
         {/* <Route
             path="/google-analytics-realtime-traffic"

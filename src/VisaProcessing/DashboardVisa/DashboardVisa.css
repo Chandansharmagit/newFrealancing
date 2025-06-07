@@ -1,0 +1,612 @@
+/* DashboardVisa.css - Enhanced Mobile Responsive */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: white;
+  color: black;
+}
+
+.dashboard-wrapper {
+  min-height: 100vh;
+  background-color: white;
+  padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.dashboard-wrapper h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: black;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.dashboard-wrapper h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background-color: black;
+  margin-top: 0.5rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: black;
+  padding: 1rem;
+  text-align: center;
+}
+
+.error {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.retry-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.retry-button:hover {
+  background-color: #333;
+  transform: translateY(-1px);
+}
+
+.success {
+  background-color: black;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.application-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.application-table thead {
+  background-color: black;
+  color: white;
+}
+
+.application-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.875rem;
+  border-bottom: 2px solid black;
+}
+
+.application-table tbody tr {
+  border-bottom: 1px solid #e5e5e5;
+  transition: background-color 0.2s ease;
+}
+
+.application-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.application-table tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+.application-table td {
+  padding: 1rem;
+  vertical-align: top;
+  color: black;
+  font-size: 0.875rem;
+}
+
+.application-table td:first-child {
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.application-table td:nth-child(3) {
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.8rem;
+}
+
+.application-table td:nth-child(7) {
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.8rem;
+}
+
+.application-table td:nth-child(2) {
+  font-weight: 600;
+}
+
+/* Status badges */
+.application-table td:nth-child(9) {
+  font-weight: 700;
+}
+
+.application-table td:nth-child(9) span {
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+/* Status colors */
+.application-table tbody tr td:nth-child(9) span {
+  background-color: #f0f0f0;
+  color: black;
+  border: 1px solid #ccc;
+}
+
+/* Approved status */
+.application-table tbody tr:has(td:nth-child(9):contains("Approved")) td:nth-child(9) span,
+.application-table tbody tr td:nth-child(9) span[data-status="approved"] {
+  background-color: black;
+  color: white;
+  border: 2px solid black;
+}
+
+/* Rejected status */
+.application-table tbody tr:has(td:nth-child(9):contains("Rejected")) td:nth-child(9) span,
+.application-table tbody tr td:nth-child(9) span[data-status="rejected"] {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.thumbnail {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border: 2px solid black;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.thumbnail:hover {
+  transform: scale(1.1);
+}
+
+.action-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  touch-action: manipulation;
+  min-height: 44px; /* Minimum touch target size */
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-button.accept {
+  background-color: black;
+  color: white;
+}
+
+.action-button.accept:hover:not(:disabled) {
+  background-color: #333;
+  transform: translateY(-1px);
+}
+
+.action-button.reject {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.action-button.reject:hover:not(:disabled) {
+  background-color: black;
+  color: white;
+}
+
+.reject-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid black;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: black;
+  background-color: white;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+  min-height: 44px; /* Minimum touch target size */
+}
+
+.reject-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.reject-input::placeholder {
+  color: #666;
+}
+
+/* Actions column layout */
+.application-table td:last-child {
+  min-width: 200px;
+}
+
+.application-table td:last-child > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.application-table td:last-child .action-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Rejection reason display */
+.rejection-info {
+  max-width: 200px;
+}
+
+.rejection-info .rejection-label {
+  font-weight: 900;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.rejection-info .rejection-text {
+  font-size: 0.8rem;
+  color: #333;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* Tablet Responsive - 1200px and below */
+@media (max-width: 1200px) {
+  .dashboard-wrapper {
+    padding: 1.5rem;
+  }
+  
+  .application-table {
+    font-size: 0.8rem;
+  }
+  
+  .application-table th,
+  .application-table td {
+    padding: 0.75rem;
+  }
+  
+  .dashboard-wrapper h1 {
+    font-size: 2.25rem;
+  }
+}
+
+/* Small Tablet - 992px and below */
+@media (max-width: 992px) {
+  .dashboard-wrapper {
+    padding: 1rem;
+  }
+  
+  .dashboard-wrapper h1 {
+    font-size: 2rem;
+  }
+  
+  .dashboard-wrapper h1::after {
+    width: 60px;
+    height: 3px;
+  }
+  
+  .application-table th,
+  .application-table td {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+  }
+  
+  .application-table th {
+    font-size: 0.75rem;
+  }
+  
+  .thumbnail {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .action-button {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Mobile Landscape - 768px and below */
+@media (max-width: 768px) {
+  .dashboard-wrapper {
+    padding: 0.75rem;
+  }
+  
+  .dashboard-wrapper h1 {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+  
+  .dashboard-wrapper h1::after {
+    margin: 0.5rem auto 0;
+    width: 50px;
+  }
+  
+  .loading {
+    font-size: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .error, .success {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .retry-button {
+    margin-left: 0;
+    margin-top: 0.5rem;
+    display: block;
+    width: 100%;
+  }
+  
+  /* Table becomes card layout on mobile */
+  .application-table {
+    border: none;
+    width: 90vw;
+    box-shadow: none;
+    background: transparent;
+  }
+  
+  .application-table thead {
+    display: none;
+  }
+  
+  .application-table tbody {
+    display: block;
+  }
+  
+  .application-table tr {
+    display: block;
+    border: 2px solid black;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .application-table tr:nth-child(even) {
+    background-color: white;
+  }
+  
+  .application-table tr:hover {
+    background-color: #f8f8f8;
+  }
+  
+  .application-table td {
+    display: block;
+    border: none;
+    padding: 0.5rem 0;
+    text-align: left;
+    position: relative;
+    padding-left: 35%;
+    word-wrap: break-word;
+    min-height: 1.5rem;
+  }
+  
+  .application-table td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 30%;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    color: #333;
+    line-height: 1.2;
+  }
+  
+  .application-table td:first-child:before {
+    content: "App ID";
+  }
+  
+  .application-table td:nth-child(2):before {
+    content: "Name";
+  }
+  
+  .application-table td:nth-child(3):before {
+    content: "Email";
+  }
+  
+  .application-table td:nth-child(4):before {
+    content: "Country";
+  }
+  
+  .application-table td:nth-child(5):before {
+    content: "Visa Type";
+  }
+  
+  .application-table td:nth-child(6):before {
+    content: "Documents";
+  }
+  
+  .application-table td:nth-child(7):before {
+    content: "Submitted";
+  }
+  
+  .application-table td:nth-child(8):before {
+    content: "Fee";
+  }
+  
+  .application-table td:nth-child(9):before {
+    content: "Status";
+  }
+  
+  .application-table td:last-child:before {
+    content: "Actions";
+  }
+  
+  .application-table td:last-child {
+    min-width: auto;
+    padding-left: 0;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 0.5rem;
+  }
+  
+  .application-table td:last-child > div {
+    gap: 0.75rem;
+  }
+  
+  .application-table td:last-child .action-row {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .action-button {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    min-width: 120px;
+  }
+  
+  .reject-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .thumbnail {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Small Mobile - 480px and below */
+@media (max-width: 480px) {
+  .dashboard-wrapper {
+    padding: 0.5rem;
+  }
+  
+  .dashboard-wrapper h1 {
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-wrapper h1::after {
+    width: 40px;
+    height: 2px;
+  }
+  
+  .application-table tr {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .application-table td {
+    padding: 0.4rem 0;
+    padding-left: 40%;
+    font-size: 0.8rem;
+  }
+  
+  .application-table td:before {
+    width: 35%;
+    font-size: 0.65rem;
+    top: 0.4rem;
+  }
+  
+  .action-button {
+    font-size: 0.65rem;
+    padding: 0.5rem;
+    min-width: 100px;
+  }
+  
+  .thumbnail {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .application-table td:nth-child(9) span {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Extra Small Mobile - 360px and below */
+@media (max-width: 360px) {
+  .dashboard-wrapper h1 {
+    font-size: 1.25rem;
+  }
+  
+  .application-table td {
+    padding-left: 45%;
+    font-size: 0.75rem;
+  }
+  
+  .application-table td:before {
+    width: 40%;
+    font-size: 0.6rem;
+  }
+  
+  .action-button {
+    font-size: 0.6rem;
+    min-width: 80px;
+    padding: 0.4rem;
+  }
+  
+  .application-table td:last-child .action-row {
+    flex-direction: column;
+  }
+  
+  .action-button {
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+}
