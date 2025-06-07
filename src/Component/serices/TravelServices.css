@@ -1,5 +1,36 @@
+/* Import Poppins font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
 
+/* Root variables for consistency across components */
+:root {
+  --ts-primary: #000000; /* Black for primary actions */
+  --ts-primary-dark: #333333; /* Dark gray for hover states */
+  --ts-accent: #000000; /* Black for highlights */
+  --ts-background: #f5f5f5; /* Light gray background */
+  --ts-card-bg: #ffffff; /* White card background */
+  --ts-text-primary: #000000; /* Black text */
+  --ts-text-secondary: #666666; /* Gray text for secondary info */
+  --ts-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  --ts-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth easing */
+  --ts-orb-color: rgba(0, 0, 0, 0.2); /* Subtle black orbs */
+  --ts-error-bg: #fff5f5; /* Light red for error state */
+  --ts-empty-bg: #f0f0f0; /* Light gray for empty state */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ts-background: #1a1a1a; /* Dark background */
+    --ts-card-bg: #2a2a2a; /* Dark card background */
+    --ts-text-primary: #ffffff; /* White text */
+    --ts-text-secondary: #aaaaaa; /* Light gray text */
+    --ts-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Darker shadow */
+    --ts-orb-color: rgba(255, 255, 255, 0.3); /* Subtle white orbs */
+    --ts-error-bg: #2d1b1b; /* Dark red for error state */
+    --ts-empty-bg: #222222; /* Dark gray for empty state */
+  }
+}
+
+/* Reset styles */
 * {
   margin: 0;
   padding: 0;
@@ -9,15 +40,17 @@
 body {
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
-  color: #fff;
+  color: var(--ts-text-primary);
   overflow-x: hidden;
 }
 
+/* Travel Services Section */
 .ts-travel-services-2025 {
   min-height: 100vh;
-  background: #0a0a0a;
+  background: var(--ts-background);
   position: relative;
   padding: 40px 20px;
+  overflow: hidden;
 }
 
 .ts-travel-services-2025::before {
@@ -27,22 +60,17 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, #ff006e 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, #8338ec 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, #3a86ff 0%, transparent 50%),
-    radial-gradient(circle at 60% 80%, #fb5607 0%, transparent 50%),
-    radial-gradient(circle at 90% 70%, #ffbe0b 0%, transparent 50%);
+  background: radial-gradient(circle at 40% 40%, var(--ts-orb-color) 0%, transparent 50%);
   animation: ts-float-anim 20s ease-in-out infinite;
   z-index: -1;
 }
 
 @keyframes ts-float-anim {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-20px) rotate(120deg); }
-  66% { transform: translateY(20px) rotate(240deg); }
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(20px); opacity: 0.6; }
 }
 
+/* Container */
 .ts-container-travel-2025 {
   max-width: 1550px;
   margin: 0 auto;
@@ -50,231 +78,174 @@ body {
   z-index: 0;
 }
 
+/* Header */
 .ts-header-unique {
   text-align: center;
   margin-bottom: 60px;
-  color: white;
 }
 
 .ts-header-unique h1 {
-  font-size: 4.5rem;
-  margin-bottom: 20px;
+  font-size: 3.5rem;
   font-weight: 800;
-  background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #ffbe0b);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: ts-gradient-shift 3s ease-in-out infinite;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-}
-
-@keyframes ts-gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  color: var(--ts-text-primary);
+  margin-bottom: 20px;
+  animation: ts-slide-up-anim 0.6s ease-out;
 }
 
 .ts-header-unique p {
   font-size: 1.4rem;
   font-weight: 300;
-  opacity: 0.9;
+  color: var(--ts-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
   animation: ts-pulse-anim 2s ease-in-out infinite;
 }
 
 @keyframes ts-pulse-anim {
-  0%, 100% { opacity: 0.9; }
+  0%, 100% { opacity: 0.8; }
   50% { opacity: 1; }
 }
 
+/* Services Grid */
 .ts-services-grids-2025 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(3,1fr);
+  gap: 30px;
   margin-top: 60px;
 }
 
+/* Service Card */
 .ts-service-card-unique {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 25px;
-  padding: 40px;
+  background: var(--ts-card-bg);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: var(--ts-shadow);
   position: relative;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: var(--ts-transition);
   cursor: pointer;
+}
+
+.ts-service-card-unique:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .ts-service-card-unique::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(
-    transparent,
-    rgba(255, 0, 110, 0.4),
-    transparent 30%,
-    transparent 60%,
-    rgba(131, 56, 236, 0.4),
-    transparent 90%
-  );
-  animation: ts-rotate-anim 4s linear infinite;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--ts-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
   z-index: -1;
 }
 
-.ts-service-card-unique::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 23px;
-  z-index: -1;
+.ts-service-card-unique:hover::before {
+  transform: scaleX(1);
 }
 
-@keyframes ts-rotate-anim {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.ts-service-card-unique:hover {
-  transform: translateY(-15px) scale(1.02);
-  box-shadow: 
-    0 25px 50px rgba(255, 0, 110, 0.3),
-    0 0 100px rgba(131, 56, 236, 0.2);
-}
-
+/* Service Icon */
 .ts-service-icon-2025 {
-  font-size: 5rem;
+  font-size: 4rem;
   text-align: center;
-  margin-bottom: 25px;
-  height: 100px;
+  margin-bottom: 20px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
+  color: var(--ts-primary);
   animation: ts-bounce-anim 3s ease-in-out infinite;
 }
 
 @keyframes ts-bounce-anim {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
+/* Service Title */
 .ts-service-title-unique {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 20px;
-  color: #fff;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  margin-bottom: 15px;
+  color: var(--ts-text-primary);
 }
 
+/* Service Description */
 .ts-service-description-2025 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-align: center;
-  margin-bottom: 30px;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.8;
+  margin-bottom: 20px;
+  color: var(--ts-text-secondary);
+  line-height: 1.6;
 }
 
+/* Service Features */
 .ts-service-features-unique {
   list-style: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .ts-service-features-unique li {
   position: relative;
-  padding: 12px 0 12px 35px;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  padding: 10px 0 10px 30px;
+  color: var(--ts-text-secondary);
+  font-size: 0.95rem;
+  transition: var(--ts-transition);
 }
 
 .ts-service-features-unique li:hover {
-  color: #ffbe0b;
+  color: var(--ts-text-primary);
   transform: translateX(5px);
 }
 
 .ts-service-features-unique li::before {
-  content: '⚡';
+  content: '✓';
   position: absolute;
   left: 0;
-  top: 12px;
+  top: 10px;
   font-size: 1.2rem;
-  animation: ts-flash-anim 2s ease-in-out infinite;
+  color: var(--ts-primary);
 }
 
-@keyframes ts-flash-anim {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
+/* Service Price */
 .ts-service-price-2025 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 30px;
-  color: #ffbe0b;
-  padding: 15px;
-  background: rgba(255, 190, 11, 0.1);
-  border: 2px solid rgba(255, 190, 11, 0.3);
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  animation: ts-glow-anim 2s ease-in-out infinite alternate;
+  margin-bottom: 20px;
+  color: var(--ts-text-primary);
+  padding: 10px;
+  background: var(--ts-background);
+  border: 1px solid var(--ts-text-secondary);
+  border-radius: 12px;
 }
 
-@keyframes ts-glow-anim {
-  from { box-shadow: 0 0 5px rgba(255, 190, 11, 0.5); }
-  to { box-shadow: 0 0 20px rgba(255, 190, 11, 0.8); }
-}
-
+/* Book Now Button */
 .ts-book-now-btn-unique {
   width: 100%;
-  padding: 18px 35px;
-  background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
-  background-size: 200% 200%;
-  color: white;
+  padding: 15px 30px;
+  background: var(--ts-primary);
+  color: #ffffff;
   border: none;
-  border-radius: 15px;
-  font-size: 1.2rem;
-  font-weight: 700;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  animation: ts-gradient-move 3s ease infinite;
-}
-
-@keyframes ts-gradient-move {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.ts-book-now-btn-unique::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transition: left 0.5s;
-}
-
-.ts-book-now-btn-unique:hover::before {
-  left: 100%;
+  letter-spacing: 1px;
+  transition: var(--ts-transition);
 }
 
 .ts-book-now-btn-unique:hover {
+  background: var(--ts-primary-dark);
   transform: translateY(-3px);
-  box-shadow: 
-    0 15px 35px rgba(255, 0, 110, 0.4),
-    0 5px 15px rgba(131, 56, 236, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .ts-book-now-btn-unique:active {
@@ -286,60 +257,64 @@ body {
   .ts-travel-services-2025 {
     padding: 30px 15px;
   }
-  
+
   .ts-header-unique h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
-  
+
   .ts-header-unique p {
     font-size: 1.2rem;
   }
-  
+
   .ts-services-grids-2025 {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 20px;
   }
-  
+
   .ts-service-card-unique {
-    padding: 30px;
+    padding: 20px;
   }
-  
+
   .ts-service-icon-2025 {
-    font-size: 4rem;
-    height: 80px;
+    font-size: 3.5rem;
+    height: 70px;
   }
-  
+
   .ts-service-title-unique {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 }
 
 @media (max-width: 480px) {
   .ts-header-unique h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
-  
+
   .ts-service-card-unique {
-    padding: 25px;
+    padding: 15px;
   }
-  
+
   .ts-service-icon-2025 {
-    font-size: 3.5rem;
-    height: 70px;
+    font-size: 3rem;
+    height: 60px;
   }
-  
+
   .ts-service-title-unique {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
-  
+
   .ts-book-now-btn-unique {
-    padding: 15px 30px;
+    padding: 12px 25px;
     font-size: 1rem;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
   }
 }
 
-/* Additional Cool Effects */
+/* Card Animation Stagger */
+.ts-service-card-unique {
+  animation: ts-slide-up-anim 0.6s ease-out both;
+}
+
 .ts-service-card-unique:nth-child(1) {
   animation-delay: 0s;
 }
@@ -352,17 +327,7 @@ body {
   animation-delay: 0.4s;
 }
 
-.ts-service-card-unique {
-  animation: ts-slide-up-anim 0.6s ease-out both;
-}
-
 @keyframes ts-slide-up-anim {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }

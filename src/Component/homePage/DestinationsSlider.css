@@ -4,8 +4,9 @@
 .modern-destinations-section {
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a0920, #1f1a44, #2a2457);
-  color: #e6e6ff;
+
+  background: white;
+  color: #212121;
   font-family: 'Inter', sans-serif;
   padding: 80px 20px;
   overflow: hidden;
@@ -20,9 +21,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(136, 153, 255, 0.25) 0%,
-      transparent 60%);
+
   z-index: 0;
   pointer-events: none;
   filter: blur(50px);
@@ -60,7 +59,7 @@
 
 .orb {
   position: absolute;
-  background: linear-gradient(45deg, #667eea, #764ba2);
+  background: black;
   border-radius: 50%;
   box-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
   opacity: 0.5;
@@ -126,12 +125,12 @@
 .section-header.glass-card {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   padding: 40px;
   text-align: center;
   margin-bottom: 50px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 5px rgba(0, 0, 0, 0.4);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   position: relative;
   overflow: hidden;
@@ -139,7 +138,7 @@
 
 .section-header.glass-card:hover {
   transform: translateY(-8px) rotateX(2deg);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 5px rgba(0, 0, 0, 0.5);
 }
 
 .section-header.glass-card::before {
@@ -163,13 +162,13 @@
 .section-title {
   font-size: 3.2rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #2b2b2b;
   margin-bottom: 15px;
   letter-spacing: -0.5px;
 }
 
 .section-title.gradient-text {
-  background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+  background: black;
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -189,7 +188,7 @@
 
 .section-subtitle {
   font-size: 1.2rem;
-  color: #b0b0ff;
+  color: #000000;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -206,9 +205,9 @@
 /* Destination card with 3D tilt */
 .destination-card.glass-card {
   position: relative;
-  background: linear-gradient(135deg,
+  /* background: linear-gradient(135deg,
       rgba(255, 255, 255, 0.05),
-      rgba(255, 255, 255, 0.02));
+      rgba(255, 255, 255, 0.02)); */
   backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
@@ -246,7 +245,8 @@
   height: 240px;
   overflow: hidden;
   transform: translateZ(20px);
-  /* 3D depth */
+  border-radius: 8px;
+
 }
 
 .dg-card-image {
@@ -307,7 +307,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+
   backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
@@ -342,7 +342,9 @@
 
 .card-title a {
   color: inherit;
+  text-align: left;
   text-decoration: none;
+  color: #000000;
   transition: color 0.3s ease;
 }
 
@@ -352,9 +354,10 @@
 
 .card-description {
   font-size: 1rem;
-  color: #b0b0ff;
+  color: #141414;
   margin-bottom: 20px;
   line-height: 1.5;
+  text-align: left;
 }
 
 .card-meta {
@@ -364,6 +367,7 @@
 .meta-item.glass-tag {
   display: inline-flex;
   align-items: center;
+  text-align: left;
   gap: 10px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(6px);
@@ -371,7 +375,7 @@
   border-radius: 10px;
   padding: 8px 14px;
   font-size: 0.9rem;
-  color: #e6e6ff;
+  color: #1a1a1b;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -405,12 +409,12 @@
 }
 
 .glass-button.primary {
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: black;
   box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
 }
 
 .glass-button.primary:hover {
-  background: linear-gradient(90deg, #764ba2, #8899ff);
+  background: black;
 }
 
 .glass-button.large {
@@ -597,6 +601,13 @@
     font-size: 2.4rem;
   }
 
+  .destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    gap: 40px;
+    padding: 20px 0;
+  }
+
   .modern-container {
     max-width: 95vw;
     margin: 0 auto;
@@ -604,7 +615,8 @@
     position: relative;
     z-index: 2;
   }
-  .dg-card-image{
+
+  .dg-card-image {
     border-radius: 12px;
   }
 
@@ -634,8 +646,11 @@
 }
 
 @media (max-width: 480px) {
-  .destinations-grid {
-    grid-template-columns: 1fr;
+ .destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    gap: 40px;
+    padding: 20px 0;
   }
 
   .section-footer {

@@ -138,7 +138,7 @@ const TestimonialsSection = () => {
                   </div>
                   <div className="ts-testimonial-author">
                     <img
-                      src={testimonial.image}
+                      src='https://static.vecteezy.com/system/resources/previews/020/765/399/large_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg'
                       alt={`Profile of ${testimonial.name}`}
                       className="ts-author-image"
                       loading="lazy"

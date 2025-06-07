@@ -1,7 +1,7 @@
 /* General styles for the testimonials section */
 .ts-testimonials-section {
-  background: linear-gradient(135deg, #4a4a61 0%, #070a13 100%);
-  color: #ffffff;
+  background: white;
+  color: #747373;
   padding: 60px 20px;
   position: relative;
   overflow: hidden;
@@ -51,7 +51,7 @@
 .ts-section-badge {
   display: inline-block;
   background: linear-gradient(45deg, #ff6b6b, #ff8e53);
-  color: #ffffff;
+  color: #585757;
   padding: 5px 15px;
   border-radius: 12px;
   font-size: 0.9rem;
@@ -66,12 +66,12 @@
   background: linear-gradient(90deg, #ffffff, #a1a1ff);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: rgb(85, 85, 85);
 }
 
 .ts-section-subtitle {
   font-size: 1.1rem;
-  color: #d1d1d1;
+  color: #6f6e6e;
   margin: 0;
   max-width: 600px;
   margin-left: auto;
@@ -108,7 +108,7 @@
   top: 20px;
   left: 20px;
   font-size: 3rem;
-  color: rgba(255, 255, 255, 0.2);
+  color: rgb(155, 152, 152);
   font-family: Georgia, serif;
 }
 
@@ -127,7 +127,7 @@
 }
 
 .ts-rating .star.empty {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(83, 81, 81, 0.3);
 }
 
 /* Testimonial content */
@@ -137,7 +137,7 @@
 
 .ts-testimonial-content p {
   font-size: 1rem;
-  color: #d1d1d1;
+  color: #666666;
   line-height: 1.6;
   max-height: 4.8em;
   overflow: hidden;
@@ -175,13 +175,13 @@
 .ts-author-name {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #797979;
   margin: 0 0 5px;
 }
 
 .ts-author-location {
   font-size: 0.9rem;
-  color: #d1d1d1;
+  color: #686868;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -209,7 +209,7 @@
 }
 
 .ts-swiper-pagination .swiper-pagination-bullet {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(82, 82, 82, 0.3);
   opacity: 0.7;
   width: 10px;
   height: 10px;
@@ -217,7 +217,7 @@
 }
 
 .ts-swiper-pagination .swiper-pagination-bullet-active {
-  background: #4bffb4;
+  background: #000000;
   transform: scale(1.2);
   opacity: 1;
 }
@@ -229,7 +229,7 @@
 
 .ts-swiper-button-prev,
 .ts-swiper-button-next {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(31, 31, 31, 0.5);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
@@ -244,7 +244,7 @@
 
 .ts-swiper-button-prev:hover,
 .ts-swiper-button-next:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
   transform: scale(1.1);
 }
 

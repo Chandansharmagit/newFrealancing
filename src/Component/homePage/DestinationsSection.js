@@ -427,7 +427,7 @@ const DestinationsGrid = () => {
                     </div>
                   </div>
                 )}
-                <Link
+                {/* <Link
                   to={`/destination/${destination.id}`}
                   className="explore-button glass-button primary"
                 >
@@ -442,7 +442,7 @@ const DestinationsGrid = () => {
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
                   </svg>
-                </Link>
+                </Link> */}
               </div>
             </article>
           ))}

@@ -363,7 +363,7 @@ const ViewAllTours = () => {
                   {tour.description.length > 80 ? `${tour.description.substring(0, 80)}...` : tour.description}
                 </p>
                 <div className="view-all-tours-tour-footer">
-                  <span className="view-all-tours-tour-price">${tour.price}</span>
+                  <span className="view-all-tours-tour-price">Nrs.{tour.price}</span>
                   <Link
                     to={`/tour/${tour.id}`}
                     className="view-all-tours-btn-details"

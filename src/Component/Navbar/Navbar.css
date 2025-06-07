@@ -1,29 +1,30 @@
 /* Modern Responsive Navbar Styles */
 .ts-modern-navbar {
 
- 
+
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
+  background: white;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  /* backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .ts-navbar-transparent {
-  background: rgba(255, 255, 255, 0.05);
+  background: white;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .ts-navbar-scrolled {
-  background: radial-gradient(circle, rgba(136, 153, 255, 0.3), transparent 70%),
+  /* background: radial-gradient(circle, rgba(136, 153, 255, 0.3), transparent 70%),
               linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(248, 250, 252, 0.1));
   box-shadow: 0 8px 32px rgba(136, 153, 255, 0.2),
               0 4px 16px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(136, 153, 255, 0.2);
+  border-bottom: 1px solid rgba(136, 153, 255, 0.2); */
 }
 
 .ts-navbar-container {
@@ -75,7 +76,7 @@
 .ts-logo-glow {
   position: absolute;
   inset: -4px;
-  background: linear-gradient(45deg, #8b5cf6, #06b6d4, #10b981, #f59e0b);
+  background: #000;
   border-radius: 50%;
   opacity: 0;
   filter: blur(8px);
@@ -92,7 +93,7 @@
 }
 
 .ts-logo-text {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: black;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -100,7 +101,7 @@
 }
 
 .ts-logo-link:hover .ts-logo-text {
-  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  background: black;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -186,6 +187,7 @@
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -227,12 +229,12 @@
 }
 
 .ts-nav-link:hover {
-  color: #667eea;
+  color: #000000;
   transform: translateY(-2px);
 }
 
 .ts-nav-link.active {
-  color: #667eea;
+  color: #000000;
   font-weight: 600;
 }
 
@@ -248,7 +250,7 @@
   left: 20px;
   right: 20px;
   height: 2px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: black;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -276,7 +278,7 @@
   display: inline-flex;
   align-items: center;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: black;
   color: white;
   text-decoration: none;
   font-weight: 600;
@@ -294,7 +296,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  background: black;
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -365,21 +367,21 @@
 }
 
 .ts-login-btn {
-  color: #667eea;
+  color: #000000;
   border: 1px solid rgba(136, 153, 255, 0.3);
 }
 
 .ts-login-btn::before {
-  background: linear-gradient(135deg, rgba(136, 153, 255, 0.1), rgba(118, 75, 162, 0.1));
+  background: black, rgba(118, 75, 162, 0.1);
 }
 
 .ts-register-btn {
   color: white;
-  background: linear-gradient(135deg, rgba(136, 153, 255, 0.8), rgba(118, 75, 162, 0.8));
+  background: black;
 }
 
 .ts-register-btn::before {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: black;
 }
 
 .ts-auth-button:hover::before {
@@ -485,7 +487,7 @@
   background: white;
   border-radius: 16px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
-              0 8px 32px rgba(136, 153, 255, 0.2);
+    0 8px 32px rgba(136, 153, 255, 0.2);
   border: 1px solid rgba(136, 153, 255, 0.1);
   opacity: 0;
   visibility: hidden;
@@ -789,6 +791,7 @@
       transform: translateY(-100%);
       opacity: 0;
     }
+
     to {
       transform: translateY(0);
       opacity: 1;

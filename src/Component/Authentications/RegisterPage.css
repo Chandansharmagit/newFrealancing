@@ -1,42 +1,23 @@
-/* General styles for the register page */
+/* Register page container */
 .ts-register-page {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  color: #ffffff;
-  min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 40px 20px;
-  position: relative;
-  overflow: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Subtle particle background effect */
-.ts-register-page::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-  opacity: 0.2;
-  pointer-events: none;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #e6f0fa 0%, #f8f9fd 100%);
 }
 
 /* Register container */
 .ts-register-container {
+  margin-top: 7rem;
   display: flex;
-  max-width: 900px;
+  max-width: 1000px;
   width: 100%;
-  margin-top: 6rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #ffffff;
   border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* Register card */
@@ -45,298 +26,203 @@
   padding: 40px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  transition: opacity 0.3s ease;
+  gap: 24px;
 }
 
-.ts-register-card.ts-fade-in {
-  animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Register header */
+/* Header styles */
 .ts-register-header {
   text-align: center;
-  margin-bottom: 24px;
 }
 
 .ts-register-header h1 {
-  font-size: 2.5rem;
+  font-size: 28px;
   font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 12px;
+  color: #1a1a1a;
+  margin-bottom: 8px;
 }
 
 .ts-register-header p {
-  font-size: 1.1rem;
-  color: #d1d1d1;
-  line-height: 1.5;
+  font-size: 16px;
+  color: #666;
 }
 
 /* Progress bar */
 .ts-progress-container {
-  margin: 20px 0;
+  margin: 24px 0;
 }
 
 .ts-progress-bar {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  height: 8px;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
   overflow: hidden;
-  margin-bottom: 12px;
 }
 
 .ts-progress-fill {
-  background: linear-gradient(45deg, #4bffb4, #6b8cff);
   height: 100%;
+  background: linear-gradient(90deg, #007bff, #00d4ff);
   transition: width 0.3s ease;
 }
 
 .ts-step-indicators {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 8px;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
 }
 
 .ts-step-circle {
   width: 32px;
   height: 32px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #e0e0e0;
   border-radius: 50%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
-  color: #d1d1d1;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  transition: all 0.3s ease;
 }
 
 .ts-step-circle.ts-active {
-  background: #4bffb4;
-  border-color: #4bffb4;
-  color: #1a1a2e;
-  box-shadow: 0 0 8px rgba(75, 255, 180, 0.3);
+  background: #000000;
+  color: #fff;
 }
 
 .ts-step-line {
-  flex: 1;
+  width: 40px;
   height: 2px;
-  background: rgba(255, 255, 255, 0.2);
+  background: #e0e0e0;
 }
 
 .ts-step-labels {
   display: flex;
   justify-content: space-between;
-  max-width: 200px;
-  margin: 0 auto;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #666;
 }
 
-.ts-step-labels span {
-  font-size: 0.85rem;
-  color: #d1d1d1;
+.ts-current-step {
+  color: #000000;
+  font-weight: 600;
 }
 
-.ts-step-labels span.ts-current-step {
-  color: #4bffb4;
-}
-
-/* Success and error messages */
-.ts-success-message,
-.ts-api-error-message {
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  margin-bottom: 20px;
-  text-align: center;
-  animation: slideIn 0.3s ease;
-}
-
-.ts-success-message {
-  background: rgba(75, 255, 180, 0.2);
-  border: 1px solid #4bffb4;
-  color: #4bffb4;
-}
-
-.ts-api-error-message {
-  background: rgba(255, 107, 107, 0.2);
-  border: 1px solid #ff6b6b;
-  color: #ff6b6b;
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Register form */
+/* Form styles */
 .ts-register-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.ts-form-step {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  animation: fadeIn 0.3s ease;
-}
-
 .ts-form-group {
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .ts-form-group label {
-  font-size: 0.9rem;
-  color: #d1d1d1;
-  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
 }
 
 .ts-form-group input {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
   padding: 12px;
-  color: #ffffff;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .ts-form-group input:focus {
-  border-color: #4bffb4;
-  box-shadow: 0 0 8px rgba(75, 255, 180, 0.3);
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
-.ts-form-group input::placeholder {
-  color: #d1d1d1;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-
-.ts-form-group input:focus::placeholder {
-  opacity: 0.3;
-}
-
-.ts-form-group input.ts-input-error {
-  border-color: #ff6b6b;
-  box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);
+.ts-input-error {
+  border-color: #dc3545 !important;
 }
 
 .ts-error-message {
-  font-size: 0.85rem;
-  color: #ff6b6b;
+  font-size: 12px;
+  color: #dc3545;
   margin-top: 4px;
 }
 
 /* Password requirements */
 .ts-password-requirements {
-  margin-top: 8px;
-  font-size: 0.85rem;
-  color: #d1d1d1;
-}
-
-.ts-password-requirements p {
-  margin: 0 0 4px;
+  font-size: 12px;
+  color: #666;
 }
 
 .ts-password-requirements ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  margin-top: 8px;
 }
 
 .ts-password-requirements li {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #d1d1d1;
+  margin-bottom: 4px;
 }
 
-.ts-password-requirements li.ts-requirement-met {
-  color: #4bffb4;
-}
-
-.ts-password-requirements li.ts-requirement-met::before {
+.ts-requirement-met::before {
   content: '✓';
-  color: #4bffb4;
+  color: #28a745;
+  font-weight: bold;
 }
 
 /* Buttons */
 .ts-btn-next,
 .ts-btn-register-submit,
 .ts-btn-back {
-  padding: 12px;
-  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
   border: none;
-  font-size: 1rem;
-  font-weight: 500;
+  border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .ts-btn-next,
 .ts-btn-register-submit {
-  background: linear-gradient(45deg, #ff6b6b, #ff8e53);
-  color: #ffffff;
-  position: relative;
-  overflow: hidden;
+  background: #000000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.ts-btn-next:hover:not(:disabled),
-.ts-btn-register-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
-}
-
-.ts-btn-next:disabled,
-.ts-btn-register-submit:disabled {
-  background: rgba(255, 255, 255, 0.1);
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.ts-btn-next::after,
-.ts-btn-register-submit::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transform: rotate(45deg);
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.ts-btn-next:hover::after,
-.ts-btn-register-submit:hover::after {
-  opacity: 1;
-  transform: rotate(45deg) translate(50%, 50%);
+.ts-btn-next:hover,
+.ts-btn-register-submit:hover {
+  background: #8a8a8a;
 }
 
 .ts-btn-back {
-  background: rgba(255, 255, 255, 0.1);
-  color: #d1d1d1;
+  background: #f1f3f5;
+  color: #333;
 }
 
 .ts-btn-back:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
+  background: #e0e0e0;
 }
 
 .ts-step-buttons {
   display: flex;
   gap: 16px;
+  justify-content: space-between;
+}
+
+.ts-btn-register-submit:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
 }
 
 /* Social login */
@@ -346,9 +232,9 @@
 }
 
 .social-login p {
-  font-size: 0.9rem;
-  color: #d1d1d1;
-  margin: 0 0 12px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
 }
 
 .social-buttons {
@@ -361,179 +247,124 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
   padding: 10px 20px;
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 500;
+  border-radius: 8px;
   text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-.btn-social:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  background: rgba(75, 255, 180, 0.2);
+.btn-social.google {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  color: #333;
 }
 
-.btn-social.google .icon-google {
+.btn-social.google:hover {
+  background: #f8f9fd;
+}
+
+.icon-google {
+  display: inline-block;
   width: 20px;
   height: 20px;
-  background: url('data:image/svg+xml;utf8,<svg fill="%234bffb4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.48 10.92v2.96h4.92c-.21 1.26-.81 2.33-1.68 3.06v2.54h2.72c1.59-1.46 2.52-3.61 2.52-6.14 0-.58-.05-1.14-.15-1.68h-8.33z"/><path d="M12 21.5c-3.18 0-5.86-2.11-6.84-5h-2.88v2.54C4.72 20.88 8.16 22 12 22c2.72 0 5.18-.88 6.84-2.38v-2.54h-6.36v1.42z"/><path d="M5.16 12c0-.93.15-1.82.42-2.66V6.8H2.28C1.44 8.58 1 10.74 1 13c0 2.26.44 4.42 1.28 6.2h3.3v-2.54c-.27-.84-.42-1.73-.42-2.66z"/><path d="M12 4.5c1.98 0 3.78.74 5.16 1.94l2.04-2.04C17.28 2.86 14.76 2 12 2 8.16 2 4.72 3.12 2.28 4.96v2.54h2.88c.98-2.89 3.66-5 6.84-5z"/></svg>') no-repeat center;
+  background: url('https://www.google.com/favicon.ico') no-repeat center;
   background-size: contain;
+}
+
+/* Messages */
+.ts-success-message {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.ts-api-error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
 }
 
 /* Login prompt */
 .ts-login-prompt {
   text-align: center;
   margin-top: 20px;
-}
-
-.ts-login-prompt p {
-  font-size: 0.9rem;
-  color: #d1d1d1;
-  margin: 8px 0;
+  font-size: 14px;
+  color: #666;
 }
 
 .ts-login-prompt a {
-  color: #4bffb4;
+  color: #007bff;
   text-decoration: none;
-  position: relative;
-  transition: color 0.3s ease;
+  font-weight: 500;
 }
 
 .ts-login-prompt a:hover {
-  color: #6b8cff;
-}
-
-.ts-login-prompt a::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: #4bffb4;
-  transition: width 0.3s ease;
-}
-
-.ts-login-prompt a:hover::after {
-  width: 100%;
+  text-decoration: underline;
 }
 
 /* Register image */
 .ts-register-image {
   flex: 1;
   position: relative;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.3);
+  display: none;
 }
 
 .ts-register-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.ts-register-image:hover img {
-  transform: scale(1.05);
 }
 
 .ts-image-overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  color: #fff;
   padding: 20px;
-  opacity: 0.9;
-  transition: opacity 0.3s ease;
-}
-
-.ts-register-image:hover .ts-image-overlay {
-  opacity: 1;
+  text-align: center;
 }
 
 .ts-image-overlay h2 {
-  font-size: 2rem;
+  font-size: 24px;
   font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 12px;
+  margin-bottom: 12px;
 }
 
 .ts-image-overlay p {
-  font-size: 1rem;
-  color: #d1d1d1;
-  max-width: 80%;
-  line-height: 1.5;
+  font-size: 16px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
+/* Responsive design */
+@media (min-width: 768px) {
+  .ts-register-image {
+    display: block;
+  }
+
+  .ts-register-card {
+    padding: 48px;
+  }
+
+  .ts-register-header h1 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 767px) {
   .ts-register-container {
     flex-direction: column;
-  }
-
-  .ts-register-card,
-  .ts-register-image {
-    flex: none;
-    width: 100%;
-  }
-
-  .ts-register-card {
-    padding: 30px;
-  }
-
-  .ts-register-image {
-    height: 300px;
-  }
-
-  .ts-register-header h1 {
-    font-size: 2.2rem;
-  }
-
-  .ts-register-header p {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .ts-register-page {
-    padding: 30px 15px;
-  }
-
-  .ts-register-card {
-    padding: 20px;
-  }
-
-  .ts-register-header h1 {
-    font-size: 2rem;
-  }
-
-  .ts-register-header p {
-    font-size: 0.9rem;
-  }
-
-  .ts-register-image {
-    height: 250px;
-  }
-
-  .ts-image-overlay h2 {
-    font-size: 1.8rem;
-  }
-
-  .ts-image-overlay p {
-    font-size: 0.9rem;
   }
 
   .ts-step-buttons {
@@ -541,59 +372,9 @@
     gap: 12px;
   }
 
-  .ts-step-buttons button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .ts-register-page {
-    padding: 20px 10px;
-  }
-
-  .ts-register-container {
-    border-radius: 12px;
-  }
-
-  .ts-register-card {
-    padding: 15px;
-  }
-
-  .ts-register-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .ts-register-header p {
-    font-size: 0.85rem;
-  }
-
-  .ts-register-image {
-    height: 200px;
-  }
-
-  .ts-image-overlay h2 {
-    font-size: 1.5rem;
-  }
-
-  .ts-image-overlay p {
-    font-size: 0.85rem;
-  }
-
   .ts-btn-next,
   .ts-btn-register-submit,
-  .ts-btn-back,
-  .btn-social {
-    padding: 10px;
-    font-size: 0.9rem;
-  }
-
-  .ts-step-indicators {
-    gap: 8px;
-  }
-
-  .ts-step-circle {
-    width: 28px;
-    height: 28px;
-    font-size: 0.8rem;
+  .ts-btn-back {
+    width: 100%;
   }
 }

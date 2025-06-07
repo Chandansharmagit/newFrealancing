@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import {
   FiMapPin,
   FiCalendar,
@@ -18,17 +17,15 @@ const API_BASE_URL = "https://backendtravelagencytwomicroservice.onrender.com/";
 
 const TourDetailPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate(); // Added for navigation
+  const navigate = useNavigate();
   const [tour, setTour] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // WhatsApp number with country code
   const whatsappNumber = process.env.REACT_APP_WHATSAPP_NUMBER || "+919855051795";
 
-  // Check authentication status
   const checkAuth = useCallback(async () => {
     try {
       const response = await fetch("https://authenticationagency.onrender.com/api/check-auth", {
@@ -36,7 +33,6 @@ const TourDetailPage = () => {
         credentials: "include",
       });
       const data = await response.json();
-      console.log("Auth check response:", data);
       setIsAuthenticated(data.isAuthenticated);
     } catch (error) {
       console.error("Error checking auth:", error.message);
@@ -44,7 +40,6 @@ const TourDetailPage = () => {
     }
   }, []);
 
-  // Ensure user has tracking ID and check auth when component mounts
   useEffect(() => {
     ensureUserId();
     checkAuth();
@@ -100,7 +95,7 @@ const TourDetailPage = () => {
     }
   };
 
-  // Handle WhatsApp button click with navigation for unauthenticated users
+  // Modified handleWhatsAppClick to include all tour details
   const handleWhatsAppClick = async () => {
     console.log("WhatsApp button clicked, isAuthenticated:", isAuthenticated);
     if (!isAuthenticated) {
@@ -108,13 +103,22 @@ const TourDetailPage = () => {
       navigate("/login");
       return;
     }
-    // Track asynchronously to avoid blocking
+
+    // Track asynchronously
     trackWhatsAppRequest(id).catch((error) =>
       console.error("Tracking failed:", error)
     );
+
+    // Construct detailed WhatsApp message
+    const imageUrls = tour.images.map((img) => img.url).join("\n");
     const whatsappMessage = encodeURIComponent(
-      `Hello! I'm interested in the "${tour?.name || "Unknown Tour"}" tour (ID: ${id}). Can you provide more details about availability and booking?`
+      `Hello! I'm interested in the "${tour?.name || "Unknown Tour"}" tour. Here are the details:\n` +
+      `Tour ID: ${id}\n` +
+      `Price: Nrs.${tour?.price?.toLocaleString() || "Contact"}\n` +
+      `Images:\n${imageUrls || "No images available"}\n` +
+      `Can you provide more details about availability and booking?`
     );
+
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
     try {
       const newWindow = window.open(whatsappUrl, "_blank");
@@ -136,198 +140,186 @@ const TourDetailPage = () => {
     );
 
   return (
-    <>
-      <div className="tour-experience">
-        {/* Hero Banner with Full-width Image */}
-        <div
-          className="tour-hero"
-          style={{
-            backgroundImage: `url(${
-              tour.images[0]?.url || "/images/tour-banner.jpg"
-            })`,
-          }}
-        >
-          <div className="hero-overlay">
-            <div className="hero-content">
-              <div className="tour-badge">Adventure Awaits</div>
-              <h1>{tour.name}</h1>
-              <div className="hero-meta">
-                <span>
-                  <FiMapPin />{" "}
-                  {tour.itinerary[0]?.location || "Multiple Locations"}
-                </span>
-                <span>
-                  <FiClock /> {tour.duration}
-                </span>
-                <span>
-                  <FiUsers /> Small Group
-                </span>
-              </div>
+    // ... Rest of the JSX remains unchanged ...
+    <div className="tour-experience">
+      <div
+        className="tour-hero"
+        style={{
+          backgroundImage: `url(${
+            tour.images[0]?.url || "/images/tour-banner.jpg"
+          })`,
+        }}
+      >
+        <div className="hero-overlay">
+          <div className="hero-content">
+            <div className="tour-badge">Adventure Awaits</div>
+            <h1 classname="tour-name">{tour.name}</h1>
+            <div className="hero-meta">
+              <span>
+                <FiMapPin />{" "}
+                {tour.itinerary[0]?.location || "Multiple Locations"}
+              </span>
+              <span>
+                <FiClock /> {tour.duration}
+              </span>
+              <span>
+                <FiUsers /> Small Group
+              </span>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Main Content Container */}
-        <div className="tour-container">
-          {/* Image Gallery */}
-          <section className="tour-gallery">
-            <div className="gallery-main">
-              <img
-                src={
-                  tour.images[activeImageIndex]?.url ||
-                  "/images/tour-placeholder.jpg"
-                }
-                alt={tour.name}
-                className="active-image"
-              />
-            </div>
-            <div className="gallery-thumbnails">
-              {tour.images.map((image, index) => (
-                <div
-                  key={`thumb-${index}`}
-                  className={`thumbnail ${
-                    index === activeImageIndex ? "active" : ""
-                  }`}
-                  onClick={() => setActiveImageIndex(index)}
-                >
-                  <img
-                    src={image.url}
-                    alt={`${tour.name} thumbnail ${index}`}
-                  />
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Tour Highlights */}
-          <section className="tour-highlights">
-            <div className="highlight-card">
-              <h2>About This Experience</h2>
-              <p>{tour.description}</p>
-
-              <div className="highlight-features">
-                <div className="feature">
-                  <FiStar className="feature-icon" />
-                  <h3>Unique Experience</h3>
-                  <p>Carefully crafted itinerary with local insights</p>
-                </div>
-                <div className="feature">
-                  <FiUsers className="feature-icon" />
-                  <h3>Small Groups</h3>
-                  <p>Maximum 12 travelers for personalized attention</p>
-                </div>
-                <div className="feature">
-                  <FiMapPin className="feature-icon" />
-                  <h3>Local Guides</h3>
-                  <p>Experts who know the hidden gems</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Booking Sidebar */}
-            <div className="booking-sidebar">
-              <div className="price-box">
-                <span>From</span>
-                <div className="price">
-                  ${tour.price?.toLocaleString() || "Contact"}
-                </div>
-                <span>per person</span>
-              </div>
-
-              <div className="available-dates">
-                <h3>Next Departures:</h3>
-                {tour.availableDates.length > 0 ? (
-                  <ul>
-                    {tour.availableDates.slice(0, 3).map((date, i) => (
-                      <li key={`date-${i}`}>
-                        <FiCalendar /> {formatDate(date)}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>Flexible dates available</p>
-                )}
-              </div>
-
-              {/* WhatsApp Button for Availability */}
-              <button
-                onClick={() => {
-                  console.log("Inquiry button clicked");
-                  handleWhatsAppClick();
-                }}
-                className="inquiry-button"
+      <div className="tour-container">
+        <section className="tour-gallery">
+          <div className="gallery-main">
+            <img
+              src={
+                tour.images[activeImageIndex]?.url ||
+                "/images/tour-placeholder.jpg"
+              }
+              alt={tour.name}
+              className="active-image"
+            />
+          </div>
+          <div className="gallery-thumbnails">
+            {tour.images.map((image, index) => (
+              <div
+                key={`thumb-${index}`}
+                className={`thumbnail ${
+                  index === activeImageIndex ? "active" : ""
+                }`}
+                onClick={() => setActiveImageIndex(index)}
               >
-                Check Availability via WhatsApp <FiArrowRight />
-              </button>
+                <img
+                  src={image.url}
+                  alt={`${tour.name} thumbnail ${index}`}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="tour-highlights">
+          <div className="highlight-card">
+            <h2>About This Experience</h2>
+            <p>{tour.description}</p>
+
+            <div className="highlight-features">
+              <div className="feature">
+                <FiStar className="feature-icon" />
+                <h3>Unique Experience</h3>
+                <p>Carefully crafted itinerary with local insights</p>
+              </div>
+              <div className="feature">
+                <FiUsers className="feature-icon" />
+                <h3>Small Groups</h3>
+                <p>Maximum 12 travelers for personalized attention</p>
+              </div>
+              <div className="feature">
+                <FiMapPin className="feature-icon" />
+                <h3>Local Guides</h3>
+                <p>Experts who know the hidden gems</p>
+              </div>
             </div>
-          </section>
+          </div>
 
-          {/* Detailed Itinerary */}
-          <section className="tour-itinerary">
-            <h2>Journey Itinerary</h2>
+          <div className="booking-sidebar">
+            <div className="price-box">
+              <span>From</span>
+              <div className="price">
+                Nrs.{tour.price?.toLocaleString() || "Contact"}
+              </div>
+              <span>per person</span>
+            </div>
 
-            {tour.itinerary.length > 0 ? (
-              <div className="itinerary-steps">
-                {tour.itinerary.map((day, index) => (
-                  <div key={`day-${day.day}`} className="itinerary-day">
-                    <div className="day-marker">Day {day.day}</div>
-                    <div className="day-content">
-                      <h3>{day.location || "Exploring"}</h3>
-                      <div className="day-details">
-                        <div>
-                          <h4>Activities</h4>
-                          <p>{day.activities || "Full day of exploration"}</p>
-                        </div>
-                        <div>
-                          <h4>Meals</h4>
-                          <p>{day.meals || "Meals not specified"}</p>
-                        </div>
+            <div className="available-dates">
+              <h3>Next Departures:</h3>
+              {tour.availableDates.length > 0 ? (
+                <ul>
+                  {tour.availableDates.slice(0, 3).map((date, i) => (
+                    <li key={`date-${i}`}>
+                      <FiCalendar /> {formatDate(date)}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Flexible dates available</p>
+              )}
+            </div>
+
+            <button
+              onClick={() => {
+                console.log("Inquiry button clicked");
+                handleWhatsAppClick();
+              }}
+              className="inquiry-button"
+            >
+              Check Availability via WhatsApp <FiArrowRight />
+            </button>
+          </div>
+        </section>
+
+        <section className="tour-itinerary">
+          <h2>Journey Itinerary</h2>
+          {tour.itinerary.length > 0 ? (
+            <div className="itinerary-steps">
+              {tour.itinerary.map((day, index) => (
+                <div key={`day-${day.day}`} className="itinerary-day">
+                  <div className="day-marker">Day {day.day}</div>
+                  <div className="day-content">
+                    <h3 className="day-h3">{day.location || "Exploring"}</h3>
+                    <div className="day-details">
+                      <div>
+                        <h4>Activities</h4>
+                        <p>{day.activities || "Full day of exploration"}</p>
+                      </div>
+                      <div>
+                        <h4>Meals</h4>
+                        <p>{day.meals || "Meals not specified"}</p>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <p>Detailed itinerary coming soon</p>
-            )}
-          </section>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>Detailed itinerary coming soon</p>
+          )}
+        </section>
 
-          {/* Inclusions */}
-          <section className="tour-inclusions">
-            <h2>What's Included</h2>
-            {tour.inclusions.length > 0 ? (
-              <ul className="inclusions-list">
-                {tour.inclusions.map((item, index) => (
-                  <li key={`inc-${index}`}>
-                    <span className="check-mark">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>Inclusion details coming soon</p>
-            )}
-          </section>
-        </div>
-
-        {/* Fixed CTA for mobile */}
-        <div className="mobile-cta">
-          <div className="mobile-price">
-            From Nrs.{tour.price?.toLocaleString() || "..."}
-          </div>
-          <button
-            onClick={() => {
-              console.log("Mobile book button clicked");
-              handleWhatsAppClick();
-            }}
-            className="mobile-book-button"
-          >
-            Book via WhatsApp
-          </button>
-        </div>
+        <section className="tour-inclusions">
+          <h2>What's Included</h2>
+          {tour.inclusions.length > 0 ? (
+            <ul className="inclusions-list">
+              {tour.inclusions.map((item, index) => (
+                <li key={`inc-${index}`}>
+                  <span className="check-mark">✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Inclusion details coming soon</p>
+          )}
+        </section>
       </div>
-     
-    </>
+
+      <div className="mobile-cta">
+        <div className="mobile-price">
+          From Nrs.{tour.price?.toLocaleString() || "..."}
+        </div>
+        <button
+          onClick={() => {
+            console.log("Mobile book button clicked");
+            handleWhatsAppClick();
+          }}
+          className="mobile-book-button"
+        >
+          Book via WhatsApp
+        </button>
+      </div>
+    </div>
   );
 };
 

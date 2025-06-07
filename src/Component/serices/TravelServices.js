@@ -34,14 +34,46 @@ const TravelServices = () => {
       features: ['Verified reviews', 'Free cancellation', 'Best price guarantee', 'Instant confirmation'],
       icon: '🏨',
       price: 'Starting from $49/night'
-    }
+    },
+    {
+      id: 'visa-processing',
+      title: 'Visa Processing',
+      description: 'Hassle-free visa application services for international travel.',
+      features: ['Expert guidance', 'Document verification', 'Appointment scheduling', 'Fast-track options'],
+      icon: '📝',
+      price: 'Starting from $50'
+    },
+    {
+      id: 'adventure-touring',
+      title: 'Adventure Touring',
+      description: 'Experience thrilling adventures with guided tours in exotic destinations.',
+      features: ['Expert guides', 'Safety equipment provided', 'Customizable itineraries', 'Group discounts'],
+      icon: '🏞️',
+      price: 'Starting from $199/trip'
+    },
+    {
+      id: 'cultural-touring',
+      title: 'Cultural Touring',
+      description: 'Immerse yourself in local cultures with authentic, guided experiences.',
+      features: ['Local guides', 'Cultural workshops', 'Historical site visits', 'Culinary experiences'],
+      icon: '🏛️',
+      price: 'Starting from $149/trip'
+    },
+    // {
+    //   id: 'educational-touring',
+    //   title: 'Educational Touring',
+    //   description: 'Learn while you travel with educational tours designed for all ages.',
+    //   features: ['Expert-led lectures', 'Interactive workshops', 'Museum visits', 'Academic credits available'],
+    //   icon: '📚',
+    //   price: 'Starting from $179/trip'
+    // }
   ];
 
   return (
     <div className="ts-travel-services-2025">
       <div className="ts-container-travel-2025">
         <header className="ts-header-unique">
-          <h1>Travel Booking Services</h1>
+          <h1>Our Services</h1>
           <p>Your one-stop destination for all travel needs</p>
         </header>
 

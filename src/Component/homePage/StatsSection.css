@@ -1,6 +1,6 @@
 /* General styles for the stats section */
 .ss-stats-section {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: white;
   color: #ffffff;
   padding: 60px 20px;
   position: relative;
@@ -65,7 +65,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0 0 10px;
-  background: linear-gradient(90deg, #4bffb4, #6b8cff);
+  background: black;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -74,7 +74,7 @@
 /* Stat label */
 .ss-stat-label {
   font-size: 1.1rem;
-  color: #d1d1d1;
+  color: #5e5e5e;
   margin: 0;
 }
 

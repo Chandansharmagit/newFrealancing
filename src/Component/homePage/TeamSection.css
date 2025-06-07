@@ -4,7 +4,7 @@
 .team-section {
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  background: rgb(241, 240, 240);
   color: #e0e0e0;
   font-family: 'Inter', sans-serif;
   padding: 60px 20px;
@@ -41,7 +41,7 @@
   display: inline-block;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(125, 124, 124, 0.15);
   border-radius: 20px;
   padding: 8px 16px;
   font-size: 0.9rem;
@@ -92,9 +92,9 @@
 /* Team card with glassmorphism */
 .team-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(157, 156, 156, 0.05);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0);
   border-radius: 16px;
   padding: 20px;
   overflow: hidden;
@@ -185,7 +185,7 @@
 .avatar-initials {
   font-size: 2rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #626262;
   z-index: 2;
 }
 
@@ -239,7 +239,7 @@
 .member-name {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #4c4c4c;
   margin-bottom: 10px;
   position: relative;
 }

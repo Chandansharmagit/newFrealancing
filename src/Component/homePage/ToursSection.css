@@ -1,10 +1,11 @@
 /* General styles for the tours section */
 .tours-section {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  color: #ffffff;
+  background: white;
+  color: #5c5c5c;
   padding: 60px 20px;
   position: relative;
   overflow: hidden;
+
   min-height: 100vh;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -21,6 +22,7 @@
   opacity: 0.3;
   pointer-events: none;
   animation: subtlePulse 15s infinite ease-in-out;
+
 }
 
 @keyframes subtlePulse {
@@ -45,6 +47,7 @@
   max-width: 1600px;
   margin: 0 auto;
   padding: 0 15px;
+  z-index: 0;
 }
 
 /* Header styles */
@@ -66,12 +69,12 @@
   background: linear-gradient(90deg, #ffffff, #a1a1ff);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: black;
 }
 
 .tours-section-header p {
   font-size: 1.1rem;
-  color: #d1d1d1;
+  color: #1f1f1f;
   margin: 0;
   max-width: 600px;
   margin-left: auto;
@@ -129,7 +132,7 @@
   top: 15px;
   left: 15px;
   background: linear-gradient(45deg, #ff6b6b, #ff8e53);
-  color: #ffffff;
+  color: #1c1c1c;
   padding: 5px 12px;
   border-radius: 12px;
   font-size: 0.9rem;
@@ -144,7 +147,7 @@
   right: 15px;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px);
-  color: #ffffff;
+  color: #f0f0f0;
   padding: 5px 12px;
   border-radius: 12px;
   font-size: 0.9rem;
@@ -160,12 +163,12 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin: 0 0 10px;
-  color: #ffffff;
+  color: #2e2d2d;
 }
 
 .tours-section-tour-info p {
   font-size: 1rem;
-  color: #d1d1d1;
+  color: #2d2d2d;
   margin: 0 0 15px;
   line-height: 1.5;
   max-height: 4.5em;
@@ -188,7 +191,7 @@
 .tours-section-tour-price {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #4bffb4;
+  color: #000000;
 }
 
 .tours-section-btn-details {
@@ -396,7 +399,7 @@
     margin: 0 auto;
     padding: 0 0px;
     position: relative;
-    z-index: 2;
+    z-index: 0;
   }
 
 

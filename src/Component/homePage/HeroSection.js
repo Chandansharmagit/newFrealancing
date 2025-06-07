@@ -9,7 +9,6 @@ const HeroSection = () => {
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
   const [showFilters, setShowFilters] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
   const [isLoaded, setIsLoaded] = useState(false);
   const [adventureType, setAdventureType] = useState('');
   const [budgetRange, setBudgetRange] = useState('');
@@ -22,11 +21,6 @@ const HeroSection = () => {
   // Initialize particles and animations
   useEffect(() => {
     setIsLoaded(true);
-    
-    // Update time every second
-    const timeInterval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
 
     // Mouse tracking for parallax effects
     const handleMouseMove = (e) => {
@@ -56,37 +50,37 @@ const HeroSection = () => {
 
       // Create particles
       particlesRef.current = [];
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 150; i++) {
         particlesRef.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 2,
-          vy: (Math.random() - 0.5) * 2,
-          size: Math.random() * 3,
-          hue: Math.random() * 360,
+          vx: (Math.random() - 0.5) * 3,
+          vy: (Math.random() - 0.5) * 3,
+          size: Math.random() * 4 + 1,
+          color: i % 2 ? '#1E3A8A' : '#F59E0B',
           life: Math.random()
         });
       }
 
       const animate = () => {
         if (!canvas) return;
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillStyle = 'rgba(243, 244, 246, 0.1)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         particlesRef.current.forEach((particle) => {
           particle.x += particle.vx;
           particle.y += particle.vy;
-          particle.life += 0.01;
+          particle.life += 0.005;
 
           if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
           if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
 
           const gradient = ctx.createRadialGradient(
             particle.x, particle.y, 0,
-            particle.x, particle.y, particle.size * 10
+            particle.x, particle.y, particle.size * 12
           );
-          gradient.addColorStop(0, `hsla(${particle.hue + particle.life * 50}, 100%, 50%, 0.8)`);
-          gradient.addColorStop(1, `hsla(${particle.hue + particle.life * 50}, 100%, 50%, 0)`);
+          gradient.addColorStop(0, particle.color);
+          gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
           
           ctx.fillStyle = gradient;
           ctx.beginPath();
@@ -104,7 +98,6 @@ const HeroSection = () => {
     initParticles();
 
     return () => {
-      clearInterval(timeInterval);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       if (animationFrameRef.current) {
@@ -127,29 +120,29 @@ const HeroSection = () => {
   };
 
   return (
-    <div className={`hero-container ${isLoaded ? 'loaded' : ''}`}>
+    <div className={`ts-hero-container ${isLoaded ? 'ts-loaded' : ''}`}>
       {/* Animated Canvas Background */}
       <canvas 
         ref={canvasRef}
-        className="canvas-background"
+        className="ts-canvas-background"
       />
       
       {/* Dynamic Gradient Orbs */}
-      <div className="gradient-orbs">
+      <div className="ts-gradient-orbs">
         <div 
-          className="orb orb-1"
+          className="ts-orb ts-orb-1"
           style={{
             transform: `translate(${mousePos.x * 30}px, ${mousePos.y * 30}px)`,
           }}
         />
         <div 
-          className="orb orb-2"
+          className="ts-orb ts-orb-2"
           style={{
             transform: `translate(${mousePos.x * -20}px, ${mousePos.y * 20}px)`,
           }}
         />
         <div 
-          className="orb orb-3"
+          className="ts-orb ts-orb-3"
           style={{
             transform: `translate(${mousePos.x * 15}px, ${mousePos.y * -25}px)`,
           }}
@@ -157,172 +150,152 @@ const HeroSection = () => {
       </div>
 
       {/* Main Content */}
-      <div className="main-content">
-        {/* Floating Status Bar */}
-        <div className="status-bar">
-          <div className="status-item online">
-            <div className="status-dot"></div>
-            <span>ONLINE</span>
-          </div>
-          <div className="status-item time">
-            {currentTime.toLocaleTimeString()}
-          </div>
-        </div>
-
+      <div className="ts-main-content">
         {/* Epic Badge */}
-        <div className="epic-badge">
-          <div className="badge-glow"></div>
-          <div className="badge-content">
-            <Rocket className="badge-icon rocket" />
-            <span className="badge-text">
+        <div className="ts-epic-badge">
+          <div className="ts-badge-content">
+            <Rocket className="ts-badge-icon ts-rocket" />
+            <span className="ts-badge-text">
               LIMITLESS ADVENTURES
             </span>
-            <Star className="badge-icon star" />
+            <Star className="ts-badge-icon ts-star" />
           </div>
         </div>
 
         {/* Mind-Blowing Title */}
-        <div className="title-section">
-          <h1 className="main-title">
-            <div className="title-wrapper">
+        <div className="ts-title-section">
+          <h1 className="ts-main-title">
+            <div className="ts-title-wrapper">
               <span 
-                className="title-shadow"
+                className="ts-title-shadow"
                 style={{ transform: `translate(${mousePos.x * 5}px, ${mousePos.y * 5}px)` }}
               >
                 EPIC
               </span>
-              <span className="main-title">
+              <span className="ts-main-title">
                 EPIC
               </span>
             </div>
           </h1>
-          <h2 className="subtitle">
+          <h2 className="ts-subtitle">
             ADVENTURES
           </h2>
-          <div className="title-glow"></div>
         </div>
 
         {/* Dynamic Subtitle */}
-        <p className="description">
+        <p className="ts-description">
           Unleash your inner explorer and dive into 
-          <span className="highlight-text"> extraordinary experiences </span>
+          <span className="ts-highlight-text"> extraordinary experiences </span>
           that will blow your mind and create memories that last forever!
         </p>
 
         {/* Epic Action Buttons */}
-        <div className="action-buttons">
+        <div className="ts-action-buttons">
           <button 
-            className="btn btn-explore"
+            className="ts-btn ts-btn-explore"
             onClick={() => navigate('/destinations')}
           >
-            <div className="btn-glow"></div>
-            <div className="btn-content">
-              <Globe className="btn-icon globe" />
+            <div className="ts-btn-content">
+              <Globe className="ts-btn-icon ts-globe" />
               <span>Our Destinations</span>
-              <ArrowRight className="btn-icon arrow" />
+              <ArrowRight className="ts-btn-icon ts-arrow" />
             </div>
           </button>
           
           <button 
-            className="btn btn-discover"
+            className="ts-btn ts-btn-discover"
             onClick={() => navigate('/tours')}
           >
-            <div className="btn-glow"></div>
-            <div className="btn-content">
-              <Zap className="btn-icon zap" />
+            <div className="ts-btn-content">
+              <Zap className="ts-btn-icon ts-zap" />
               <span>Book Tours</span>
-              <Star className="btn-icon star-btn" />
+              <Star className="ts-btn-icon ts-star-btn" />
             </div>
           </button>
         </div>
 
         {/* Futuristic Search Interface */}
-        <div className="search-interface">
-          <div className="search-container">
-            <div className="search-glow"></div>
-            
+        <div className="ts-search-interface">
+          <div className="ts-search-container">
             {/* Search Grid */}
             <form onSubmit={handleSearch}>
-              <div className="search-grid">
+              <div className="ts-search-grid">
                 {/* Destination Input */}
-                <div className="input-group destination">
-                  <label className="input-label cyan">
-                    <MapPin className="label-icon" />
+                <div className="ts-input-group ts-destination">
+                  <label className="ts-input-label">
+                    <MapPin className="ts-label-icon" />
                     Destination
                   </label>
-                  <div className="input-wrapper">
+                  <div className="ts-input-wrapper">
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Where do you want to go?"
-                      className="search-input"
+                      className="ts-search-input"
                     />
-                    <div className="input-hover-effect"></div>
                   </div>
                 </div>
 
                 {/* Date Inputs */}
-                <div className="input-group">
-                  <label className="input-label purple">
-                    <Calendar className="label-icon" />
+                <div className="ts-input-group">
+                  <label className="ts-input-label">
+                    <Calendar className="ts-label-icon" />
                     Check In
                   </label>
                   <input
                     type="date"
                     value={checkInDate}
                     onChange={(e) => setCheckInDate(e.target.value)}
-                    className="search-input date-input"
+                    className="ts-search-input ts-date-input"
                   />
                 </div>
 
-                <div className="input-group">
-                  <label className="input-label pink">
-                    <Calendar className="label-icon" />
+                <div className="ts-input-group">
+                  <label className="ts-input-label">
+                    <Calendar className="ts-label-icon" />
                     Check Out
                   </label>
                   <input
                     type="date"
                     value={checkOutDate}
                     onChange={(e) => setCheckOutDate(e.target.value)}
-                    className="search-input date-input"
+                    className="ts-search-input ts-date-input"
                   />
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="search-actions">
+              <div className="ts-search-actions">
                 <button
                   type="button"
                   onClick={() => setShowFilters(!showFilters)}
-                  className={`filter-btn ${showFilters ? 'active' : ''}`}
+                  className={`ts-filter-btn ${showFilters ? 'ts-active' : ''}`}
                 >
-                  <Filter className="filter-icon" />
+                  <Filter className="ts-filter-icon" />
                   FILTERS
                 </button>
                 
                 <button
                   type="submit"
-                  className="search-btn"
+                  className="ts-search-btn"
                 >
-                  <div className="search-btn-glow"></div>
-                  <div className="search-btn-content">
-                    <Search className="search-icon" />
+                  <div className="ts-search-btn-content">
+                    <Search className="ts-search-icon" />
                     <span>SEARCH ADVENTURES</span>
-                    <div className="search-pulse"></div>
                   </div>
                 </button>
               </div>
 
               {/* Filters Panel */}
               {showFilters && (
-                <div className="filters-panel">
-                  <h3 className="filters-title">Advanced Filters</h3>
-                  <div className="filters-grid">
-                    <div className="filter-group">
-                      <label className="filter-label">Adventure Type</label>
+                <div className="ts-filters-panel">
+                  <h3 className="ts-filters-title">Advanced Filters</h3>
+                  <div className="ts-filters-grid">
+                    <div className="ts-filter-group">
+                      <label className="ts-filter-label">Adventure Type</label>
                       <select 
-                        className="filter-select" 
+                        className="ts-filter-select" 
                         value={adventureType}
                         onChange={(e) => setAdventureType(e.target.value)}
                       >
@@ -332,10 +305,10 @@ const HeroSection = () => {
                         <option value="culture">Cultural Experiences</option>
                       </select>
                     </div>
-                    <div className="filter-group">
-                      <label className="filter-label">Budget Range</label>
+                    <div className="ts-filter-group">
+                      <label className="ts-filter-label">Budget Range</label>
                       <select 
-                        className="filter-select" 
+                        className="ts-filter-select" 
                         value={budgetRange}
                         onChange={(e) => setBudgetRange(e.target.value)}
                       >
@@ -345,10 +318,10 @@ const HeroSection = () => {
                         <option value="high">$2000+</option>
                       </select>
                     </div>
-                    <div className="filter-group">
-                      <label className="filter-label">Group Size</label>
+                    <div className="ts-filter-group">
+                      <label className="ts-filter-label">Group Size</label>
                       <select 
-                        className="filter-select" 
+                        className="ts-filter-select" 
                         value={groupSize}
                         onChange={(e) => setGroupSize(e.target.value)}
                       >
@@ -366,8 +339,8 @@ const HeroSection = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="scroll-indicator">
-          <ChevronDown className="scroll-icon" />
+        <div className="ts-scroll-indicator">
+          <ChevronDown className="ts-scroll-icon" />
         </div>
       </div>
     </div>

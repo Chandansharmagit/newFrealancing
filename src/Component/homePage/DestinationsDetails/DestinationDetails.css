@@ -80,6 +80,7 @@
 
 /* Base Styles */
 .dd-destination-details-section {
+  color: #000;
   min-height: 100vh;
   background: linear-gradient(135deg, var(--dd-bg-primary) 0%, var(--dd-bg-secondary) 100%);
   padding: var(--dd-spacing-lg) 0;

@@ -182,7 +182,7 @@ const Navbar = () => {
     { name: "Destinations", path: "/destinations" },
     { name: "Tours", path: "/tours" },
     { name: "Experiences", path: "/Experiencepage" },
-    { name: "About", path: "/AboutUs-page" },
+    // { name: "About", path: "/AboutUs-page" },
     { name: "Contact", path: "/contact-form" },
   ];
 

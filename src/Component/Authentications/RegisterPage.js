@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+// import "./base.css";
 import "./RegisterPage.css";
+import "./animation.css";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -66,6 +68,8 @@ const RegisterPage = () => {
 
     if (!formData.contacts.trim()) {
       newErrors.contacts = "Contact is required";
+    } else if (!/^\+?[\d\s-]{10,}$/.test(formData.contacts)) {
+      newErrors.contacts = "Invalid phone number format";
     }
 
     if (!formData.password) {
@@ -73,8 +77,7 @@ const RegisterPage = () => {
     } else if (formData.password.length < 8) {
       newErrors.password = "Password must be at least 8 characters";
     } else if (!/[A-Z]/.test(formData.password)) {
-      newErrors.password =
-        "Password must include at least one uppercase letter";
+      newErrors.password = "Password must include at least one uppercase letter";
     } else if (!/[0-9]/.test(formData.password)) {
       newErrors.password = "Password must include at least one number";
     }
@@ -95,7 +98,7 @@ const RegisterPage = () => {
     setCurrentStep(2);
     setFormProgress(50);
 
-    // Smooth scroll to top of form if needed
+    // Smooth scroll to top of form
     const formElement = document.querySelector(".ts-register-card");
     if (formElement) {
       formElement.scrollIntoView({ behavior: "smooth" });
@@ -153,12 +156,12 @@ const RegisterPage = () => {
 
       if (errorMessage === "Email already taken") {
         setEmailError(true);
-        setCurrentStep(1); // Go back to step 1 if email is taken
+        setCurrentStep(1);
         setFormProgress(0);
       }
       if (errorMessage === "Username already taken") {
         setUsernameError(true);
-        setCurrentStep(1); // Go back to step 1 if username is taken
+        setCurrentStep(1);
         setFormProgress(0);
       }
     } finally {
@@ -282,15 +285,15 @@ const RegisterPage = () => {
               {currentStep === 2 && (
                 <div className="ts-form-step ts-step-2">
                   <div className="ts-form-group">
-                    <label htmlFor="contacts">Contact</label>
+                    <label htmlFor="contacts">Contact Number</label>
                     <input
-                      type="text"
+                      type="tel"
                       id="contacts"
                       name="contacts"
                       value={formData.contacts}
                       onChange={handleChange}
                       className={errors.contacts ? "ts-input-error" : ""}
-                      placeholder="Enter your contact number"
+                      placeholder="+1234567890"
                       autoFocus
                     />
                     {errors.contacts && (
@@ -359,7 +362,11 @@ const RegisterPage = () => {
                       className="ts-btn-register-submit"
                       disabled={isLoading}
                     >
-                      {isLoading ? "Creating Account..." : "Create Account"}
+                      {isLoading ? (
+                        <span className="ts-loading-spinner"></span>
+                      ) : (
+                        "Create Account"
+                      )}
                     </button>
                   </div>
                 </div>
@@ -397,7 +404,7 @@ const RegisterPage = () => {
             <div className="ts-image-overlay">
               <h2>Join Our Travel Community</h2>
               <p>
-                Create an account to unlock exclusive deals and personalized
+                Create an market to unlock exclusive deals and personalized
                 recommendations.
               </p>
             </div>

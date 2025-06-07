@@ -1,7 +1,7 @@
 /* General styles for the tours section */
 .view-all-tours-section {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  color: #ffffff;
+  background: #ffffff;
+  color: #000000;
   padding: 80px 20px;
   position: relative;
   overflow: hidden;
@@ -16,8 +16,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-  opacity: 0.2;
+  background: radial-gradient(circle at 35% 25%, #cccccc 0%, #ffffff 50%);
   pointer-events: none;
 }
 
@@ -34,25 +33,24 @@
 .view-all-tours-header {
   text-align: center;
   margin-bottom: 40px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid #000000;
   border-radius: 12px;
   padding: 25px;
   margin-top: 5rem;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 5px #000000;
 }
 
 .view-all-tours-header h1 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #000000;
   margin: 0 0 12px;
 }
 
 .view-all-tours-header p {
   font-size: 1.1rem;
-  color: #d1d1d1;
+  color: #333333;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.5;
@@ -63,13 +61,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #ffffff;
+  border: 1px solid #000000;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 30px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 5px #000000;
 }
 
 .view-all-tours-filter-group {
@@ -81,17 +78,17 @@
 
 .view-all-tours-filter-group label {
   font-size: 0.9rem;
-  color: #d1d1d1;
+  color: #333333;
   margin-bottom: 8px;
 }
 
 .view-all-tours-filter-input,
 .view-all-tours-filter-select {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  border: 1px solid #000000;
   border-radius: 8px;
   padding: 10px 12px;
-  color: #ffffff;
+  color: #000000;
   font-size: 0.9rem;
   outline: none;
   transition: border-color 0.3s ease;
@@ -99,12 +96,12 @@
 
 .view-all-tours-filter-input:focus,
 .view-all-tours-filter-select:focus {
-  border-color: #4bffb4;
+  border-color: #000000;
 }
 
 .view-all-tours-filter-select {
   appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="%23d1d1d1" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="%23000000" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>');
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 16px;
@@ -119,18 +116,18 @@
 .view-all-tours-filter-checkbox-input {
   width: 16px;
   height: 16px;
-  accent-color: #4bffb4;
+  accent-color: #000000;
   cursor: pointer;
 }
 
 .view-all-tours-filter-checkbox label {
   font-size: 0.9rem;
-  color: #d1d1d1;
+  color: #333333;
   cursor: pointer;
 }
 
 .view-all-tours-btn-reset {
-  background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+  background: #000000;
   color: #ffffff;
   padding: 10px 20px;
   border-radius: 8px;
@@ -143,12 +140,12 @@
 }
 
 .view-all-tours-btn-reset:hover:not(:disabled) {
-  background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+  background: #333333;
   transform: translateY(-2px);
 }
 
 .view-all-tours-btn-reset:disabled {
-  background: rgba(255, 255, 255, 0.1);
+  background: #cccccc;
   cursor: not-allowed;
   opacity: 0.5;
 }
@@ -163,18 +160,17 @@
 
 /* Tour card */
 .view-all-tours-tour-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #ffffff;
+  border: 1px solid #000000;
   border-radius: 16px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 5px #000000;
 }
 
 .view-all-tours-tour-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 5px #000000;
 }
 
 /* Tour image */
@@ -196,31 +192,30 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  border: 1px solid #000000;
   border-radius: 8px;
   padding: 6px 12px;
   font-size: 0.85rem;
-  color: #ffffff;
+  color: #000000;
 }
 
 .view-all-tours-tour-package-badge {
   top: 44px;
-  background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+  background: #000000;
+  color: #ffffff;
 }
 
 .view-all-tours-tour-duration {
   position: absolute;
   bottom: 12px;
   right: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  border: 1px solid #000000;
   border-radius: 8px;
   padding: 6px 12px;
   font-size: 0.85rem;
-  color: #d1d1d1;
+  color: #333333;
 }
 
 /* Tour info */
@@ -231,13 +226,13 @@
 .view-all-tours-tour-title {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #000000;
   margin: 0 0 12px;
 }
 
 .view-all-tours-tour-description {
   font-size: 0.9rem;
-  color: #d1d1d1;
+  color: #333333;
   line-height: 1.5;
   margin: 0 0 16px;
 }
@@ -251,13 +246,13 @@
 .view-all-tours-tour-price {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #4bffb4;
+  color: #000000;
 }
 
 .view-all-tours-btn-details {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+  background: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -267,8 +262,8 @@
 }
 
 .view-all-tours-btn-details:hover {
-  background: #4bffb4;
-  color: #1a1a2e;
+  background: #000000;
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -276,7 +271,7 @@
 .view-all-tours-skeleton-header {
   width: 300px;
   height: 32px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #cccccc;
   border-radius: 8px;
   margin: 0 auto 12px;
   animation: pulse 1.5s infinite ease-in-out;
@@ -285,16 +280,15 @@
 .view-all-tours-skeleton-subheader {
   width: 200px;
   height: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #cccccc;
   border-radius: 8px;
   margin: 0 auto;
   animation: pulse 1.5s infinite ease-in-out;
 }
 
 .view-all-tours-skeleton-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #ffffff;
+  border: 1px solid #000000;
   border-radius: 16px;
   overflow: hidden;
 }
@@ -302,7 +296,7 @@
 .view-all-tours-skeleton-image {
   width: 100%;
   height: 200px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #cccccc;
   animation: pulse 1.5s infinite ease-in-out;
 }
 
@@ -313,7 +307,7 @@
 .view-all-tours-skeleton-title {
   width: 60%;
   height: 24px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #cccccc;
   border-radius: 8px;
   margin-bottom: 12px;
   animation: pulse 1.5s infinite ease-in-out;
@@ -322,7 +316,7 @@
 .view-all-tours-skeleton-text {
   width: 80%;
   height: 16px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #cccccc;
   border-radius: 8px;
   margin-bottom: 12px;
   animation: pulse 1.5s infinite ease-in-out;
@@ -331,7 +325,7 @@
 .view-all-tours-skeleton-footer {
   width: 40%;
   height: 16px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #cccccc;
   border-radius: 8px;
   animation: pulse 1.5s infinite ease-in-out;
 }
@@ -348,30 +342,29 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid #000000;
   border-radius: 12px;
   padding: 40px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px #000000;
   max-width: 500px;
   margin: 40px auto;
 }
 
 .view-all-tours-error-icon {
-  color: #ff6b6b;
+  color: #000000;
   margin-bottom: 16px;
 }
 
 .view-all-tours-error-title {
   font-size: 1.5rem;
-  color: #ffffff;
+  color: #000000;
   margin: 0 0 12px;
 }
 
 .view-all-tours-error-message {
   font-size: 1rem;
-  color: #d1d1d1;
+  color: #333333;
   text-align: center;
   margin: 0 0 20px;
 }
@@ -380,7 +373,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+  background: #000000;
   color: #ffffff;
   padding: 10px 20px;
   border-radius: 8px;
@@ -392,7 +385,7 @@
 }
 
 .view-all-tours-btn-retry:hover {
-  background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+  background: #333333;
   transform: translateY(-2px);
 }
 
@@ -406,32 +399,31 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid #000000;
   border-radius: 12px;
   padding: 40px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px #000000;
   max-width: 500px;
   margin: 40px auto;
 }
 
 .view-all-tours-empty-icon {
-  color: #d1d1d1;
+  color: #333333;
   margin-bottom: 16px;
 }
 
 .view-all-tours-empty-message {
   font-size: 1rem;
-  color: #d1d1d1;
+  color: #333333;
   text-align: center;
   margin: 0 0 20px;
 }
 
 .view-all-tours-btn-reset {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+  background: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
   padding: 10px 20px;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -441,8 +433,8 @@
 }
 
 .view-all-tours-btn-reset:hover:not(:disabled) {
-  background: #4bffb4;
-  color: #1a1a2e;
+  background: #000000;
+  color: #ffffff;
   transform: translateY(-2px);
 }
 

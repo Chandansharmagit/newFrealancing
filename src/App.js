@@ -32,7 +32,7 @@ import TourDetailPage from "./toursComponent/TourDetailPage";
 import TrackingDashboard from "./DynamicBookings/TrackingDashboard";
 import BookingDashboard from "./DynamicBookings/DashboardBooking/DashboardBooking";
 import ViewAllTours from "./Component/homePage/DestinationsDetails/Viewalltours/ViewAlltours";
-import AboutUs from "./Component/AboutUs/Aboutus";
+// import AboutUs from "./Component/AboutUs/Aboutus";
 import Experiences from "./Component/AboutUs/Experience";
 import TourDashboardPage from "./toursComponent/DynamicTour/dashboardUpdatingDeletions/Updationstourpage";
 import FeedbackPopup from "./Feedback.js/Feedback";
@@ -47,6 +47,7 @@ import BookingForm from "./Component/homePage/DestinationsDetails/BookingForm";
 import GoogleAnalytics from "./TrafficsManagement/GoogleAnalytics";
 import TravelServices from "./Component/serices/TravelServices";
 import FlightBooking from "./Component/FlightBooking/Flightbooking";
+import DestinationHeader from "./Component/homePage/DestinationsDetails/DestinationHeader";
 
 function PrivateRoute({ children, isAuthenticated, setShowAuthPopup }) {
   if (!isAuthenticated) {
@@ -131,31 +132,26 @@ function AppContent() {
 
   return (
     <>
+      <DestinationHeader />
       {!isDashboardRoute && <Navbar openLoginPopup={openLoginPopup} />}
 
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/tour/:id" element={<TourDetailPage />} />
-      
+
         <Route path="/login" element={<LoginPage />} />
         <Route path="/login/register" element={<RegisterPage />} />
         <Route
           path="/login/register/forgot-password"
           element={<ForgotPasswordPage />}
         />
-         <Route
-          path="/our-services"
-          element={<TravelServices />}
-        />
-           <Route
-          path="/flight-booking"
-          element={<FlightBooking />}
-        />
+        <Route path="/our-services" element={<TravelServices />} />
+        <Route path="/flight-booking" element={<FlightBooking />} />
         <Route
           path="/login/register/forgot-password/Change-password"
           element={<ResetPasswordPage />}
         />
-         {/* <Route
+        {/* <Route
             path="/google-analytics-realtime-traffic"
             element={<GoogleAnalytics />}
           /> */}
@@ -164,7 +160,7 @@ function AppContent() {
         <Route path="/destination/:id" element={<DestinationDetails />} />
         <Route path="/destinations" element={<ViewAllDestinations />} />
         <Route path="/tours" element={<ViewAllTours />} />
-        <Route path="/AboutUs-page" element={<AboutUs />} />
+        {/* <Route path="/AboutUs-page" element={<AboutUs />} /> */}
         <Route path="/Experiencepage" element={<Experiences />} />
         <Route path="/contact-form" element={<ContactForm />} />
         <Route path="/user-profile" element={<UserProfile />} />
@@ -188,10 +184,7 @@ function AppContent() {
             path="update-destinations"
             element={<MainUploadingDestination />}
           />
-          <Route
-            path="dashboard"
-            element={<GoogleAnalytics />}
-          />
+          <Route path="dashboard" element={<GoogleAnalytics />} />
           <Route path="Tour-page-dashboard" element={<TourDashboardPage />} />
           <Route path="users-query" element={<Dashboard />} />
           <Route path="Allusers" element={<Allusers />} />
