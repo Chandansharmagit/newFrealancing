@@ -17,7 +17,7 @@ const DashboardVisa = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('http://localhost:5000/api/visa/applications');
+      const response = await fetch('https://visaprocessing.travelsansr.com/api/visa/applications');
       if (!response.ok) {
         throw new Error(`Failed to fetch applications: ${response.statusText}`);
       }
@@ -43,7 +43,7 @@ const DashboardVisa = () => {
         }
         body.rejectionReason = reason;
       }
-      const response = await fetch('http://localhost:5000/api/visa/update-status', {
+      const response = await fetch('https://visaprocessing.travelsansr.com/api/visa/update-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -131,7 +131,7 @@ const DashboardVisa = () => {
                           src={doc}
                           alt={`Document ${index + 1}`}
                           className="thumbnail"
-                          onError={(e) => (e.target.src = '/fallback-image.png')}
+                        
                         />
                       </a>
                     ))

@@ -85,7 +85,7 @@ const VisaProcessing = () => {
     if (!validateForm()) return;
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/visa/apply', {
+      const response = await fetch('https://visaprocessing.travelsansr.com/api/visa/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -114,13 +114,13 @@ const VisaProcessing = () => {
     }
     setIsLoading(true);
     const formDataToSend = new FormData();
-    documents.forEach((doc, index) => {
+    documents.forEach((doc, index) => {https://visaprocessing.travelsansr.com/
       formDataToSend.append('documents', doc);
     });
     formDataToSend.append('trackingId', submissionStatus);
 
     try {
-      const response = await fetch('http://localhost:5000/api/visa/upload', {
+      const response = await fetch('https://visaprocessing.travelsansr.com/api/visa/upload', {
         method: 'POST',
         body: formDataToSend,
       });
@@ -144,7 +144,7 @@ const VisaProcessing = () => {
     }
     setIsLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/api/visa/track/${trackingId}`);
+      const response = await fetch(`https://visaprocessing.travelsansr.com/api/visa/track/${trackingId}`);
       const result = await response.json();
       if (response.ok) {
         alert(`Status for ${trackingId}: ${result.status}`);
